@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Grammar Mastery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: race-day board. Teacher = join panel + live lanes; student = one question card at a time with a progress track on top. */
+/* Layout: bright game-show board. Teacher = join panel + live lanes; student = one big colourful question card with four answer tiles. */
+:root{
+  --bg:#FFF7EC; --surface:#FFFFFF; --ink:#1C1640; --muted:#655E85; --line:#EADFF5;
+  --pink:#FF3D8B; --sky:#1E9BFF; --sun:#FFB800; --mint:#13B88A; --violet:#7A4DFF; --tang:#FF6B2C;
+  --accent:#FF3D8B; --accent-ink:#FFFFFF; --track:#F0E6FA;
+  --o1:#F23B5B; --o2:#1E7BFF; --o3:#F2A100; --o4:#12A574; --oink:#FFFFFF;
+  --good:#0E9B6E; --good-bg:#DBF7EC; --bad:#D9363E; --bad-bg:#FFE6E8; --warn:#A86B00; --warn-bg:#FFF1CC;
+  --display:"Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17112E; --surface:#231B45; --ink:#F7F3FF; --muted:#B5ABD6; --line:#3A2F69;
+  --pink:#FF5C9E; --sky:#4DB2FF; --sun:#FFC933; --mint:#33D6A6; --violet:#9B7BFF; --tang:#FF8650;
+  --accent:#FF5C9E; --accent-ink:#1A0B14; --track:#33295E;
+  --o1:#E8475F; --o2:#2F7FF0; --o3:#E09A00; --o4:#14996D; --oink:#FFFFFF;
+  --good:#38DDA8; --good-bg:#123D33; --bad:#FF7A80; --bad-bg:#46202A; --warn:#FFCF5C; --warn-bg:#40330F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17112E; --surface:#231B45; --ink:#F7F3FF; --muted:#B5ABD6; --line:#3A2F69;
+  --pink:#FF5C9E; --sky:#4DB2FF; --sun:#FFC933; --mint:#33D6A6; --violet:#9B7BFF; --tang:#FF8650;
+  --accent:#FF5C9E; --accent-ink:#1A0B14; --track:#33295E;
+  --o1:#E8475F; --o2:#2F7FF0; --o3:#E09A00; --o4:#14996D; --oink:#FFFFFF;
+  --good:#38DDA8; --good-bg:#123D33; --bad:#FF7A80; --bad-bg:#46202A; --warn:#FFCF5C; --warn-bg:#40330F; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body);
+  background-image:radial-gradient(circle at 8% 6%,color-mix(in srgb,var(--pink) 16%,transparent) 0 180px,transparent 181px),radial-gradient(circle at 96% 18%,color-mix(in srgb,var(--sky) 16%,transparent) 0 150px,transparent 151px),radial-gradient(circle at 88% 92%,color-mix(in srgb,var(--sun) 20%,transparent) 0 200px,transparent 201px),radial-gradient(circle at 4% 80%,color-mix(in srgb,var(--mint) 14%,transparent) 0 140px,transparent 141px);background-attachment:fixed;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(30px,5.4vw,48px);font-weight:700;letter-spacing:-.01em}
+.rainbow{background:linear-gradient(90deg,var(--pink),var(--tang),var(--sun),var(--mint),var(--sky),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:22px;font-weight:700}
+.eyebrow{font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn{background:linear-gradient(135deg,var(--pink),var(--tang));color:#fff;font:700 18px var(--display);padding:12px 24px;border-radius:16px;box-shadow:0 4px 0 color-mix(in srgb,var(--pink) 60%,#000);transition:transform .12s}
+.btn:hover:not(:disabled){transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:var(--surface);color:var(--ink);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.flag{display:inline-block;width:22px;height:16px;vertical-align:-2px;margin-right:8px;border-radius:2px;
+  background:conic-gradient(var(--ink) 25%,var(--surface) 0 50%,var(--ink) 0 75%,var(--surface) 0) 0 0/8px 8px;border:1px solid var(--ink)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:var(--track);font-weight:700;font-size:14px}
+.chip.good{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.banner{padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn);font-weight:700;font-size:14px}
+
+/* --- join / lobby --- */
+.center{min-height:70vh;display:grid;place-items:center}
+.joinbox{width:100%;max-width:440px;display:flex;flex-direction:column;gap:16px;text-align:left}
+.joinbox input{font:700 20px var(--body);padding:14px 16px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.waiting{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.lights{display:flex;gap:10px}
+.lights i{width:22px;height:22px;border-radius:50%;background:var(--track);animation:light 2.4s infinite}
+.lights i:nth-child(2){animation-delay:.4s}.lights i:nth-child(3){animation-delay:.8s}
+@keyframes light{0%,60%,100%{background:var(--track)}20%,40%{background:var(--accent)}}
+
+/* --- student play --- */
+.hud{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.track{position:relative;height:14px;background:var(--track);border-radius:999px;overflow:visible}
+.track .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--pink),var(--sun),var(--mint));border-radius:999px;transition:width .5s}
+.track .car{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:22px;transition:left .5s;line-height:1}
+.score{font:700 26px var(--display);color:var(--pink);font-variant-numeric:tabular-nums}
+.qcard{display:flex;flex-direction:column;gap:18px}
+.qtag{align-self:flex-start}
+.qtext{font:600 clamp(22px,3.8vw,32px)/1.3 var(--display)}
+.qcard{position:relative;overflow:hidden;padding-top:28px}.qcard::before{content:"";position:absolute;inset:0 0 auto 0;height:8px;background:linear-gradient(90deg,var(--pink),var(--sun),var(--mint),var(--sky),var(--violet))}
+.qtext .blank{display:inline-block;min-width:90px;border-bottom:3px solid var(--accent);height:1em;vertical-align:baseline}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{--oc:var(--o1);display:flex;gap:12px;align-items:center;text-align:left;padding:16px 18px;background:var(--oc);color:var(--oink);border:0;border-radius:18px;font:700 19px var(--body);min-height:70px;box-shadow:0 5px 0 color-mix(in srgb,var(--oc) 65%,#000);transition:transform .12s, box-shadow .12s}
+.opt:nth-child(2){--oc:var(--o2)}.opt:nth-child(3){--oc:var(--o3)}.opt:nth-child(4){--oc:var(--o4)}
+.opt:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 color-mix(in srgb,var(--oc) 65%,#000)}
+.opt b{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.22);font:700 20px var(--display);color:#fff}
+.opt:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 0 color-mix(in srgb,var(--oc) 65%,#000)}
+.opt.wrong{background:var(--track);color:var(--muted);text-decoration:line-through;box-shadow:none;opacity:.75}
+.opt.wrong b::after{content:"✕"}.opt.wrong b{font-size:0;background:var(--bad)}.opt.wrong b::after{font-size:20px}
+.opt.right{--oc:var(--good);background:var(--good);color:#fff;animation:bounce .6s}
+.opt.right b{font-size:0}.opt.right b::after{content:"✓";font-size:22px}
+.opts:has(.right) .opt:not(.right){opacity:.35}
+@keyframes bounce{30%{transform:scale(1.06)}60%{transform:scale(.98)}}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.pop{animation:pop .45s}
+@keyframes pop{40%{transform:scale(1.04)}}
+.fb{border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.fb.good{background:var(--good-bg);border:2px solid var(--good)}
+.fb.bad{background:var(--warn-bg);border:2px dashed var(--warn)}
+.fb.bad .head{color:var(--warn)!important}
+.hint{display:flex;gap:12px;align-items:flex-start;font-size:17px;line-height:1.5}
+.hint .bulb{font-size:30px;line-height:1;animation:wiggle 1.2s infinite}
+.hint em{font-style:normal;font-weight:700;background:color-mix(in srgb,var(--sun) 35%,transparent);padding:0 4px;border-radius:4px}
+@keyframes wiggle{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+.hintlvl{font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--warn)}
+.fb .head{font:800 22px var(--display)}
+.fb.good .head{color:var(--good)} .fb.bad .head{color:var(--bad)}
+.fb .rule{font-size:16px}
+.fb .rule em{font-style:normal;font-weight:700}
+.fbrow{display:flex;justify-content:flex-end}
+.done{text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.trophy{font-size:72px;line-height:1}
+.stats{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* --- teacher --- */
+.tgrid{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
+@media (max-width:820px){.tgrid{grid-template-columns:1fr}}
+.joinpanel{display:flex;flex-direction:column;gap:14px;align-items:stretch}
+#qr{display:grid;place-items:center;background:#fff;padding:12px;border-radius:12px;align-self:center}
+#qr img,#qr canvas{display:block;width:220px;height:220px}
+.link{font:700 13px/1.4 ui-monospace,Menlo,monospace;word-break:break-all;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bigcount{font:800 56px/1 var(--display);font-variant-numeric:tabular-nums}
+.lobby{display:flex;flex-wrap:wrap;gap:8px}
+.lobby .chip{animation:pop .4s}
+.board{display:flex;flex-direction:column;gap:16px;min-width:0}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:560px){.summary{grid-template-columns:repeat(2,1fr)}}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sum .n{font:800 28px var(--display);font-variant-numeric:tabular-nums}
+.lanes{display:flex;flex-direction:column;gap:2px}
+.lane{display:grid;grid-template-columns:minmax(90px,150px) 1fr 70px;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px dashed var(--line)}
+.lane .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lane .meta{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lane .pts{text-align:right;font:800 18px var(--display);font-variant-numeric:tabular-nums}
+.lane.stuck .nm::after{content:" ⚑";color:var(--bad)}
+.lane.fin .track .fill{background:var(--good)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.heat{display:grid;grid-template-columns:repeat(15,1fr);gap:4px}
+.heat div{aspect-ratio:1;max-width:100%;border-radius:6px;display:grid;place-items:center;font:700 12px var(--body);background:var(--track);color:var(--ink)}
+.empty{padding:28px;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:20}
+.seclist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.track .tick{position:absolute;top:-3px;bottom:-3px;width:3px;margin-left:-1px;background:var(--surface);border-radius:2px}
+.secintro{display:flex;flex-direction:column;gap:14px;padding:28px}
+.secrule{font:700 18px/1.4 var(--display);padding:14px 16px;border-radius:12px;background:var(--bg);border:2px dashed var(--line)}
+.secheat{display:flex;flex-direction:column;gap:12px}
+.sh{display:flex;flex-direction:column;gap:6px}
+.sh .heat{grid-template-columns:repeat(5,minmax(0,52px))}
+.credit{max-width:1080px;margin:28px auto 0;padding-top:14px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:14px;font-weight:700}
+.edsec{display:flex;flex-direction:column;gap:14px}
+.edhead{display:flex;flex-direction:column;gap:10px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+@media (max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld>span{font:700 12px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.fld input,.fld textarea,.optrow input:not([type=radio]){font:16px/1.4 var(--body);padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box;resize:vertical}
+.fld input:focus,.fld textarea:focus,.optrow input:focus{border-color:var(--accent);outline:none}
+.qlist{display:flex;flex-direction:column;gap:8px}
+.qrow{border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.qrow.open{border-color:var(--accent)}
+.qsum{width:100%;display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:12px;background:transparent;color:var(--ink);text-align:left}
+.qn{font:800 15px var(--display);color:var(--accent)}
+.qprev{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qans{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:560px){.qans{display:none}}
+.caret{color:var(--muted);font-size:12px}
+.qedit{display:flex;flex-direction:column;gap:12px;padding:0 12px 14px}
+.optrow{display:grid;grid-template-columns:auto auto 1fr auto;gap:8px;align-items:center}
+.optrow input[type=radio]{width:22px;height:22px;accent-color:var(--good)}
+.mini{background:var(--surface);color:var(--ink);border:2px solid var(--line);padding:7px 12px;font:700 14px var(--body);border-radius:10px}
+.mini:disabled{opacity:.4;cursor:not-allowed}
+.mini.add{align-self:flex-start;border-style:dashed}
+.mini.danger{color:var(--bad);border-color:var(--bad)}
+.qacts{gap:8px}
+.savebar{position:sticky;bottom:0;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);z-index:5}
+.pvbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pvsec{display:flex;flex-direction:column;gap:10px;border-style:dashed}
+.pvnav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.revbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.revdots{display:flex;gap:6px;margin-left:auto}
+.revdots i{width:12px;height:12px;border-radius:50%;background:var(--track);border:2px solid var(--warn)}
+.revdots i.on{background:var(--good);border-color:var(--good)}
+#cheer{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:15}
+#cheer .burst{display:flex;flex-direction:column;align-items:center;gap:6px;animation:burst 1.4s ease-out forwards}
+#cheer .em{font-size:clamp(84px,18vw,140px);line-height:1;filter:drop-shadow(0 6px 0 rgba(0,0,0,.12))}
+#cheer .tx{font:700 clamp(28px,6vw,46px) var(--display);color:#fff;padding:6px 22px;border-radius:999px;background:linear-gradient(90deg,var(--pink),var(--tang));box-shadow:0 5px 0 color-mix(in srgb,var(--pink) 60%,#000)}
+#cheer .tx.soft{background:linear-gradient(90deg,var(--sky),var(--violet));box-shadow:0 5px 0 color-mix(in srgb,var(--violet) 60%,#000)}
+@keyframes burst{0%{transform:scale(.3);opacity:0}18%{transform:scale(1.12);opacity:1}30%{transform:scale(1)}80%{opacity:1}100%{transform:scale(1.05) translateY(-30px);opacity:0}}
+.streak{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;background:linear-gradient(90deg,var(--tang),var(--sun));color:#fff;font:700 15px var(--display);animation:pop .5s}
+.mute{background:var(--surface);border:2px solid var(--line);border-radius:12px;width:42px;height:42px;font-size:20px}
+.scorebox{display:flex;align-items:center;gap:10px}
+.floatpts{position:fixed;font:700 30px var(--display);color:var(--pink);pointer-events:none;z-index:16;animation:floatup 1s ease-out forwards}
+@keyframes floatup{to{transform:translateY(-80px);opacity:0}}
+.autorow{align-items:center;gap:14px}
+.autobar{flex:1;height:8px;border-radius:999px;background:color-mix(in srgb,var(--good) 20%,transparent);overflow:hidden}
+.autobar i{display:block;height:100%;width:100%;background:var(--good);border-radius:999px;transform-origin:left;animation:drain linear forwards}
+@keyframes drain{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.hintscreen{display:flex;flex-direction:column;gap:18px;padding:28px;border:3px dashed var(--warn);background:var(--surface)}
+.hshead{display:flex;gap:14px;align-items:center}
+.hsem{font-size:56px;line-height:1;animation:wiggle 1.2s infinite}
+.hshead h2{font-size:clamp(22px,4vw,30px);color:var(--warn)}
+.chose{align-self:flex-start;padding:6px 14px;border-radius:999px;background:var(--bad-bg);color:var(--bad);font-weight:700}
+.hsbody{font:500 clamp(20px,3.4vw,26px)/1.5 var(--display);padding:18px 20px;border-radius:16px;background:var(--warn-bg)}
+.hsbody em{font-style:normal;font-weight:700;background:color-mix(in srgb,var(--sun) 45%,transparent);padding:0 6px;border-radius:6px}
+.hsfoot{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.readbar{height:8px;border-radius:999px;background:var(--track);overflow:hidden}
+.readbar i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--tang));transform-origin:left;animation:fillup linear forwards}
+@keyframes fillup{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#und{align-self:center;min-width:260px}
+.donewrap{display:flex;flex-direction:column;gap:18px;max-width:720px;margin:0 auto;width:100%}
+.congrats{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;padding:30px 20px}
+.dtitle{font-size:clamp(20px,3.6vw,26px);color:var(--violet)}
+.bigpts{display:flex;align-items:baseline;gap:8px;font:700 clamp(56px,12vw,84px)/1 var(--display);color:var(--pink);font-variant-numeric:tabular-nums}
+.bigpts small{font-size:22px;color:var(--muted)}
+.stars{display:flex;gap:8px;font-size:46px;line-height:1}
+.stars span{color:var(--track);opacity:0;animation:starpop .5s forwards}
+.stars span.on{color:var(--sun);text-shadow:0 3px 0 color-mix(in srgb,var(--sun) 50%,#000)}
+@keyframes starpop{0%{opacity:0;transform:scale(.2) rotate(-40deg)}70%{opacity:1;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+.dline{margin:0;max-width:52ch;font-size:17px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.badge{display:inline-flex;gap:6px;align-items:center;padding:6px 14px;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--sky) 18%,var(--surface)),color-mix(in srgb,var(--violet) 18%,var(--surface)));border:2px solid color-mix(in srgb,var(--violet) 35%,transparent);font-weight:700}
+.secbars{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.sbar{display:flex;flex-direction:column;gap:6px}
+.sbtrack{height:12px;border-radius:999px;background:var(--track);overflow:hidden}
+.sbtrack i{display:block;height:100%;border-radius:999px}
+.strugs{display:flex;flex-direction:column;gap:12px}
+.strug{border:2px solid var(--line);border-left:6px solid var(--sun);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.sq{font:600 19px/1.4 var(--display)}
+.sq .gap{color:var(--muted)}
+.sline{font-weight:700}.sline.bad{color:var(--bad)}.sline.good{color:var(--good)}
+.srule{padding:10px 12px;border-radius:10px;background:var(--warn-bg)}
+.srule em{font-style:normal;font-weight:700}
+.podiumcard{text-align:center;display:flex;flex-direction:column;gap:6px}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:end;margin-top:14px}
+.pcol{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.pmedal{font-size:44px;line-height:1;animation:bounce 1s 2}
+.pname{font:700 18px var(--display);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ppts{color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+.pblock{width:100%;border-radius:14px 14px 0 0;display:grid;place-items:start center;padding-top:10px;color:#fff;font:700 34px var(--display)}
+.p1 .pblock{height:140px;background:linear-gradient(180deg,var(--sun),var(--tang))}
+.p2 .pblock{height:105px;background:linear-gradient(180deg,var(--sky),var(--violet))}
+.p3 .pblock{height:80px;background:linear-gradient(180deg,var(--mint),var(--sky))}
+.p1 .pmedal{font-size:56px}
+.tgrid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:820px){.tgrid2{grid-template-columns:1fr}}
+.hardlist{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.hard{display:flex;flex-direction:column;gap:4px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.hq{font-weight:700}
+.rtable{display:flex;flex-direction:column;margin-top:10px;overflow-x:auto}
+.rrow{display:grid;grid-template-columns:40px minmax(110px,1.4fr) 70px 70px minmax(150px,1.6fr) minmax(90px,1fr);gap:10px;align-items:center;padding:10px 6px;background:transparent;color:var(--ink);text-align:left;border-bottom:1px solid var(--line);width:100%;border-radius:0;font-variant-numeric:tabular-nums}
+@media (max-width:640px){.rrow{grid-template-columns:36px 1fr 60px 60px}.hide-sm{display:none}}
+.rhead{font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rgroup.open>.rrow{background:var(--track)}
+button.rrow:hover{background:var(--track)}
+.rk{font-size:20px;text-align:center}.rn{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis}.rp{font:700 18px var(--display);color:var(--pink)}
+.rs{color:var(--bad);font-weight:700;font-size:14px}
+.secchips{display:flex;gap:4px;flex-wrap:wrap}
+.secchips i{font-style:normal;font-size:12px;font-weight:700;padding:2px 7px;border-radius:999px}
+.secchips .g{background:var(--good-bg);color:var(--good)}.secchips .y{background:var(--warn-bg);color:var(--warn)}.secchips .r{background:var(--bad-bg);color:var(--bad)}
+.rdetail{padding:12px 6px 16px;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--line)}
+.rdq{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;margin-top:6px}
+.rdi{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:10px;font-size:14px;min-width:0}
+.rdi span{min-width:0;overflow-wrap:anywhere}
+.rdi.ok{background:var(--good-bg);color:var(--good)}.rdi.x{background:var(--bad-bg);color:var(--bad)}.rdi.na{background:var(--track);color:var(--muted)}
+.pastlist{display:flex;flex-direction:column;gap:8px}
+.pastrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px;border:2px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);text-align:left;font-size:16px}
+.pastrow:hover{border-color:var(--accent)}
+.rankbox{display:flex;gap:14px;align-items:center;text-align:left;padding:14px 18px;border-radius:18px;background:linear-gradient(90deg,color-mix(in srgb,var(--sun) 22%,var(--surface)),color-mix(in srgb,var(--tang) 16%,var(--surface)));border:2px solid color-mix(in srgb,var(--sun) 55%,transparent);max-width:460px;margin:4px auto}
+.rkmed{font-size:46px;line-height:1}
+.rkbig{font:700 24px var(--display)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+<div id="cheer" hidden aria-live="polite"></div>
+<div class="wrap" id="app"></div>
+<footer class="credit">Created by: Maha Aldosari</footer>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const JOIN_URL = "https://claude.ai/artifact/Qg9CzwPgq7g4dgqrBeLvDB";
+const Q0 = [
+ {tag:"Passive · Simple present", text:"Is this sentence active or passive?<br>“English is spoken in many countries.”", opts:["Active","Passive"], a:1,
+  rule:"<em>is + spoken</em> = be + past participle. The subject <em>English</em> receives the action, so the sentence is <em>passive</em>."},
+ {tag:"Passive · Simple past", text:"The first smartphone ___ in the 1990s.", opts:["is developed","has developed","was developed","develops"], a:2,
+  rule:"<em>In the 1990s</em> is finished past time. Simple past passive = <em>was / were + past participle</em> → <em>was developed</em>."},
+ {tag:"Passive · Present perfect", text:"This app ___ by millions of students around the world.", opts:["has been used","has used","is use","was using"], a:0,
+  rule:"The app doesn't use anything; people use it. Present perfect passive = <em>has / have been + past participle</em> → <em>has been used</em>."},
+ {tag:"Passive · by + doer", text:"The bridge was designed ___ a famous engineer.", opts:["with","from","of","by"], a:3,
+  rule:"After a passive verb, use <em>by</em> to show who did the action: designed <em>by</em> a famous engineer."},
+ {tag:"Comparative", text:"Riyadh is ___ than Jeddah in summer.", opts:["hot","hotter","hottest","more hot"], a:1,
+  rule:"Comparing two places → short adjective + <em>-er + than</em>. <em>hot</em> doubles the t: <em>hotter than</em>."},
+ {tag:"Superlative", text:"This is ___ phone in the shop.", opts:["the most expensive","more expensive","the expensivest","most expensive than"], a:0,
+  rule:"Comparing one thing with all the others → superlative. Long adjectives use <em>the most + adjective</em>: <em>the most expensive</em>."},
+ {tag:"not as … as", text:"A bicycle is ___ a car. (A car is faster.)", opts:["as fast as","not as fast as","faster than","the fastest"], a:1,
+  rule:"The two are <em>not</em> the same: the car is faster. Use <em>not as + adjective + as</em> → <em>not as fast as</em>."},
+ {tag:"Passive · Future", text:"Is this sentence correct?<br>“A new school will be build next year.”", opts:["True","False"], a:1,
+  rule:"Future passive = <em>will be + past participle</em>. The past participle of build is <em>built</em> → <em>will be built</em>."},
+ {tag:"as … as", text:"True or false?<br>“My bag is as heavy as your bag.” means the two bags have the same weight.", opts:["True","False"], a:0,
+  rule:"<em>as + adjective + as</em> shows two things are the same in some way. Here, the same weight."},
+ {tag:"taste like + noun", text:"Is this sentence correct?<br>“This cake tastes like chocolate.”", opts:["True","False"], a:0,
+  rule:"<em>taste like + noun</em> is correct. <em>chocolate</em> is a noun, so <em>tastes like chocolate</em> is right."},
+ {tag:"look like + noun", text:"That cloud ___ a horse.", opts:["looks","looks like","look like","is like look"], a:1,
+  rule:"Before a noun (<em>a horse</em>) use <em>look like</em>. <em>That cloud</em> is singular, so add -s: <em>looks like</em>."},
+ {tag:"sound like + noun", text:"“I'm going to the beach tomorrow!”<br>“That ___ a great plan!”", opts:["sounds like","smells like","tastes like","sounds"], a:0,
+  rule:"We hear an idea or a plan, so we use <em>sound like + noun</em>: That <em>sounds like</em> a great plan."},
+ {tag:"smell like + noun", text:"This perfume ___ roses.", opts:["tastes like","looks like","smells like","sounds like"], a:2,
+  rule:"We use our nose for perfume → <em>smell like + noun</em>: This perfume <em>smells like</em> roses."},
+ {tag:"taste like + noun", text:"This candy ___ strawberries.", opts:["sounds like","tastes like","looks","taste like"], a:1,
+  rule:"We eat candy → <em>taste like + noun</em>. <em>This candy</em> is singular → <em>tastes like</em>."},
+ {tag:"Comparative · long adjective", text:"My new phone is ___ my old one.", opts:["more modern than","moderner than","the most modern","as modern"], a:0,
+  rule:"Comparing two things with a longer adjective → <em>more + adjective + than</em>: <em>more modern than</em>."}
+];
+const HINTS = [
+ ["Look at the verb: **is spoken**. Is it **be + V3** (past participle)?", "Ask yourself: does English do the speaking? 🤔 No! People speak English. When the subject **gets** the action, the sentence is passive. Example: The cake **is made** by my mom."],
+ ["**In the 1990s** is the past. 🕰️ And the phone didn't develop itself. People developed it!", "Past passive = **was / were + V3**. Example: The house **was built** in 2010."],
+ ["Look at **by millions of students**. The students use the app. The app doesn't use anything!", "Present perfect passive = **has / have + been + V3**. Example: This song **has been heard** by many people."],
+ ["Who designed the bridge? 🌉 A famous engineer. We need a small word to show **the person who did the action**.", "In a passive sentence, the doer comes after a little word: The book was written **___ Ali**. Which choice fits there?"],
+ ["We compare **two** cities, and we see the word **than**. 🌡️", "Short adjective + **-er + than**. Watch the spelling: big → bigger, sad → sadder."],
+ ["We compare one phone with **all** the phones in the shop. That means it's **number 1**! 🥇", "Long adjectives use **the most + adjective**. Example: the most beautiful city in the world."],
+ ["Read the clue: the car is faster. 🚗💨 So are the bike and the car the **same** speed?", "Same → **as + adjective + as**. Different → **not as + adjective + as**."],
+ ["Future passive = **will be + V3**. Is **build** the V3 form? 🏗️", "Remember: build → built → **built**. Now, is the sentence correct?"],
+ ["**as + adjective + as** compares two things. Does it mean they are the **same** or **different**? ⚖️", "Example: Sara is **as tall as** Noura. → They have the same height."],
+ ["After **like** we need a noun (a thing). 🍫 Is **chocolate** a thing?", "Pattern: **taste like + noun**. Example: This juice **tastes like** orange."],
+ ["After the gap there is a noun: **a horse**. 🐴 So we need **look** + one more small word.", "**That cloud** is one thing, so the verb needs **-s**. Example: He **looks like** his dad."],
+ ["Use your senses! 👀👂👃👅 How do you know about a plan? You **hear** about it.", "Hear → **sound like + noun**. Example: That **sounds like** fun!"],
+ ["Which sense do you use for perfume? 👃", "Nose → **smell like + noun**. Example: The room **smells like** flowers."],
+ ["Which sense do you use for candy? 👅", "Mouth → **taste like + noun**. And **this candy** is one thing, so the verb needs **-s**."],
+ ["We compare **two** phones, and **modern** is a long word. 📱", "Long adjective → **more + adjective + than**. Example: This book is **more interesting than** that one."]
+];
+Q0.forEach((q,i)=>{q.h=HINTS[i][0];q.h2=HINTS[i][1]});
+const SECTIONS0 = [
+ {name:"The Passive", short:"Passive", rule:"be + past participle · present, past, present perfect, future · by + doer", ids:[0,1,2,7,3]},
+ {name:"Comparison of Adjectives", short:"Comparison", rule:"-er / more … than for two things · the -est / the most … for all", ids:[4,14,5]},
+ {name:"Similarities and Differences", short:"as … as", rule:"as + adjective + as = the same · not as + adjective + as = different", ids:[8,6]},
+ {name:"More Similarities and Differences", short:"look / sound like", rule:"look, smell, sound, taste … like + noun", ids:[9,10,11,12,13]}
+];
+const plain = h => String(h).replace(/<br>/g,"\n").replace(/<em>(.*?)<\/em>/g,"**$1**").replace(/<[^>]+>/g,"");
+const DEFAULT_DATA = {sections:SECTIONS0.map(x=>({name:x.name,short:x.short,rule:x.rule,
+  questions:x.ids.map(id=>{const q=Q0[id];return {tag:q.tag,text:plain(q.text),opts:q.opts.slice(),a:q.a,rule:plain(q.rule),h:q.h,h2:q.h2}})}))};
+let SECTIONS=[], Q=[], N=0, DATA=null;
+const str=(v,max)=>typeof v==="string"?v.slice(0,max):"";
+function cleanData(d){
+  if(!d||!Array.isArray(d.sections))return null;
+  const sections=d.sections.slice(0,12).map(x=>({name:str(x&&x.name,80)||"Section",short:str(x&&x.short,30),rule:str(x&&x.rule,300),
+    questions:(x&&Array.isArray(x.questions)?x.questions:[]).slice(0,40).map(q=>{
+      const opts=(Array.isArray(q&&q.opts)?q.opts:[]).map(o=>str(o,120)).filter(o=>o.trim()).slice(0,4);
+      const a=Number.isInteger(q&&q.a)&&q.a>=0&&q.a<opts.length?q.a:0;
+      return {tag:str(q&&q.tag,60),text:str(q&&q.text,400),opts,a,rule:str(q&&q.rule,500),h:str(q&&q.h,400),h2:str(q&&q.h2,400)}}).filter(q=>q.text.trim()&&q.opts.length>=2)}));
+  return sections.some(x=>x.questions.length)?{sections}:null;
+}
+function applyData(d){DATA=d;SECTIONS=[];Q=[];
+  d.sections.forEach((x,si)=>{const sec={name:x.name,short:x.short||x.name,rule:x.rule,start:Q.length};x.questions.forEach(q=>Q.push(Object.assign({},q,{sec:si})));sec.end=Q.length;sec.count=sec.end-sec.start;SECTIONS.push(sec)});
+  N=Q.length;}
+applyData(DEFAULT_DATA);
+let pendingData=null;
+const CHEERS = ["Brilliant!","Perfect!","You nailed it!","Superstar!","Excellent!","Spot on!","Amazing!","Fantastic!","Well done!",
+ "Grammar genius!","Wow, impressive!","You're on fire!","Outstanding!","Exactly right!","Nailed it!","Super smart!","Top marks!",
+ "You're a natural!","Keep shining!","That's the way!","Awesome work!","Bravo!","Incredible!","100% correct!","You rock!","Smart thinking!"];
+const RETRY_WIN = ["You got it!","Yes! You didn't give up!","That's it!","Now you've got it!","Great comeback!","See? You can do it!",
+ "Persistence wins!","Good thinking!","There you go!","You worked it out!","Way to keep trying!","Learning in action!"];
+const PUSH = ["You can do it!","Try again!","Don't give up!","Think it through!","You're close!","Read the clue!","Almost!","Keep going!","One more try!","Believe in yourself!"];
+const PUSH_EMOJI = ["💪","🤔","🔍","🌱","⭐","🚀","🧠","✊"];
+const SECTION_DONE = ["Section complete!","Section cleared!","Level up!","Another one done!","You conquered it!","Well done, champion!"];
+const FIXED = ["Fixed it!","Now you've got it!","Locked in!","Mastered!","Got it this time!","You learned it!"];
+const FINISH = ["You finished!","Champion!","You did it!","Mission complete!"];
+const BRAVO = ["Bravo!","Proud of you!","You're amazing!","Great job today!"];
+const STREAK = n => n>=8?`${n} in a row! Unstoppable!`:n>=6?`${n} in a row! Legendary!`:n>=5?`${n} in a row! On fire!`:n>=4?`${n} in a row! Amazing streak!`:`${n} in a row!`;
+const NUDGES = ["Oops! Not this one 🙈","So close! Read the clue 🔍","Good try! You've got this 💪","Almost there! 🌟","Mistakes help us learn 🌱",
+ "Not quite, but keep going! 🚀","Nice try! Look again 👀","Hmm, think again 🤔","No worries, try another! 😊","Every mistake makes you smarter 🧠",
+ "You're learning! Try again 📚","Close one! Check the hint 💡","Don't give up now! ✊","Take a breath and try again 🌈"];
+const CHEER_EMOJI=["👏","🎉","🌟","🥳","🏆","💯","🙌","✨","🎊","⭐","😍","🤩","🎯","🥇","💐","🦄"];
+
+const pick = a => {if(a.length<2)return a[0];let v;do{v=a[Math.floor(Math.random()*a.length)]}while(v===a._last);a._last=v;return v};
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g,"<em>$1</em>").replace(/\n/g,"<br>");
+const READ_MS=3000;
+function hintScreen(q,tries,nudge,chosen){const two=tries>=2&&q.h2;
+  return `<section class="card hintscreen pop" id="hs" aria-live="polite">
+    <div class="hshead"><span class="hsem" aria-hidden="true">${two?"🔦":"💡"}</span><div><div class="hintlvl">${two?"Hint 2 · the rule":"Hint 1 · a clue"}</div><h2>${esc(nudge)}</h2></div></div>
+    ${chosen!=null?`<div class="chose">Your answer: <s>${esc(chosen)}</s> <span aria-hidden="true">✕</span></div>`:""}
+    <div class="hsbody">${fmt(two?q.h2:(q.h||"Read the question again carefully."))}</div>
+    <div class="hsfoot"><div class="readbar" aria-hidden="true"><i style="animation-duration:${READ_MS}ms"></i></div><button class="btn" id="und" disabled>Read the hint…</button></div>
+  </section>`}
+function armUnderstood(cb){const b=$("#und");if(!b)return;let left=Math.ceil(READ_MS/1000);b.textContent=`Read the hint… ${left}`;
+  const iv=setInterval(()=>{left--;if(left>0)b.textContent=`Read the hint… ${left}`;else{clearInterval(iv);b.disabled=false;b.textContent="I understood ✓ Try again";b.focus()}},1000);
+  b.onclick=()=>{if(b.disabled)return;clearInterval(iv);tone([[659.25,.08],[783.99,.12]]);cb();window.scrollTo({top:0,behavior:"smooth"})}}
+const hintHTML=(q,tries,nudge)=>{const two=tries>=2&&q.h2;return `<div class="fb bad"><div class="head">${esc(nudge)}</div>
+  <div class="hint"><span class="bulb" aria-hidden="true">${two?"🔦":"💡"}</span><div><div class="hintlvl">${two?"Hint 2 · the rule":"Hint 1 · a clue"}</div>${fmt(two?q.h2:(q.h||"Read the question again carefully."))}</div></div>
+  <div class="muted" style="font-size:14px">Try another answer. You can do it! 💪</div></div>`};
+const liveSecs = () => SECTIONS.filter(x=>x.count>0);
+let db=null;
+
+let room=null, user=null, isHost=false, roomOK=false;
+// student state
+let S = {phase:"join", name:"", gid:null, q:0, score:0, tries:0, wrongs:Array(N).fill(0), firstTry:0, wrongPicked:[], answered:false, solo:false};
+// host state
+let H = {gid:null, state:"lobby", view:"teacher", results:{}};
+let hostSeen = null; // last game state heard from teacher
+
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+
+/* ---------- sound ---------- */
+let ac=null, master=null, verb=null, muted=false;try{muted=localStorage.getItem("gm-muted")==="1"}catch(e){}
+function audio(){
+  if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();
+    const comp=ac.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;
+    master=ac.createGain();master.gain.value=.9;master.connect(comp).connect(ac.destination);
+    verb=ac.createConvolver();const len=ac.sampleRate*1.4,ir=ac.createBuffer(2,len,ac.sampleRate);
+    for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}
+    verb.buffer=ir;const vg=ac.createGain();vg.gain.value=.22;verb.connect(vg).connect(master)}
+  if(ac.state==="suspended")ac.resume();return ac}
+function route(node,wet){node.connect(master);if(wet){const g=ac.createGain();g.gain.value=wet;node.connect(g).connect(verb)}}
+/* a soft marimba / bell note */
+function bell(f,t,dur=.8,vol=.22,wet=.35){const a=ac;[[1,1],[2.01,.32],[3.98,.12]].forEach(([m,v])=>{const o=a.createOscillator(),g=a.createGain();o.type="sine";o.frequency.value=f*m;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol*v,t+.008);g.gain.exponentialRampToValueAtTime(.0005,t+dur/m);o.connect(g);route(g,wet);o.start(t);o.stop(t+dur+.05)})}
+function tone(seq){if(muted)return;try{audio();let t=ac.currentTime+.01;seq.forEach(([f,d])=>{bell(f,t,Math.max(.4,d*4),.2);t+=d})}catch(e){}}
+let noiseB=null;function noise(){if(noiseB)return noiseB;const b=ac.createBuffer(1,ac.sampleRate*.3,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return noiseB=b}
+/* one realistic hand clap: three tiny bursts + a short body */
+function clap(t,vol){const s=ac.createBufferSource(),bp=ac.createBiquadFilter(),hp=ac.createBiquadFilter(),g=ac.createGain();
+  s.buffer=noise();bp.type="bandpass";bp.frequency.value=1000+Math.random()*900;bp.Q.value=.7;hp.type="highpass";hp.frequency.value=500;
+  g.gain.setValueAtTime(0,t);[0,.009,.018].forEach(o=>{g.gain.setValueAtTime(vol,t+o);g.gain.exponentialRampToValueAtTime(vol*.15,t+o+.008)});
+  g.gain.setValueAtTime(vol*.8,t+.027);g.gain.exponentialRampToValueAtTime(.001,t+.17);
+  s.connect(bp).connect(hp).connect(g);route(g,.18);s.start(t,Math.random()*.1);s.stop(t+.2)}
+/* a crowd applauding: dense at first, then tapering */
+function claps(n=14,dur=1.3){if(muted)return;try{audio();const t0=ac.currentTime+.02;for(let i=0;i<n;i++){const r=Math.pow(Math.random(),1.6);clap(t0+r*dur,.35+Math.random()*.45*(1-r*.6))}}catch(e){}}
+/* a happy "woo-hoo" whistle */
+function cheer(len=1.2){if(muted)return;try{audio();const t=ac.currentTime+.05;[[1,0],[1.25,.07]].forEach(([m,dl])=>{const o=ac.createOscillator(),lfo=ac.createOscillator(),lg=ac.createGain(),g=ac.createGain();
+  o.type="sine";o.frequency.setValueAtTime(620*m,t+dl);o.frequency.exponentialRampToValueAtTime(1350*m,t+dl+.22);o.frequency.exponentialRampToValueAtTime(980*m,t+dl+len*.7);
+  lfo.frequency.value=6;lg.gain.value=18;lfo.connect(lg).connect(o.frequency);
+  g.gain.setValueAtTime(0,t+dl);g.gain.linearRampToValueAtTime(.06,t+dl+.08);g.gain.setValueAtTime(.06,t+dl+len*.5);g.gain.exponentialRampToValueAtTime(.001,t+dl+len*.8);
+  o.connect(g);route(g,.4);o.start(t+dl);lfo.start(t+dl);o.stop(t+dl+len);lfo.stop(t+dl+len)})}catch(e){}}
+/* sparkly glissando */
+function sparkle(t,vol=.08){[1568,1976,2349,2637,3136].forEach((f,i)=>bell(f,t+i*.045,.5,vol,.5))}
+const sfxRight=(big)=>{if(muted)return;try{audio();const t=ac.currentTime+.01;
+  [523.25,659.25,783.99].forEach((f,i)=>bell(f,t+i*.09,.9,.24));bell(1046.5,t+.27,1.2,.2);sparkle(t+.32);
+  claps(big?22:10,big?1.5:.9);if(big)cheer(1.1)}catch(e){}};
+const sfxWrong=()=>{if(muted)return;try{audio();const t=ac.currentTime+.01;[[392,0],[311.13,.14]].forEach(([f,d])=>{const o=ac.createOscillator(),g=ac.createGain();o.type="triangle";
+  o.frequency.setValueAtTime(f,t+d);o.frequency.exponentialRampToValueAtTime(f*.94,t+d+.2);g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.14,t+d+.01);g.gain.exponentialRampToValueAtTime(.001,t+d+.28);o.connect(g);route(g,.2);o.start(t+d);o.stop(t+d+.3)})}catch(e){}};
+const sfxWin=()=>{if(muted)return;try{audio();const t=ac.currentTime+.01;[523.25,659.25,783.99,1046.5].forEach((f,i)=>bell(f,t+i*.13,1,.24));
+  [523.25,659.25,783.99,1046.5].forEach(f=>bell(f,t+.6,2,.14));sparkle(t+.6,.1);claps(45,2.8);cheer(1.4);setTimeout(()=>cheer(1.2),900)}catch(e){}};
+const sfxSection=()=>{if(muted)return;try{audio();const t=ac.currentTime+.01;[659.25,783.99,1046.5].forEach((f,i)=>bell(f,t+i*.1,1,.22));sparkle(t+.3);claps(28,1.9);cheer(1.2)}catch(e){}};
+function setMute(m){muted=m;try{localStorage.setItem("gm-muted",m?"1":"0")}catch(e){}document.querySelectorAll(".mute").forEach(b=>{b.textContent=m?"🔇":"🔊";b.setAttribute("aria-label",m?"Turn sound on":"Turn sound off")})}
+function showCheer(emoji,text,soft){const c=$("#cheer");c.innerHTML=`<div class="burst"><div class="em">${emoji}</div>${text?`<div class="tx ${soft?"soft":""}">${esc(text)}</div>`:""}</div>`;c.hidden=false;clearTimeout(showCheer.t);showCheer.t=setTimeout(()=>{c.hidden=true;c.innerHTML=""},1400)}
+function floatPts(el,txt){if(!el)return;const r=el.getBoundingClientRect(),f=document.createElement("div");f.className="floatpts";f.textContent=txt;f.style.left=(r.left+r.width/2-30)+"px";f.style.top=(r.top)+"px";document.body.appendChild(f);setTimeout(()=>f.remove(),1000)}
+
+/* ---------- confetti ---------- */
+const cv=$("#confetti"),cx=cv.getContext("2d");let bits=[];
+function confetti(n=90){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  cv.width=innerWidth;cv.height=innerHeight;const cs=getComputedStyle(document.documentElement);
+  const cols=["--pink","--sky","--sun","--mint","--violet","--tang"].map(v=>cs.getPropertyValue(v).trim());
+  for(let i=0;i<n;i++)bits.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*.45,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,r:Math.random()*6+4,c:pick(cols),a:Math.random()*6,life:0});
+  if(bits.length===n)requestAnimationFrame(tick)}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);bits=bits.filter(b=>b.life<120);
+  bits.forEach(b=>{b.life++;b.vy+=.45;b.x+=b.vx;b.y+=b.vy;b.a+=.2;cx.save();cx.translate(b.x,b.y);cx.rotate(b.a);cx.fillStyle=b.c;cx.fillRect(-b.r/2,-b.r/4,b.r,b.r/2);cx.restore()});
+  if(bits.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height)}
+
+/* ---------- presence for students ---------- */
+function pushPresence(){ if(!roomOK||isHost&&H.view!=="student")return;
+  room.presence({role:"player",name:S.name,gid:S.gid,q:S.q,score:S.score,tries:S.tries,wrongs:S.wrongs,wp:S.wp||[],bs:S.bestStreak||0,first:S.firstTry,done:S.phase==="done",rev:S.review?S.review.queue.length:0,ts:Date.now()}).catch(()=>{});
+}
+
+/* ---------- STUDENT SCREENS ---------- */
+function renderJoin(){
+  app.innerHTML=`<div class="center"><div class="joinbox card">
+    <div class="eyebrow"><span class="flag"></span>Mega Goal 1 · Grammar</div>
+    <h1 class="rainbow">Grammar Mastery</h1>
+    <p class="muted" style="margin:0">${liveSecs().length} sections, ${N} questions. Go at your own speed.</p>
+    <ol class="seclist">${liveSecs().map(x=>`<li><b>${esc(x.name)}</b><span class="muted"> · ${x.count} questions</span></li>`).join("")}</ol>
+    <label for="nm" class="eyebrow">Your name</label>
+    <input id="nm" maxlength="20" autocomplete="off" placeholder="e.g. Sara A." value="${esc(S.name)}">
+    <button class="btn" id="go">Join the race</button>
+    ${roomOK?"":`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode: play at your own pace and try to beat your best score!</div>`}
+    ${isHost?`<button class="btn ghost" id="backT">Back to teacher view</button>`:""}
+  </div></div>`;
+  const nm=$("#nm"),go=$("#go");
+  const ok=()=>go.disabled=nm.value.trim().length<2; ok(); nm.oninput=ok;
+  nm.onkeydown=e=>{if(e.key==="Enter"&&!go.disabled)go.click()};
+  go.onclick=()=>{S.name=nm.value.trim().slice(0,20);tone([[660,.1]]);
+    if(!roomOK){S.solo=true;startPlay();return}
+    S.phase="wait";pushPresence();
+    if(hostSeen&&hostSeen.state==="live"){S.gid=hostSeen.gid;startPlay()} else render()};
+  if(isHost)$("#backT").onclick=backToTeacher;
+}
+function renderWait(){
+  app.innerHTML=`<div class="center"><div class="waiting card" style="max-width:440px;width:100%">
+    <div class="lights"><i></i><i></i><i></i></div>
+    <h2>You're on the grid, ${esc(S.name)}!</h2>
+    <p class="muted" style="margin:0">Waiting for your teacher to start the race…</p>
+    <span class="chip">${otherPlayers()} classmates joined</span>
+  </div></div>`;
+}
+function otherPlayers(){if(!roomOK)return 0;return room.peers().filter(p=>p.presence&&p.presence.role==="player"&&!p.sameTab).length}
+function startPlay(){clearTimeout(autoT);if(pendingData){applyData(pendingData);pendingData=null}S.phase="play";S.q=0;S.score=0;S.tries=0;S.firstTry=0;S.wrongs=Array(N).fill(0);S.wrongPicked=[];S.wp=Array.from({length:N},()=>[]);S.bestStreak=0;S.answered=false;S.hintOpen=false;S.intro=true;S.review=null;S.reviewed=[];S.streak=0;pushPresence();render()}
+function hud(){const pct=S.q/N*100;
+  return `<div class="hud"><div><div class="row" style="justify-content:space-between;margin-bottom:8px">
+    <span class="eyebrow">Section ${secNo(Q[Math.min(S.q,N-1)].sec)} · ${esc(SECTIONS[Q[Math.min(S.q,N-1)].sec].short)}</span><span class="eyebrow">Question ${Math.min(S.q+1,N)} of ${N}</span></div>
+    <div class="track"><div class="fill" style="width:${pct}%"></div>${liveSecs().slice(1).map(x=>`<span class="tick" style="left:${x.start/N*100}%"></span>`).join("")}<span class="car" style="left:${Math.max(2,pct)}%">🏎️</span></div></div>
+    <div class="scorebox">${S.streak>=2?`<span class="streak">🔥 ${S.streak}</span>`:""}<div class="score" aria-label="score">⭐ ${S.score}</div><button class="mute" onclick="setMute(!muted)" aria-label="${muted?"Turn sound on":"Turn sound off"}">${muted?"🔇":"🔊"}</button></div></div>`}
+function renderPlay(){
+  if(S.review)return renderReview();
+  if(S.hintOpen&&!S.intro){const hq=Q[S.q];app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}${hintScreen(hq,S.tries,S.lastNudge||pick(NUDGES),hq.opts[S.wrongPicked[S.wrongPicked.length-1]])}`;
+    armUnderstood(()=>{S.hintOpen=false;renderPlay()});return}
+  const q=Q[S.q];
+  if(S.intro){const si=q.sec,sec=SECTIONS[si];
+    app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
+    <section class="card secintro pop"><div class="eyebrow">Section ${secNo(si)} of ${liveSecs().length}</div><h1>${esc(sec.name)}</h1>
+      ${sec.rule?`<div class="secrule">${fmt(sec.rule)}</div>`:""}<p class="muted" style="margin:0">${sec.count} questions. Read each one carefully. If you make a mistake, you'll get a hint and try again.</p>
+      <div><button class="btn" id="go2">Start section ${secNo(si)} →</button></div></section>`;
+    $("#go2").onclick=()=>{S.intro=false;tone([[587,.1],[784,.15]]);render()};return}
+  app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
+   <section class="card qcard" id="qc">
+     ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
+     <div class="qtext">${fmt(q.text).replace(/_{3,}/g,'<span class="blank"></span>')}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button class="opt ${S.wrongPicked.includes(i)?"wrong":""} ${S.answered&&i===q.a?"right":""}" data-i="${i}" ${S.wrongPicked.includes(i)||S.answered?"disabled":""}><b>${"ABCD"[i]}</b><span>${esc(o)}</span></button>`).join("")}</div>
+     <div id="fb"></div>
+   </section>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i,b));
+  if(S.answered)showFB(true);else if(S.wrongPicked.length)showFB(false);
+}
+function showFB(right){const q=Q[S.q];const fb=$("#fb");
+  if(right){fb.innerHTML=`<div class="fb good pop"><div class="head">${S.lastCheer||pick(CHEERS)} 🎉 ${S.lastPts?`+${S.lastPts}`:""}${S.streak>=3?` <span class="streak">🔥 ${S.streak} in a row · +20 bonus</span>`:""}</div><div class="rule">${fmt(q.rule)}</div>
+    ${autoBar(S.autoMs||AUTO_FIRST,S.q+1<N?"Next now →":"See my results →")}</div>`;
+    $("#nx").onclick=()=>{clearTimeout(autoT);next()};}
+  else{fb.innerHTML=hintHTML(Q[S.q],S.tries,S.lastNudge||pick(NUDGES))}
+}
+function answer(i,btn){const q=Q[S.q];if(S.answered)return;
+  if(i===q.a){S.answered=true;const first=S.tries===0;S.streak=first?(S.streak||0)+1:0;S.bestStreak=Math.max(S.bestStreak||0,S.streak);let pts=first?100:S.tries===1?60:30;
+    const bonus=first&&S.streak>=3?20:0;pts+=bonus;S.lastPts=pts;S.score+=pts;if(first)S.firstTry++;
+    S.lastCheer=first?pick(CHEERS):pick(RETRY_WIN);
+    sfxRight(first);confetti(first?110:50);S.tries=0;pushPresence();renderPlay();$("#qc").classList.add("pop");
+    showCheer(first?(S.streak>=3?"🔥":pick(CHEER_EMOJI)):"👍",first&&S.streak>=3?STREAK(S.streak):S.lastCheer);
+    floatPts(document.querySelector(".score"),"+"+pts);
+    S.autoMs=first?AUTO_FIRST:AUTO_AFTER;schedule(next,S.autoMs);}
+  else{S.tries++;S.streak=0;S.wrongs[S.q]++;S.wrongPicked.push(i);(S.wp[S.q]||(S.wp[S.q]=[])).push(i);S.lastNudge=pick(NUDGES);S.hintOpen=true;sfxWrong();pushPresence();renderPlay();window.scrollTo({top:0,behavior:"smooth"});
+    if(S.tries<=2)showCheer(pick(PUSH_EMOJI),pick(PUSH),true);}
+}
+let autoT=null;
+const AUTO_FIRST=2600, AUTO_AFTER=4200;
+function autoBar(ms,label){return `<div class="fbrow autorow"><div class="autobar" aria-hidden="true"><i style="animation-duration:${ms}ms"></i></div><button class="btn" id="nx">${label}</button></div>`}
+function schedule(fn,ms){clearTimeout(autoT);autoT=setTimeout(()=>{autoT=null;fn()},ms)}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function next(){
+  clearTimeout(autoT);autoT=null;
+  if(!S.answered||S.phase!=="play")return;
+  const cur=Q[S.q], last=S.q+1>=N||Q[S.q+1].sec!==cur.sec;
+  if(last&&!S.review&&!(S.reviewed||[]).includes(cur.sec)){const sec=SECTIONS[cur.sec],missed=[];
+    for(let i=sec.start;i<sec.end;i++)if(S.wrongs[i]>0)missed.push(i);
+    if(missed.length){S.review={si:cur.sec,queue:missed,total:missed.length,intro:true};newReviewItem();pushPresence();render();window.scrollTo({top:0,behavior:"smooth"});return}}
+  advance()}
+function newReviewItem(){const R=S.review,q=Q[R.queue[0]];R.order=shuffle(q.opts.map((_,i)=>i));R.tries=0;R.wrong=[];R.answered=false;R.cleared=false;R.hintOpen=false}
+function renderReview(){const R=S.review,sec=SECTIONS[R.si];
+  if(R.intro){app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
+    <section class="card secintro pop"><div class="eyebrow">Second chance · ${esc(sec.name)}</div><h1>Let's fix ${R.total===1?"that one":"those "+R.total}!</h1>
+      <p style="margin:0">You missed ${R.total===1?"1 question":R.total+" questions"} in this section the first time. Answer ${R.total===1?"it":"each one"} correctly to unlock the next section.</p>
+      <p class="muted" style="margin:0">The answers are in a new order. If you get one wrong again, it comes back at the end.</p>
+      <div><button class="btn" id="rv">Start second chance →</button></div></section>`;
+    $("#rv").onclick=()=>{R.intro=false;tone([[587,.1],[784,.15]]);render()};return}
+  const qi=R.queue[0],q=Q[qi],done=R.total-R.queue.length;
+  if(R.hintOpen){app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
+    <div class="revbar"><span class="chip warn">Second chance</span><span class="muted">${done} of ${R.total} fixed</span></div>${hintScreen(q,R.tries,R.nudge||pick(NUDGES),q.opts[R.wrong[R.wrong.length-1]])}`;
+    armUnderstood(()=>{R.hintOpen=false;renderReview()});return}
+  app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
+   <div class="revbar"><span class="chip warn">Second chance</span><span class="muted">${done} of ${R.total} fixed</span><div class="revdots">${Array.from({length:R.total},(_,k)=>`<i class="${k<done?"on":""}"></i>`).join("")}</div></div>
+   <section class="card qcard" id="qc">
+     ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
+     <div class="qtext">${fmt(q.text).replace(/_{3,}/g,'<span class="blank"></span>')}</div>
+     <div class="opts">${R.order.map((i,k)=>`<button class="opt ${R.wrong.includes(i)?"wrong":""} ${R.answered&&i===q.a?"right":""}" data-i="${i}" ${R.wrong.includes(i)||R.answered?"disabled":""}><b>${"ABCD"[k]}</b><span>${esc(q.opts[i])}</span></button>`).join("")}</div>
+     <div id="fb">${R.answered?`<div class="fb good pop"><div class="head">${R.cleared?esc(R.msg||"Fixed it!")+" +20":"Correct! This one will come back once more."}</div><div class="rule">${fmt(q.rule)}</div>
+        ${autoBar(R.cleared?AUTO_FIRST:AUTO_AFTER,R.cleared&&R.queue.length===1?"Finish now →":"Next now →")}</div>`:
+       R.wrong.length?hintHTML(q,R.tries,R.nudge||pick(NUDGES)):""}</div>
+   </section>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(R.answered)return;
+    if(i===q.a){R.answered=true;R.cleared=R.tries===0;R.msg=pick(FIXED);if(R.cleared){S.score+=20;sfxRight(true);confetti(90);showCheer(pick(["🙌","🎯","💪","🌟"]),R.msg)}else{sfxRight(false);showCheer("👍",pick(RETRY_WIN))}pushPresence();renderReview();$("#qc").classList.add("pop");schedule(reviewNext,R.cleared?AUTO_FIRST:AUTO_AFTER)}
+    else{R.tries++;R.nudge=pick(NUDGES);R.wrong.push(i);R.hintOpen=true;S.wrongs[qi]++;(S.wp[qi]||(S.wp[qi]=[])).push(i);sfxWrong();pushPresence();renderReview();window.scrollTo({top:0,behavior:"smooth"});showCheer(pick(PUSH_EMOJI),pick(PUSH),true)}});
+  const nx=$("#nx");if(nx)nx.onclick=()=>{clearTimeout(autoT);reviewNext()};
+}
+function reviewNext(){const R=S.review;if(!R||!R.answered)return;clearTimeout(autoT);autoT=null;
+    if(R.cleared)R.queue.shift();else R.queue.push(R.queue.shift());
+    if(!R.queue.length){S.reviewed=(S.reviewed||[]).concat(R.si);showCheer(pick(["🏅","🎖️","🚀","🌈"]),pick(SECTION_DONE));sfxSection();confetti(150);advance();return}
+    newReviewItem();pushPresence();renderReview();window.scrollTo({top:0,behavior:"smooth"})}
+function advance(){S.review=null;S.q++;S.answered=false;S.wrongPicked=[];S.lastPts=0;
+  if(S.q>=N){S.phase="done";sfxWin();confetti(220);showCheer("🏆",pick(FINISH))} else if(Q[S.q].sec!==Q[S.q-1].sec){S.intro=true;if(!(S.reviewed||[]).includes(Q[S.q-1].sec)){showCheer(pick(["🏅","🎖️","🚀","🌈"]),pick(SECTION_DONE));sfxSection();confetti(150)}}
+  pushPresence();render();window.scrollTo({top:0,behavior:"smooth"})}
+function ordinal(n){const v=n%100;return n+(v>=11&&v<=13?"th":({1:"st",2:"nd",3:"rd"}[n%10]||"th"))}
+function myRank(){if(!roomOK||S.solo||!S.gid)return null;
+  const others=room.peers().filter(p=>!p.sameTab&&p.presence&&p.presence.role==="player"&&p.presence.gid===S.gid).map(p=>({score:+p.presence.score||0,done:!!p.presence.done}));
+  const total=others.length+1,rank=1+others.filter(o=>o.score>S.score).length,stillPlaying=others.filter(o=>!o.done).length;
+  return {rank,total,stillPlaying}}
+function rankHTML(r,preview){
+  if(preview)return `<div class="rankbox"><div class="rkmed">🥇</div><div><div class="rkbig">Your rank: 1st of 1</div><div class="muted">In a real race this shows her place in the class, for example “3rd of 24”.</div></div></div>`;
+  if(!r)return `<div class="rankbox"><div class="rkmed">🎯</div><div><div class="rkbig">Practice mode</div><div class="muted">Play again and try to beat your score!</div></div></div>`;
+  const med=r.rank===1?"🥇":r.rank===2?"🥈":r.rank===3?"🥉":"🏅";
+  return `<div class="rankbox"><div class="rkmed">${med}</div><div><div class="rkbig">You're ${ordinal(r.rank)} of ${r.total}</div><div class="muted">${r.stillPlaying?`${r.stillPlaying} ${r.stillPlaying===1?"classmate is":"classmates are"} still racing, so your place may change.`:r.rank<=3?"You're on the podium! 🎉":"Final class ranking."}</div></div></div>`}
+function doneHTML(d){
+  const qs=d.qs,NN=qs.length,secs=d.secs.filter(x=>x.end>x.start);
+  const totalWrong=d.wrongs.reduce((a,b)=>a+(b||0),0),acc=Math.round(d.first/Math.max(1,NN)*100);
+  const stars=acc>=90?3:acc>=65?2:1;
+  const title=acc>=90?"You're a Grammar Champion!":acc>=70?"Fantastic race!":acc>=50?"Well done, you made it!":"You did it! You never gave up!";
+  const line=acc>=90?"You knew almost everything first time. Amazing work!":acc>=70?"You really know this grammar. Just a few tricky ones to check below.":acc>=50?"Good effort! Look at the questions below and you'll be even stronger next time.":"Every mistake today taught you something new. Read your tricky questions below once more.";
+  const ss=secs.map(x=>{const n=x.end-x.start,ok=Array.from({length:n},(_,k)=>x.start+k).filter(i=>!d.wrongs[i]).length;return {x,n,ok}});
+  const badges=[];ss.filter(z=>z.ok===z.n).forEach(z=>badges.push(["🏅","Perfect: "+(z.x.short||z.x.name)]));
+  if((d.best||0)>=3)badges.push(["🔥","Best streak: "+d.best]);
+  if(totalWrong>0)badges.push(["💪","Never gave up"]);else badges.push(["💯","No mistakes!"]);
+  const strug=qs.map((q,i)=>({q,i,w:d.wrongs[i]||0,picks:[...new Set((d.wp&&d.wp[i])||[])]})).filter(z=>z.w>0).sort((a,b)=>b.w-a.w);
+  const strongest=ss.slice().sort((a,b)=>b.ok/b.n-a.ok/a.n)[0],weakest=ss.slice().sort((a,b)=>a.ok/a.n-b.ok/b.n)[0];
+  return `<div class="donewrap">
+   <section class="card congrats">
+    <div class="trophy" style="animation:bounce 1s 3">🏆</div><div class="eyebrow">Finish line</div>
+    <h1 class="rainbow">Congratulations, ${esc(d.name||"champion")}!</h1>
+    <h2 class="dtitle">${title}</h2>
+    <div class="bigpts"><span id="ptsCount">0</span><small>total points</small></div>
+    <div class="stars" aria-label="${stars} of 3 stars">${[1,2,3].map(k=>`<span class="${k<=stars?"on":""}" style="animation-delay:${.3+k*.25}s">★</span>`).join("")}</div>
+    <div id="rankSlot" style="width:100%">${d.rankHTML}</div>
+    <p class="dline">${line}</p>
+    <div class="stats"><span class="chip good">✓ ${d.first}/${NN} right first time</span><span class="chip ${totalWrong?"warn":"good"}">↺ ${totalWrong} retries</span></div>
+    <div class="badges">${badges.map(b=>`<span class="badge"><b>${b[0]}</b>${esc(b[1])}</span>`).join("")}</div>
+   </section>
+   <section class="card"><h2>📊 My report</h2>
+    <div class="secbars">${ss.map(z=>`<div class="sbar"><div class="row" style="justify-content:space-between"><span>${esc(z.x.name)}</span><b>${z.ok}/${z.n}</b></div><div class="sbtrack"><i style="width:${z.ok/z.n*100}%;background:${z.ok===z.n?"var(--good)":z.ok/z.n>=.5?"var(--sun)":"var(--bad)"}"></i></div></div>`).join("")}</div>
+    ${ss.length>1&&strongest!==weakest&&weakest.ok<weakest.n?`<p class="muted" style="margin:12px 0 0">💪 Strongest: <b>${esc(strongest.x.name)}</b> · 📚 Practise more: <b>${esc(weakest.x.name)}</b></p>`:""}
+   </section>
+   <section class="card"><h2>${strug.length?"My tricky questions 💡":"No tricky questions! 🌟"}</h2>
+    <p class="muted" style="margin:6px 0 14px">${strug.length?"These were hard for you today. Read each one again. Next time you'll get them right!":"You answered every question right the first time. Perfect race!"}</p>
+    <div class="strugs">${strug.map(z=>`<div class="strug">
+      <div class="row" style="justify-content:space-between;gap:8px"><span class="chip">Q${z.i+1} · ${esc(z.q.tag||"")}</span><span class="chip bad">${z.w} wrong ${z.w===1?"try":"tries"}</span></div>
+      <div class="sq">${fmt(z.q.text).replace(/_{3,}/g,'<span class="gap">_____</span>')}</div>
+      ${z.picks.length?`<div class="sline bad">✕ You chose: ${z.picks.map(p=>`<s>${esc(z.q.opts[p]||"")}</s>`).join(", ")}</div>`:""}
+      <div class="sline good">✓ Correct answer: <b>${esc(z.q.opts[z.q.a])}</b></div>
+      <div class="srule">📌 ${fmt(z.q.rule||"")}</div></div>`).join("")}</div>
+   </section>
+   <div class="row" style="justify-content:center"><button class="btn" id="claps">👏 Give yourself a clap!</button>${d.buttons}</div>
+  </div>`}
+function startDoneFx(score){const el=$("#ptsCount"),t0=performance.now();(function step(t){const k=Math.min(1,(t-t0)/1400);if(el)el.textContent=Math.round(score*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)})(t0);
+  $("#claps").onclick=()=>{claps(40,2.4);cheer(1.3);confetti(160);showCheer(pick(["👏","🙌","🥳"]),pick(BRAVO))}}
+function renderDone(){
+  app.innerHTML=doneHTML({name:S.name,score:S.score,first:S.firstTry,wrongs:S.wrongs,wp:S.wp,best:S.bestStreak,
+    qs:Q,secs:SECTIONS,rankHTML:rankHTML(myRank()),
+    buttons:`<button class="btn ghost" id="again">Race again</button>${isHost?`<button class="btn ghost" id="backT">Back to teacher view</button>`:""}`});
+  startDoneFx(S.score);
+  $("#again").onclick=()=>startPlay();
+  if(isHost)$("#backT").onclick=backToTeacher;
+}
+function refreshRank(){const slot=$("#rankSlot");if(slot&&S.phase==="done"&&(!isHost||H.view==="student"))slot.innerHTML=rankHTML(myRank())}
+
+/* ---------- RACE RESULTS (teacher) ---------- */
+function collect(){if(!roomOK||!isHost||H.state==="lobby")return;
+  const now=Date.now(),seen=new Set();H.results=H.results||{};
+  room.peers().forEach(p=>{const pr=p.presence;if(p.sameTab||!pr||pr.role!=="player"||pr.gid!==H.gid||typeof pr.name!=="string")return;
+    seen.add(p.peer);const r=H.results[p.peer]||{};
+    Object.assign(r,{name:pr.name.slice(0,20),q:+pr.q||0,score:+pr.score||0,tries:+pr.tries||0,first:+pr.first||0,rev:+pr.rev||0,bs:+pr.bs||0,
+      wrongs:Array.isArray(pr.wrongs)?pr.wrongs.slice(0,N).map(x=>+x||0):Array(N).fill(0),
+      wp:Array.isArray(pr.wp)?pr.wp.slice(0,N).map(a=>Array.isArray(a)?a.slice(0,12).map(x=>+x||0):[]):[],
+      done:!!pr.done,online:true});
+    if(r.done&&!r.finishAt)r.finishAt=now;
+    H.results[p.peer]=r});
+  Object.entries(H.results).forEach(([k,r])=>{if(!seen.has(k))r.online=false});
+  scheduleSave();
+}
+function resultsList(){return Object.entries(H.results||{}).map(([peer,r])=>Object.assign({peer},r))}
+function rankSort(a,b){return b.score-a.score||(b.done-a.done)||((a.finishAt||9e15)-(b.finishAt||9e15))||b.first-a.first}
+function snapshotRace(){return {gid:H.gid,startedAt:H.startedAt||null,endedAt:H.state==="ended"?(H.endedAt||Date.now()):null,
+  qs:Q.map(q=>({text:q.text,tag:q.tag||"",opts:q.opts,a:q.a,sec:q.sec,rule:q.rule})),secs:SECTIONS.map(x=>({name:x.name,short:x.short,start:x.start,end:x.end})),
+  results:resultsList().map(r=>({name:r.name,score:r.score,first:r.first,q:r.q,done:r.done,finishAt:r.finishAt||null,bs:r.bs||0,wrongs:r.wrongs,wp:r.wp})).sort(rankSort)}}
+let saveT=null,savingRace=false,saveAgain=false;
+function scheduleSave(){if(!db||!isHost||!H.gid||H.state==="lobby"||!Object.keys(H.results||{}).length)return;clearTimeout(saveT);saveT=setTimeout(saveRace,8000)}
+async function saveRace(){clearTimeout(saveT);if(!db||!Object.keys(H.results||{}).length)return;
+  if(savingRace){saveAgain=true;return}savingRace=true;
+  try{await db.doc("races/"+H.gid).set(snapshotRace())}catch(e){}
+  savingRace=false;if(saveAgain){saveAgain=false;saveRace()}}
+
+let openStu=new Set();
+function reportHTML(R){
+  const qs=R.qs,NN=qs.length,rs=R.results.slice().sort(rankSort);
+  const secs=R.secs.filter(x=>x.end>x.start);
+  const fin=rs.filter(r=>r.done).length;
+  const avgPts=rs.length?Math.round(rs.reduce((a,r)=>a+r.score,0)/rs.length):0;
+  const reached=r=>r.done?NN:Math.min(r.q,NN);
+  const avgFirst=rs.length?Math.round(rs.reduce((a,r)=>a+r.first,0)/Math.max(1,rs.reduce((a,r)=>a+reached(r),0))*100):0;
+  const wrongTot=Array(NN).fill(0),pickTot=qs.map(()=>({}));
+  rs.forEach(r=>{(r.wrongs||[]).forEach((w,i)=>{if(i<NN)wrongTot[i]+=w});(r.wp||[]).forEach((a,i)=>{if(i<NN)new Set(a).forEach(o=>pickTot[i][o]=(pickTot[i][o]||0)+1)})});
+  const hard=wrongTot.map((w,i)=>[w,i]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).slice(0,4);
+  const secStat=secs.map(x=>{let ok=0,tot=0;rs.forEach(r=>{for(let i=x.start;i<x.end;i++){if(i<reached(r)){tot++;if(!(r.wrongs||[])[i])ok++}}});return {x,pct:tot?Math.round(ok/tot*100):null}});
+  const medal=["🥇","🥈","🥉"],pod=[rs[1],rs[0],rs[2]],podCls=["p2","p1","p3"],podRank=[2,1,3];
+  const secOf=i=>secs.find(x=>i>=x.start&&i<x.end);
+  return `
+  ${rs.length?`<section class="card podiumcard">
+    <div class="eyebrow">Race results</div><h2>🏆 The winners</h2>
+    <div class="podium">${pod.map((r,k)=>r?`<div class="pcol ${podCls[k]}"><div class="pmedal">${medal[podRank[k]-1]}</div><div class="pname">${esc(r.name)}</div><div class="ppts">${r.score} pts</div><div class="pblock"><span>${podRank[k]}</span></div></div>`:`<div class="pcol ${podCls[k]} empty-p"></div>`).join("")}</div>
+  </section>`:`<div class="empty">No results were recorded for this race.</div>`}
+  <div class="summary">
+    <div class="sum"><div class="eyebrow">Students</div><div class="n">${rs.length}</div></div>
+    <div class="sum"><div class="eyebrow">Finished</div><div class="n">${fin}/${rs.length}</div></div>
+    <div class="sum"><div class="eyebrow">Average points</div><div class="n">${avgPts}</div></div>
+    <div class="sum"><div class="eyebrow">First-try right</div><div class="n">${avgFirst}%</div></div>
+  </div>
+  <div class="tgrid2">
+    <section class="card"><h2>Class mastery by section</h2><div class="secbars" style="margin-top:12px">${secStat.map(z=>`<div class="sbar"><div class="row" style="justify-content:space-between"><span>${esc(z.x.name)}</span><b>${z.pct==null?"–":z.pct+"%"}</b></div><div class="sbtrack"><i style="width:${z.pct||0}%;background:${z.pct>=80?"var(--good)":z.pct>=50?"var(--sun)":"var(--bad)"}"></i></div></div>`).join("")}</div>
+      <p class="muted" style="font-size:13px;margin:10px 0 0">Share of questions answered right on the first try.</p></section>
+    <section class="card"><h2>Questions to reteach</h2>${hard.length?`<div class="hardlist">${hard.map(([w,i])=>{const q=qs[i],top=Object.entries(pickTot[i]).sort((a,b)=>b[1]-a[1])[0];
+      return `<div class="hard"><div class="row" style="justify-content:space-between;gap:8px"><b>Q${i+1}</b><span class="chip bad">${w} wrong</span></div><div class="hq">${fmt(q.text).replace(/_{3,}/g,"_____")}</div>
+      ${top?`<div class="muted" style="font-size:14px">Most common mistake: <s>${esc(q.opts[+top[0]]||"")}</s> (${top[1]} ${top[1]===1?"student":"students"}) · Correct: <b>${esc(q.opts[q.a])}</b></div>`:""}</div>`}).join("")}</div>`:`<p class="muted">No wrong answers. Excellent class!</p>`}</section>
+  </div>
+  <section class="card"><div class="row" style="justify-content:space-between"><h2>Student report</h2><span class="muted" style="font-size:13px">Tap a name for details</span></div>
+    <div class="rtable" role="table">
+      <div class="rrow rhead" role="row"><span>#</span><span>Student</span><span>Points</span><span>First try</span><span class="hide-sm">Sections</span><span class="hide-sm">Struggled with</span></div>
+      ${rs.map((r,k)=>{const struggled=(r.wrongs||[]).map((w,i)=>[w,i]).filter(x=>x[0]>0&&x[1]<NN);const key=(r.name||"")+"|"+k;const open=openStu.has(key);
+        return `<div class="rgroup ${open?"open":""}"><button class="rrow" role="row" data-stu="${esc(key)}" aria-expanded="${open}">
+          <span class="rk">${k<3?medal[k]:k+1}</span><span class="rn">${esc(r.name)}${r.done?"":` <span class="chip warn" style="font-size:11px">Q${Math.min(r.q+1,NN)}</span>`}</span>
+          <span class="rp">${r.score}</span><span>${r.first}/${NN}</span>
+          <span class="hide-sm secchips">${secs.map(x=>{const n=x.end-x.start,ok=Array.from({length:n},(_,j)=>x.start+j).filter(i=>i<reached(r)&&!(r.wrongs||[])[i]).length;return `<i class="${ok===n?"g":ok/n>=.5?"y":"r"}" title="${esc(x.name)}: ${ok}/${n}">${ok}/${n}</i>`}).join("")}</span>
+          <span class="hide-sm rs">${struggled.length?struggled.map(([w,i])=>`Q${i+1}`).join(", "):"—"}</span></button>
+          ${open?`<div class="rdetail">${secs.map(x=>`<div class="rdsec"><div class="eyebrow">${esc(x.name)}</div><div class="rdq">${Array.from({length:x.end-x.start},(_,j)=>x.start+j).map(i=>{const w=(r.wrongs||[])[i]||0,picks=[...new Set((r.wp||[])[i]||[])];const reachedQ=i<reached(r);
+            return `<div class="rdi ${!reachedQ?"na":w?"x":"ok"}"><b>Q${i+1}</b><span>${!reachedQ?"not reached":w?`✕ ${w} · chose ${picks.map(p=>esc(qs[i].opts[p]||"")).join(", ")||"?"}`:"✓ first try"}</span></div>`}).join("")}</div></div>`).join("")}</div>`:""}</div>`}).join("")}
+    </div></section>`;
+}
+function wireReport(rerender){app.querySelectorAll("[data-stu]").forEach(b=>b.onclick=()=>{const k=b.dataset.stu;openStu.has(k)?openStu.delete(k):openStu.add(k);rerender()})}
+
+let pastList=null,pastRep=null;
+async function openPast(){H.view="past";pastRep=null;pastList=null;render();
+  if(!db){pastList=[];render();return}
+  try{const snap=await db.collection("races").orderBy("endedAt","desc").limit(20).get();pastList=snap.docs.map(d=>d.data()).filter(d=>d&&Array.isArray(d.results))}catch(e){pastList=[]}
+  if(H.view==="past")render()}
+function renderPast(){
+  const fmtD=t=>t?new Date(t).toLocaleString([], {dateStyle:"medium",timeStyle:"short"}):"In progress";
+  if(pastRep){app.innerHTML=`<div class="topbar"><div><div class="eyebrow">Past race</div><h1>${esc(fmtD(pastRep.endedAt||pastRep.startedAt))}</h1></div><button class="btn ghost" id="pb">← All reports</button></div>${reportHTML(pastRep)}`;
+    $("#pb").onclick=()=>{pastRep=null;render()};wireReport(()=>render());return}
+  app.innerHTML=`<div class="topbar"><div><div class="eyebrow">Teacher control</div><h1>Past reports</h1></div><button class="btn ghost" id="pb">← Back to class</button></div>
+   <section class="card">${pastList==null?`<p class="muted">Loading…</p>`:pastList.length?`<div class="pastlist">${pastList.map((r,k)=>{const top=r.results.slice().sort(rankSort)[0];
+     return `<button class="pastrow" data-k="${k}"><span><b>${esc(fmtD(r.endedAt||r.startedAt))}</b><br><span class="muted">${r.results.length} students${top?` · 🥇 ${esc(top.name)} (${top.score} pts)`:""}</span></span><span aria-hidden="true">›</span></button>`}).join("")}</div>`:`<div class="empty">No saved races yet. Reports are saved when you end a race.</div>`}</section>`;
+  $("#pb").onclick=()=>{H.view="teacher";render()};
+  app.querySelectorAll(".pastrow").forEach(b=>b.onclick=()=>{pastRep=pastList[+b.dataset.k];render();window.scrollTo({top:0})});
+}
+
+function backToTeacher(){H.view="teacher";if(roomOK)room.presence({role:"host",name:null,gid:null,q:null,score:null,tries:null,wrongs:null,first:null,done:null}).catch(()=>{});render()}
+
+/* ---------- TEACHER ---------- */
+function players(){if(!roomOK)return[];
+  return room.peers().filter(p=>p.presence&&p.presence.role==="player"&&typeof p.presence.name==="string")
+   .filter(p=>H.state==="lobby"||p.presence.gid===H.gid||p.presence.gid==null)
+   .map(p=>({peer:p.peer,name:p.presence.name.slice(0,20),q:+p.presence.q||0,score:+p.presence.score||0,tries:+p.presence.tries||0,
+     wrongs:Array.isArray(p.presence.wrongs)?p.presence.wrongs.slice(0,N).map(x=>+x||0):Array(N).fill(0),first:+p.presence.first||0,done:!!p.presence.done,rev:+p.presence.rev||0,me:p.sameTab}))
+   .filter(p=>!p.me);
+}
+function broadcast(){if(!roomOK||!isHost)return;room.emit("game",{gid:H.gid,state:H.state}).catch(()=>{});}
+function newGame(){H.gid="g"+Math.random().toString(36).slice(2,8);H.state="lobby";H.results={};H.startedAt=null;H.endedAt=null;openStu.clear();broadcast();render()}
+function renderTeacher(){
+  if(H.state!=="lobby")collect();
+  const ps=H.state==="lobby"?players():resultsList();
+  const url=JOIN_URL||"(link appears after the page is published)";
+  if(!roomOK){app.innerHTML=`<div class="card"><h2>Live mode isn't available here</h2><p class="muted">This view can't connect to the class room, so student progress can't be shown. You can still try the game yourself.</p><div class="row"><button class="btn" id="asS">Play as a student</button><button class="btn ghost" id="edQ">View &amp; edit questions</button></div></div>`;$("#asS").onclick=()=>{H.view="student";render()};$("#edQ").onclick=openEditor;return}
+  const live=H.state!=="lobby";
+  const fin=ps.filter(p=>p.done).length;
+  const avgQ=ps.length?ps.reduce((a,p)=>a+p.q,0)/ps.length:0;
+  const firstAcc=ps.length?Math.round(ps.reduce((a,p)=>a+p.first,0)/Math.max(1,ps.reduce((a,p)=>a+Math.min(p.q,N),0))*100):0;
+  const stuck=ps.filter(p=>!p.done&&p.tries>=2);
+  const heat=Array(N).fill(0);ps.forEach(p=>p.wrongs.forEach((w,i)=>heat[i]+=w));const hmax=Math.max(1,...heat);
+  ps.sort((a,b)=>b.score-a.score||b.q-a.q);
+  app.innerHTML=`
+  <div class="topbar"><div><div class="eyebrow"><span class="flag"></span>Teacher control · Mega Goal 1</div><h1 class="rainbow">Grammar Mastery</h1></div>
+    <div class="row"><span class="chip ${live?(H.state==="ended"?"":"good"):"warn"}">${H.state==="lobby"?"Lobby open":H.state==="live"?"Race in progress":"Race finished"}</span>
+    <button class="btn ghost" id="past">📊 Past reports</button><button class="btn ghost" id="edQ">View &amp; edit questions</button><button class="btn ghost" id="asS">Preview as student</button></div></div>
+  <div class="tgrid">
+    <aside class="card joinpanel">
+      <h2>Join the race</h2>
+      <div id="qr"></div>
+      <div class="link" id="lnk">${esc(url)}</div>
+      <button class="btn ghost" id="cp">Copy link</button>
+      <p class="muted" style="margin:0;font-size:14px">Students scan the code or open the link, type their name, and wait for you to start.</p>
+      ${H.state==="lobby"?`<button class="btn" id="start" ${ps.length?"":"disabled"}>Start the race (${ps.length})</button>`:
+        H.state==="live"?`<button class="btn" id="end">End the race</button>`:`<button class="btn" id="new">New race</button>`}
+    </aside>
+    <section class="board">
+      ${H.state==="ended"?reportHTML(snapshotRace()):!live?`<div class="card"><div class="row" style="justify-content:space-between"><div><div class="eyebrow">On the grid</div><div class="bigcount">${ps.length}</div></div><span class="muted">students waiting</span></div>
+        <div class="lobby" style="margin-top:14px">${ps.length?ps.map(p=>`<span class="chip">${esc(p.name)}</span>`).join(""):`<div class="empty" style="width:100%">No one yet. Names appear here as students join.</div>`}</div></div>`:`
+      <div class="summary">
+        <div class="sum"><div class="eyebrow">Racers</div><div class="n">${ps.length}</div></div>
+        <div class="sum"><div class="eyebrow">Finished</div><div class="n">${fin}</div></div>
+        <div class="sum"><div class="eyebrow">Avg. question</div><div class="n">${avgQ.toFixed(1)}</div></div>
+        <div class="sum"><div class="eyebrow">First-try right</div><div class="n">${firstAcc}%</div></div>
+      </div>
+      ${ps.length&&fin===ps.length?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🏁 Everyone has finished! Tap “End the race” to see the winners and the full report.</div>`:""}
+      ${stuck.length?`<div class="banner">Needs help now: ${stuck.map(p=>esc(p.name)+" (Q"+(p.q+1)+")").join(", ")}</div>`:""}
+      <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h2>Live track</h2>
+        <div class="legend"><span>🏁 = finished</span><span>⚑ = 2+ wrong on current question</span></div></div>
+        <div class="lanes">${ps.length?ps.map((p,r)=>{const pct=p.q/N*100;return `<div class="lane ${p.done?"fin":""} ${!p.done&&p.tries>=2?"stuck":""}">
+          <div style="min-width:0"><div class="nm">${r+1}. ${esc(p.name)}${p.online===false&&!p.done?' <span class="muted" style="font-weight:400">(left)</span>':""}</div><div class="meta">${p.done?"Finished":p.rev?"Second chance · "+esc(SECTIONS[Q[Math.min(p.q,N-1)].sec].short)+" · "+p.rev+" left":esc(SECTIONS[Q[Math.min(p.q,N-1)].sec].short)+" · Q"+(p.q+1)+" of "+N} · ${p.first}/${Math.min(p.q,N)} first try</div></div>
+          <div class="track"><div class="fill" style="width:${pct}%"></div><span class="car" style="left:${Math.max(2,pct)}%">${p.done?"🏁":"🏎️"}</span></div>
+          <div class="pts">${p.score}</div></div>`}).join(""):`<div class="empty">No racers connected.</div>`}</div></div>
+      <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:10px"><h2>Tricky questions</h2><span class="muted" style="font-size:13px">wrong attempts per question</span></div>
+        <div class="secheat">${liveSecs().map(x=>`<div class="sh"><div class="eyebrow">${esc(x.name)}</div><div class="heat">${heat.slice(x.start,x.end).map((h,k)=>{const i=x.start+k;return `<div title="Q${i+1} · ${esc(Q[i].tag)}: ${h} wrong" style="background:color-mix(in srgb,var(--bad) ${Math.round(h/hmax*80)}%,var(--track))">${i+1}</div>`}).join("")}</div></div>`).join("")}</div>
+        ${(()=>{const top=heat.map((h,i)=>[h,i]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).slice(0,3);return top.length?`<div style="margin-top:12px;display:flex;flex-direction:column;gap:4px">${top.map(([h,i])=>`<div class="row" style="justify-content:space-between"><span><b>Q${i+1}</b> · ${esc(Q[i].tag)}</span><span class="chip bad">${h} wrong</span></div>`).join("")}</div>`:`<p class="muted" style="margin:12px 0 0">No wrong answers yet.</p>`})()}
+      </div>`}
+    </section>
+  </div>`;
+  if(JOIN_URL&&window.QRCode){new QRCode($("#qr"),{text:JOIN_URL,width:220,height:220,correctLevel:QRCode.CorrectLevel.M})}else $("#qr").innerHTML=`<div class="muted" style="width:220px;height:220px;display:grid;place-items:center;text-align:center;color:#13223B">QR code appears once published</div>`;
+  $("#cp").onclick=()=>{try{navigator.clipboard.writeText(JOIN_URL).then(()=>toast("Link copied"),()=>selectLink())}catch(e){selectLink()}};
+  $("#asS").onclick=()=>{H.view="student";render()};
+  $("#edQ").onclick=openEditor;
+  $("#past").onclick=openPast;
+  if(H.state==="ended")wireReport(()=>renderTeacher());
+  const st=$("#start");if(st)st.onclick=()=>{H.state="live";H.results={};H.startedAt=Date.now();H.endedAt=null;openStu.clear();broadcast();tone([[440,.15],[440,.15],[880,.4]]);render()};
+  const en=$("#end");if(en)en.onclick=()=>{collect();H.state="ended";H.endedAt=Date.now();broadcast();saveRace();render();window.scrollTo({top:0,behavior:"smooth"});sfxWin();confetti(220);showCheer("🏆","Race results!")};
+  const nw=$("#new");if(nw)nw.onclick=newGame;
+}
+function selectLink(){const r=document.createRange();r.selectNodeContents($("#lnk"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Link selected. Copy it from here.")}
+
+
+/* ---------- QUESTION EDITOR (teacher) ---------- */
+function secNo(si){return liveSecs().indexOf(SECTIONS[si])+1}
+let E=null, dirty=false, openQ=new Set(), armed=null, saving=false, edErrors=[];
+const clone=o=>JSON.parse(JSON.stringify(o));
+function openEditor(){if(!E||!dirty){E=clone(DATA);dirty=false}H.view="editor";render();window.scrollTo({top:0})}
+function markDirty(){if(!dirty){dirty=true;const b=$("#save");if(b)b.disabled=false;const c=$("#edstate");if(c){c.textContent="Unsaved changes";c.className="chip warn"}}}
+function blankQ(){return {tag:"",text:"",opts:["",""],a:0,rule:"",h:"",h2:""}}
+function renderEditor(){
+  const total=E.sections.reduce((a,x)=>a+x.questions.length,0);
+  let n=0;
+  app.innerHTML=`
+  <div class="topbar"><div><div class="eyebrow"><span class="flag"></span>Teacher control · Questions</div><h1>Questions</h1>
+    <p class="muted" style="margin:6px 0 0">${E.sections.length} sections · ${total} questions. Tap a question to edit it.</p></div>
+    <div class="row"><button class="btn" id="pvAll">▶ Preview as students see it</button><span class="chip ${dirty?"warn":"good"}" id="edstate">${dirty?"Unsaved changes":"All saved"}</span><button class="btn ghost" id="back">← Back to class</button></div></div>
+  ${db?"":`<div class="banner">Saving isn't available in this view, so changes can't be kept. Open the page from claude.ai to edit.</div>`}
+  ${edErrors.length?`<div class="banner" style="background:var(--bad-bg);color:var(--bad)">Fix these before saving: ${edErrors.map(esc).join(" · ")}</div>`:""}
+  <p class="muted" style="margin:0;font-size:14px">Type <b>___</b> (three underscores) for a blank. Wrap words in <b>**double stars**</b> to make them bold. Saved changes are used in the next race.</p>
+  ${E.sections.map((x,si)=>`<section class="card edsec">
+    <div class="edhead"><div class="eyebrow">Section ${si+1}</div>
+      <div class="fgrid"><label class="fld"><span>Section name</span><input id="s${si}-name" data-s="${si}" data-f="name" value="${esc(x.name)}"></label>
+      <label class="fld"><span>Short label (progress bar)</span><input id="s${si}-short" data-s="${si}" data-f="short" value="${esc(x.short)}"></label></div>
+      <label class="fld"><span>Rule shown at the start of the section</span><input id="s${si}-rule" data-s="${si}" data-f="rule" value="${esc(x.rule)}"></label></div>
+    <div class="qlist">${x.questions.map((q,qi)=>{n++;const key=si+"-"+qi,open=openQ.has(key);
+      return `<div class="qrow ${open?"open":""}">
+      <button class="qsum" data-tog="${key}" aria-expanded="${open}"><span class="qn">Q${n}</span><span class="qprev">${esc(q.text.replace(/\n/g," ")||"New question")}</span><span class="chip good qans">${esc(q.opts[q.a]||"no answer")}</span><span class="caret">${open?"▲":"▼"}</span></button>
+      ${open?`<div class="qedit">
+        <label class="fld"><span>Question</span><textarea id="q${key}-text" rows="2" data-s="${si}" data-q="${qi}" data-f="text">${esc(q.text)}</textarea></label>
+        <label class="fld"><span>Small label above the question (optional)</span><input id="q${key}-tag" data-s="${si}" data-q="${qi}" data-f="tag" value="${esc(q.tag)}"></label>
+        <div class="fld"><span>Answers · tick the correct one</span>
+          ${q.opts.map((o,oi)=>`<div class="optrow"><input type="radio" id="q${key}-a${oi}" name="q${key}-a" data-s="${si}" data-q="${qi}" data-a="${oi}" ${q.a===oi?"checked":""} aria-label="Correct answer ${"ABCD"[oi]}"><b>${"ABCD"[oi]}</b><input id="q${key}-o${oi}" data-s="${si}" data-q="${qi}" data-o="${oi}" value="${esc(o)}" placeholder="Answer ${"ABCD"[oi]}">${q.opts.length>2?`<button class="mini" data-rmopt="${si}.${qi}.${oi}" aria-label="Remove answer ${"ABCD"[oi]}">✕</button>`:""}</div>`).join("")}
+          ${q.opts.length<4?`<button class="mini add" data-addopt="${si}.${qi}">+ Add answer</button>`:""}</div>
+        <label class="fld"><span>Feedback when right (explains the rule)</span><textarea id="q${key}-rule" rows="2" data-s="${si}" data-q="${qi}" data-f="rule">${esc(q.rule)}</textarea></label>
+        <label class="fld"><span>Hint 1 · after the first wrong try (a gentle clue)</span><textarea id="q${key}-h" rows="2" data-s="${si}" data-q="${qi}" data-f="h">${esc(q.h)}</textarea></label>
+        <label class="fld"><span>Hint 2 · after another wrong try (the rule + an example)</span><textarea id="q${key}-h2" rows="2" data-s="${si}" data-q="${qi}" data-f="h2">${esc(q.h2||"")}</textarea></label>
+        <div class="row qacts"><button class="mini" data-mv="${si}.${qi}.-1" ${qi===0?"disabled":""}>↑ Move up</button><button class="mini" data-mv="${si}.${qi}.1" ${qi===x.questions.length-1?"disabled":""}>↓ Move down</button>
+          <button class="mini" data-prev="${si}.${qi}">▶ Preview</button><button class="mini" data-dup="${si}.${qi}">Duplicate</button><button class="mini danger" data-del="${si}.${qi}">${armed===key?"Tap again to delete":"Delete"}</button></div>
+      </div>`:""}</div>`}).join("")}</div>
+    <button class="mini add" data-addq="${si}">+ Add a question to this section</button>
+  </section>`).join("")}
+  <div class="savebar"><button class="btn ghost" id="restore">${armed==="restore"?"Tap again to restore":"Restore original questions"}</button><button class="btn" id="save" ${dirty&&db&&!saving?"":"disabled"}>${saving?"Saving…":"Save changes"}</button></div>`;
+  $("#back").onclick=()=>{H.view="teacher";armed=null;render()};
+  $("#save").onclick=saveQuestions;
+  $("#pvAll").onclick=()=>openPreview(0);
+  $("#restore").onclick=()=>{if(armed!=="restore"){armed="restore";renderEditor();return}armed=null;E=clone(DEFAULT_DATA);openQ.clear();markDirty();dirty=true;renderEditor();toast("Original questions restored. Save to keep them.")};
+  app.oninput=ev=>{const t=ev.target,si=+t.dataset.s;if(t.dataset.s==null)return;
+    if(t.dataset.q==null){E.sections[si][t.dataset.f]=t.value;markDirty();return}
+    const q=E.sections[si].questions[+t.dataset.q];
+    if(t.dataset.f){q[t.dataset.f]=t.value;if(t.dataset.f==="text"){const pv=t.closest(".qrow").querySelector(".qprev");pv.textContent=t.value.replace(/\n/g," ")||"New question"}}
+    else if(t.dataset.o!=null){q.opts[+t.dataset.o]=t.value;if(+t.dataset.o===q.a)t.closest(".qrow").querySelector(".qans").textContent=t.value||"no answer"}
+    markDirty()};
+  app.onchange=ev=>{const t=ev.target;if(t.type==="radio"&&t.dataset.a!=null){const q=E.sections[+t.dataset.s].questions[+t.dataset.q];q.a=+t.dataset.a;t.closest(".qrow").querySelector(".qans").textContent=q.opts[q.a]||"no answer";markDirty()}};
+  app.onclick=ev=>{const b=ev.target.closest("button");if(!b)return;const d=b.dataset;
+    const sp=v=>v.split(".").map(Number);
+    if(d.prev){const[si,qi]=sp(d.prev);openPreview(flatIndex(si,qi));return}
+    if(d.tog){openQ.has(d.tog)?openQ.delete(d.tog):openQ.add(d.tog);armed=null;renderEditor();return}
+    if(d.addopt){const[si,qi]=sp(d.addopt);E.sections[si].questions[qi].opts.push("")}
+    else if(d.rmopt){const[si,qi,oi]=sp(d.rmopt);const q=E.sections[si].questions[qi];q.opts.splice(oi,1);if(q.a>=q.opts.length||q.a===oi)q.a=q.a>oi?q.a-1:Math.min(q.a,q.opts.length-1)}
+    else if(d.addq){const si=+d.addq;E.sections[si].questions.push(blankQ());openQ.add(si+"-"+(E.sections[si].questions.length-1))}
+    else if(d.dup){const[si,qi]=sp(d.dup);const qs=E.sections[si].questions;qs.splice(qi+1,0,clone(qs[qi]));openQ.clear();openQ.add(si+"-"+(qi+1))}
+    else if(d.mv){const[si,qi,dir]=sp(d.mv);const qs=E.sections[si].questions;const j=qi+dir;[qs[qi],qs[j]]=[qs[j],qs[qi]];openQ.clear();openQ.add(si+"-"+j)}
+    else if(d.del){const key=d.del.replace(".","-");if(armed!==key){armed=key;renderEditor();return}const[si,qi]=sp(d.del);E.sections[si].questions.splice(qi,1);openQ.clear()}
+    else return;
+    armed=null;markDirty();renderEditor()};
+}
+function validate(){const errs=[];let n=0;
+  E.sections.forEach(x=>{if(!x.name.trim())errs.push("a section has no name");x.questions.forEach(q=>{n++;
+    if(!q.text.trim())errs.push(`Q${n} has no question text`);
+    const filled=q.opts.filter(o=>o.trim()).length;
+    if(filled<2)errs.push(`Q${n} needs at least 2 answers`);
+    else if(q.opts.some(o=>!o.trim()))errs.push(`Q${n} has an empty answer box`);
+    if(!q.opts[q.a]||!q.opts[q.a].trim())errs.push(`Q${n} has no correct answer ticked`)})});
+  if(!n)errs.push("add at least one question");
+  return errs}
+async function saveQuestions(){edErrors=validate();if(edErrors.length){renderEditor();window.scrollTo({top:0,behavior:"smooth"});return}
+  if(!db)return;saving=true;renderEditor();
+  try{const clean=cleanData(E);await db.doc("quiz/questions").set({sections:clean.sections,savedAt:Date.now()});
+    applyData(clean);E=clone(clean);dirty=false;saving=false;renderEditor();toast("Saved. The next race uses these questions.")}
+  catch(e){saving=false;renderEditor();toast(e&&e.code==="invalid_argument"?"Only the page owner or an editor can save questions.":"Couldn't save. Check your connection and try again.")}}
+
+
+/* ---------- TEACHER PREVIEW (uses the draft, saved or not) ---------- */
+let P={i:0,wrong:[],answered:false,tries:0,nudge:"",cheer:""};
+let PV={wrongs:[],wp:[],score:0,first:0,streak:0,best:0,done:{}};
+function resetPV(){PV={wrongs:[],wp:[],score:0,first:0,streak:0,best:0,done:{}}}
+function previewList(){const out=[];E.sections.forEach((x,si)=>x.questions.forEach((q,qi)=>out.push(Object.assign({},q,{si,qi,secName:x.name,secShort:x.short||x.name,secRule:x.rule}))));return out}
+function flatIndex(si,qi){let n=0;for(let k=0;k<si;k++)n+=E.sections[k].questions.length;return n+qi}
+function openPreview(i){if(!E)E=clone(DATA);resetPV();P={i:Math.max(0,i),wrong:[],answered:false,tries:0};H.view="tpreview";render();window.scrollTo({top:0})}
+function renderPreview(){
+  const L=previewList();if(!L.length){H.view="editor";return render()}
+  if(P.i>=L.length)P.i=L.length-1;
+  const q=L[P.i],pct=P.i/L.length*100,firstOfSec=q.qi===0;
+  const opts=q.opts.map((o,i)=>({o,i})).filter(x=>x.o.trim());
+  if(P.hintOpen){app.innerHTML=`<div class="pvbar"><span class="chip warn">Teacher preview · nothing is recorded</span><div class="row" style="margin-left:auto"><button class="mini" id="pvBack">← Back to editor</button></div></div>
+    ${hintScreen(q,P.tries,P.nudge,q.opts[P.wrong[P.wrong.length-1]])}`;
+    $("#pvBack").onclick=()=>{clearTimeout(autoT);P.hintOpen=false;H.view="editor";render()};
+    armUnderstood(()=>{P.hintOpen=false;renderPreview()});return}
+  app.innerHTML=`
+  <div class="pvbar"><span class="chip warn">Teacher preview · nothing is recorded</span>${dirty?`<span class="chip">Showing unsaved changes</span>`:""}
+    <div class="row" style="margin-left:auto"><button class="mini" id="pvEdit">✎ Edit this question</button><button class="mini" id="pvBack">← Back to editor</button></div></div>
+  <div class="hud"><div><div class="row" style="justify-content:space-between;margin-bottom:8px">
+    <span class="eyebrow">Section ${q.si+1} · ${esc(q.secShort)}</span><span class="eyebrow">Question ${P.i+1} of ${L.length}</span></div>
+    <div class="track"><div class="fill" style="width:${pct}%"></div><span class="car" style="left:${Math.max(2,pct)}%">🏎️</span></div></div>
+    <div class="scorebox"><div class="score">⭐ ${P.answered?(P.tries===0?100:P.tries===1?60:30):0}</div><button class="mute" onclick="setMute(!muted)" aria-label="${muted?"Turn sound on":"Turn sound off"}">${muted?"🔇":"🔊"}</button></div></div>
+  ${firstOfSec&&q.secRule?`<div class="card pvsec"><div class="eyebrow">Section intro students see first</div><h2>${esc(q.secName)}</h2><div class="secrule">${fmt(q.secRule)}</div></div>`:""}
+  <section class="card qcard" id="qc">
+    ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
+    <div class="qtext">${fmt(q.text||"(No question text yet)").replace(/_{3,}/g,'<span class="blank"></span>')}</div>
+    <div class="opts">${opts.map(({o,i})=>`<button class="opt ${P.wrong.includes(i)?"wrong":""} ${P.answered&&i===q.a?"right":""}" data-i="${i}" ${P.wrong.includes(i)||P.answered?"disabled":""}><b>${"ABCD"[i]}</b><span>${esc(o)}</span></button>`).join("")}</div>
+    <div id="fb">${P.answered?`<div class="fb good"><div class="head">${esc(P.cheer)} +${P.tries===0?100:P.tries===1?60:30}</div><div class="rule">${fmt(q.rule||"(No feedback written yet)")}</div><div class="autobar" aria-hidden="true" style="margin-top:6px"><i style="animation-duration:${P.tries===0?AUTO_FIRST:AUTO_AFTER}ms"></i></div></div>`:
+      P.wrong.length?hintHTML(q,P.tries,P.nudge):""}</div>
+  </section>
+  <div class="pvnav"><button class="btn ghost" id="pvPrev" ${P.i===0?"disabled":""}>← Previous</button>
+    <div class="row"><button class="mini" id="pvReset">↺ Try again</button>${P.i<L.length-1&&!P.answered?`<button class="mini" id="pvSkip">Skip (teacher only)</button>`:""}</div>
+    <button class="btn" id="pvNext" ${!P.answered?"disabled":""}>${!P.answered?"Answer correctly to continue":P.i>=L.length-1?"See results →":"Next →"}</button></div>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(P.answered)return;
+    if(i===q.a){if(!PV.done[P.i]){PV.done[P.i]=1;const f=P.tries===0;PV.streak=f?PV.streak+1:0;PV.best=Math.max(PV.best,PV.streak);PV.score+=(f?100:P.tries===1?60:30)+(f&&PV.streak>=3?20:0);if(f)PV.first++}
+      P.answered=true;P.cheer=P.tries===0?pick(CHEERS):pick(RETRY_WIN);sfxRight(P.tries===0);confetti(P.tries===0?110:50);showCheer(P.tries===0?pick(CHEER_EMOJI):"👍",P.cheer);{const at=P.i,last=at>=L.length-1;schedule(()=>{if(H.view==="tpreview"&&P.i===at&&P.answered){if(last)showPreviewEnd();else go(at+1)}},P.tries===0?AUTO_FIRST:AUTO_AFTER)}renderPreview();$("#qc").classList.add("pop")}
+    else{P.tries++;P.wrong.push(i);if(!PV.done[P.i]){PV.wrongs[P.i]=(PV.wrongs[P.i]||0)+1;(PV.wp[P.i]||(PV.wp[P.i]=[])).push(i)}P.nudge=pick(NUDGES);P.hintOpen=true;sfxWrong();renderPreview();window.scrollTo({top:0,behavior:"smooth"});if(P.tries<=2)showCheer(pick(PUSH_EMOJI),pick(PUSH),true)}});
+  const go=i=>{clearTimeout(autoT);P={i,wrong:[],answered:false,tries:0,hintOpen:false};renderPreview();window.scrollTo({top:0,behavior:"smooth"})};
+  $("#pvPrev").onclick=()=>go(P.i-1);$("#pvNext").onclick=()=>{if(!P.answered)return;if(P.i>=L.length-1)showPreviewEnd();else go(P.i+1)};const sk=$("#pvSkip");if(sk)sk.onclick=()=>go(P.i+1);$("#pvReset").onclick=()=>go(P.i);
+  $("#pvBack").onclick=()=>{clearTimeout(autoT);H.view="editor";render()};
+  $("#pvEdit").onclick=()=>{clearTimeout(autoT);const key=q.si+"-"+q.qi;openQ.clear();openQ.add(key);H.view="editor";render();
+    const el=document.getElementById("q"+key+"-text");if(el){el.scrollIntoView({block:"center"});el.focus()}};
+}
+
+function showPreviewEnd(){clearTimeout(autoT);H.view="tpreviewEnd";sfxWin();confetti(220);showCheer("🏆",pick(FINISH));render();window.scrollTo({top:0})}
+function renderPreviewEnd(){const L=previewList();const secs=[];let n=0;E.sections.forEach(x=>{secs.push({name:x.name,short:x.short||x.name,start:n,end:n+x.questions.length});n+=x.questions.length});
+  const wr=Array.from({length:L.length},(_,i)=>PV.wrongs[i]||0);
+  app.innerHTML=`<div class="pvbar"><span class="chip warn">Teacher preview · this is the student's end screen</span><div class="row" style="margin-left:auto"><button class="mini" id="pvAgain">↺ Preview again</button><button class="mini" id="pvBack">← Back to editor</button></div></div>`+
+   doneHTML({name:"Student",score:PV.score,first:PV.first,wrongs:wr,wp:PV.wp,best:PV.best,qs:L,secs,rankHTML:rankHTML(null,true),buttons:`<button class="btn ghost" disabled>Race again</button>`});
+  startDoneFx(PV.score);
+  $("#pvBack").onclick=()=>{H.view="editor";render()};$("#pvAgain").onclick=()=>openPreview(0)}
+/* ---------- router ---------- */
+let teacherTimer=null;
+function render(){
+  if(isHost&&H.view==="tpreviewEnd"){if(!E)E=clone(DATA);return renderPreviewEnd()}
+  if(isHost&&H.view==="tpreview"){if(!E)E=clone(DATA);return renderPreview()}
+  if(isHost&&H.view==="editor"){if(!E)E=clone(DATA);return renderEditor()}
+  if(isHost&&H.view==="past")return renderPast();
+  if(isHost&&H.view==="teacher")return renderTeacher();
+  if(S.phase==="join")return renderJoin();
+  if(S.phase==="wait")return renderWait();
+  if(S.phase==="play")return renderPlay();
+  if(S.phase==="done")return renderDone();
+}
+
+function onGame(g){ if(!g||typeof g.gid!=="string")return; const prev=hostSeen; hostSeen={gid:g.gid,state:g.state};
+  if(isHost&&H.view!=="student")return;
+  if(g.state==="live"&&S.phase==="wait"){S.gid=g.gid;toast("Go go go!");tone([[440,.15],[440,.15],[880,.4]]);startPlay();return}
+  if(g.state==="live"&&S.gid&&S.gid!==g.gid&&S.phase!=="join"){S.gid=g.gid;startPlay();return}
+  if(g.state==="lobby"&&prev&&prev.gid!==g.gid&&S.phase!=="join"){S.gid=null;S.phase="wait";pushPresence();render();return}
+  if(S.phase==="wait")render();
+}
+
+async function boot(saved){
+  if(saved&&saved.S)S=Object.assign(S,saved.S);
+  if(saved&&saved.H)H=Object.assign(H,saved.H);
+  if(saved&&saved.E){E=saved.E;dirty=!!saved.dirty}
+  if(saved&&saved.P)P=saved.P;
+  if(saved&&saved.PV)PV=saved.PV;
+  render();
+  try{ [room,user,db]=await Promise.all(["room","user","db"].map(n=>window.claude?claude.use(n).catch(()=>null):null)); }catch(e){}
+  if(db){ db.doc("quiz/questions").onSnapshot(snap=>{
+      const d=snap.exists?cleanData(snap.data()):null; const next=d||DEFAULT_DATA;
+      if(JSON.stringify(next)===JSON.stringify(DATA))return;
+      if(S.phase==="play"&&H.view==="student"){pendingData=next;return}
+      applyData(next); if(H.view==="editor"&&!dirty)E=clone(next);
+      if(!((H.view==="editor"||H.view==="tpreview")&&dirty))render();
+    },()=>{}); }
+  isHost = user ? await user.canEdit() : false;
+  if(room){
+    roomOK=true;
+    room.onConnection(()=>{},()=>{roomOK=false;render()});
+    room.on("game",m=>onGame(m.data),()=>{});
+    room.onPeers(ch=>{
+      if(isHost&&H.state!=="lobby")collect();
+      if(isHost&&H.view==="teacher"){ if(ch.joined.length)broadcast(); clearTimeout(teacherTimer);teacherTimer=setTimeout(render,120); }
+      else if(isHost&&H.view!=="student"){ if(ch.joined.length)broadcast(); }
+      else if(!isHost||H.view==="student"){if(S.phase==="wait")render();else if(S.phase==="done")refreshRank();}
+    },()=>{roomOK=false;render()});
+  }
+  if(isHost){ if(!H.gid)H.gid="g"+Math.random().toString(36).slice(2,8); setInterval(broadcast,4000); setTimeout(broadcast,800); }
+  if(S.phase!=="join")pushPresence();
+  render();
+}
+window.claude?.hot?.snapshot?.(()=>({S,H,E,dirty,P,PV}));
+window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>
