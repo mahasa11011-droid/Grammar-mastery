@@ -333,7 +333,7 @@ mark.ans{background:var(--good);color:#fff;padding:1px 10px;border-radius:999px;
    Teacher: open  …/#teacher      Students: scan the QR / open the join link (…/#j=PIN…)  */
 (function(){
 "use strict";
-var EMBED_CFG = null; /*__EMBED_CFG__*/
+var EMBED_CFG = {"apiKey": "AIzaSyDDJM6DstXPXQJEoUqYOtYcglny44hkpqE", "authDomain": "grammar-mastery-5c821.firebaseapp.com", "databaseURL": "https://grammar-mastery-5c821-default-rtdb.europe-west1.firebasedatabase.app", "projectId": "grammar-mastery-5c821", "appId": "1:739211530671:web:2b1bc43dfff855fb369f5a"};
 var FB_V = "10.12.2";
 var RULES = '{\n  "rules": {\n    "games": {\n      "$pin": {\n        ".read": "auth != null",\n        "host": { ".write": "auth != null && (!data.exists() || data.val() === auth.uid)" },\n        "meta": { ".write": "auth != null && root.child(\'games\').child($pin).child(\'host\').val() === auth.uid" },\n        "races": { ".write": "auth != null && root.child(\'games\').child($pin).child(\'host\').val() === auth.uid" },\n        "players": { "$uid": { ".write": "auth != null && auth.uid === $uid" } },\n        "lobby": { "$uid": { ".write": "auth != null && auth.uid === $uid" } }\n      }\n    }\n  }\n}';
 var LS = {
@@ -392,13 +392,14 @@ function start(){
   if(ready) return ready;
   ready = (async function(){
     for(var n of ["app","auth","database"]) await loadScript("https://www.gstatic.com/firebasejs/"+FB_V+"/firebase-"+n+"-compat.js");
-    firebase.initializeApp(cfg);
-    var auth = firebase.auth();
+    /* students use their own Firebase app, so a student tab on the teacher's device gets its own identity */
+    var fbApp = isTeacher ? firebase.initializeApp(cfg) : firebase.initializeApp(cfg, "student");
+    var auth = fbApp.auth();
     var u = await new Promise(function(r){ var un = auth.onAuthStateChanged(function(x){ un(); r(x); }); });
     if(!u){ try{ u = (await auth.signInAnonymously()).user; }
       catch(e){ throw new Error("Anonymous sign-in is off. In Firebase: Authentication → Sign-in method → Anonymous → Enable."); } }
     uid = u.uid;
-    fdb = firebase.database();
+    fdb = fbApp.database();
     G = fdb.ref("games/" + pin);
     if(isTeacher){
       var h;
