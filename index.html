@@ -123,7 +123,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 @media (max-width:820px){.tgrid{grid-template-columns:1fr}}
 .joinpanel{display:flex;flex-direction:column;gap:14px;align-items:stretch}
 #qr{display:grid;place-items:center;background:#fff;padding:12px;border-radius:12px;align-self:center}
-#qr img,#qr canvas{display:block;width:220px;height:220px}
+#qr img,#qr canvas{display:block;width:240px;height:240px}
 .link{font:700 13px/1.4 ui-monospace,Menlo,monospace;word-break:break-all;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--line)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .bigcount{font:800 56px/1 var(--display);font-variant-numeric:tabular-nums}
@@ -275,6 +275,47 @@ button.rrow:hover{background:var(--track)}
 .rankbox{display:flex;gap:14px;align-items:center;text-align:left;padding:14px 18px;border-radius:18px;background:linear-gradient(90deg,color-mix(in srgb,var(--sun) 22%,var(--surface)),color-mix(in srgb,var(--tang) 16%,var(--surface)));border:2px solid color-mix(in srgb,var(--sun) 55%,transparent);max-width:460px;margin:4px auto}
 .rkmed{font-size:46px;line-height:1}
 .rkbig{font:700 24px var(--display)}
+.uchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.uchip{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+.uchip b{font:700 17px var(--display)}
+.uchip span{font-size:13px;font-weight:700;line-height:1.25}
+.uchip small{font-size:12px;color:var(--muted)}
+.uchip.on{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 14%,var(--surface));box-shadow:0 3px 0 color-mix(in srgb,var(--pink) 45%,transparent)}
+.uchip.on b::before{content:"✓ ";color:var(--pink)}
+.unitpick{display:flex;flex-direction:column;gap:8px}
+.fixhint{font:700 15px var(--body);color:var(--violet)}
+.chunks{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.opt.chunk{--oc:var(--line);background:var(--surface);color:var(--ink);border:2px dashed color-mix(in srgb,var(--violet) 45%,var(--line));min-height:0;padding:10px 14px;border-radius:12px;font:600 clamp(18px,3vw,22px)/1.3 var(--display);box-shadow:0 3px 0 var(--line)}
+.opt.chunk:hover:not(:disabled){border-color:var(--pink);border-style:solid}
+.opt.chunk.wrong{background:var(--track);color:var(--muted);text-decoration:line-through;border-style:solid;box-shadow:none;opacity:.8}
+.opt.chunk.right{background:var(--good-bg);color:var(--good);border:2px solid var(--good);text-decoration:none;animation:bounce .6s}
+.opt.chunk.right s{color:var(--bad);opacity:.8}
+.opt.chunk .fixed{font-weight:700}
+.chunks:has(.right) .chunk:not(.right){opacity:.55}
+.fixline{margin-top:6px;padding:10px 12px;border-radius:10px;background:var(--surface);border:2px solid var(--good);font-size:17px}
+.fixline em{font-style:normal;font-weight:700;color:var(--good)}
+.fgrid.three{grid-template-columns:2fr 1fr 90px}
+@media (max-width:560px){.fgrid.three{grid-template-columns:1fr 1fr}}
+.fld select{font:16px/1.4 var(--body);padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.explain{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.exlabel{font:700 13px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ansline{font:600 clamp(19px,3.4vw,24px)/1.5 var(--display);padding:12px 14px;border-radius:14px;background:var(--surface);color:var(--ink);border:2px solid color-mix(in srgb,var(--good) 45%,var(--line))}
+.ansline em{font-style:normal}
+mark.ans{background:var(--good);color:#fff;padding:1px 10px;border-radius:999px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.why{font:500 clamp(17px,2.8vw,19px)/1.6 var(--body);color:var(--ink);padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--sun) 16%,var(--surface));border-left:6px solid var(--sun)}
+.why em{font-style:normal;font-weight:700;background:color-mix(in srgb,var(--sun) 45%,transparent);padding:0 5px;border-radius:5px}
+.fb.good .head{font-size:clamp(22px,4vw,28px)}
+.rulepts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.rulepts li{font:500 clamp(18px,3.2vw,22px)/1.5 var(--display);padding:14px 16px 14px 48px;border-radius:16px;background:color-mix(in srgb,var(--sky) 12%,var(--surface));border:2px solid color-mix(in srgb,var(--sky) 35%,var(--line));position:relative}
+.rulepts li::before{content:"✏️";position:absolute;left:14px;top:14px}
+.rulepts li em{font-style:normal;font-weight:700;color:var(--violet)}
+#gmSetup{padding-block:16px 40px}
+.setupcard{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.setsteps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:12px;font-size:16px;line-height:1.55}
+.rulesbox{margin:8px 0;padding:12px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font:12px/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;color:var(--ink)}
+.link{max-height:5.2em;overflow:auto;font-size:11px}
+.pinbox{align-self:center;padding:6px 16px;border-radius:999px;background:var(--track);font-weight:700;font-size:15px}
+.pinbox b{font:700 24px var(--display);letter-spacing:.12em;color:var(--pink);font-variant-numeric:tabular-nums}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:100%}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -287,9 +328,267 @@ button.rrow:hover{background:var(--track)}
 <footer class="credit">Created by: Maha Aldosari</footer>
 <div class="toast" id="toast" hidden></div>
 
+<script>
+/* Grammar Mastery · live classroom adapter for GitHub Pages (Firebase Realtime Database).
+   Teacher: open  …/#teacher      Students: scan the QR / open the join link (…/#j=PIN…)  */
+(function(){
+"use strict";
+var EMBED_CFG = null; /*__EMBED_CFG__*/
+var FB_V = "10.12.2";
+var RULES = '{\n  "rules": {\n    "games": {\n      "$pin": {\n        ".read": "auth != null",\n        "host": { ".write": "auth != null && (!data.exists() || data.val() === auth.uid)" },\n        "meta": { ".write": "auth != null && root.child(\'games\').child($pin).child(\'host\').val() === auth.uid" },\n        "races": { ".write": "auth != null && root.child(\'games\').child($pin).child(\'host\').val() === auth.uid" },\n        "players": { "$uid": { ".write": "auth != null && auth.uid === $uid" } },\n        "lobby": { "$uid": { ".write": "auth != null && auth.uid === $uid" } }\n      }\n    }\n  }\n}';
+var LS = {
+  get: function(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set: function(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del: function(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+function b64e(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function b64d(s){ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4)s+="="; return decodeURIComponent(escape(atob(s))); }
+
+var hash = location.hash.replace(/^#/,"");
+var params = new URLSearchParams(hash.indexOf("=")>=0 ? hash : "");
+var isTeacher = /^teacher/.test(hash);
+var wantSetup = /^teacher-setup/.test(hash);
+var pin = params.get("j");
+window.addEventListener("hashchange", function(){ location.reload(); });
+
+var cfg = EMBED_CFG;
+if(!cfg && params.get("k")){
+  try{ var c = JSON.parse(b64d(params.get("k")));
+    cfg = {apiKey:c.a, authDomain:c.p+".firebaseapp.com", databaseURL:c.d, projectId:c.p}; if(c.i)cfg.appId=c.i;
+  }catch(e){ cfg = null; }
+}
+if(!cfg) cfg = LS.get("gm-fbcfg");
+
+if(isTeacher && (!cfg || wantSetup)){
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", showSetup); else showSetup();
+  return;
+}
+if(!(isTeacher || pin) || !cfg) return;                 /* plain link → practice mode */
+if(pin && !/^\d{6}$/.test(pin)) return;
+
+if(isTeacher){ pin = LS.get("gm-pin"); if(!pin){ pin = String(100000 + Math.floor(Math.random()*900000)); LS.set("gm-pin", pin); } }
+var base = location.origin + location.pathname;
+var k = EMBED_CFG ? "" : "&k=" + b64e(JSON.stringify({a:cfg.apiKey, d:cfg.databaseURL, p:cfg.projectId, i:cfg.appId||""}));
+window.__JOIN_URL = base + "#j=" + pin + k;
+window.__PIN = pin;
+window.__GH_LIVE = true;
+
+/* ---------- keep state across a page reload (stands in for the Claude viewer's hot reload) ---------- */
+var HK = "gm-hot-" + (isTeacher ? "t" : "s") + "-" + pin;
+var stored = LS.get(HK);
+if(stored && (Date.now() - (stored.t||0) > 6*3600*1000)) stored = null;
+var snapFn = null;
+function saveHot(){ if(!snapFn) return; try{ var d = snapFn();
+  LS.set(HK, isTeacher ? {t:Date.now(), H:d.H, E:d.E, dirty:d.dirty} : {t:Date.now(), S:d.S}); }catch(e){} }
+setInterval(saveHot, 2000);
+addEventListener("pagehide", saveHot);
+document.addEventListener("visibilitychange", saveHot);
+var hot = { data: stored || {}, snapshot: function(fn){ snapFn = fn; } };
+
+/* ---------- Firebase ---------- */
+function loadScript(u){ return new Promise(function(res,rej){ var s=document.createElement("script"); s.src=u; s.onload=res; s.onerror=function(){ rej(new Error("Couldn't load Firebase. Check the internet connection.")); }; document.head.appendChild(s); }); }
+var uid = null, G = null, fdb = null, ready = null;
+function start(){
+  if(ready) return ready;
+  ready = (async function(){
+    for(var n of ["app","auth","database"]) await loadScript("https://www.gstatic.com/firebasejs/"+FB_V+"/firebase-"+n+"-compat.js");
+    firebase.initializeApp(cfg);
+    var auth = firebase.auth();
+    var u = await new Promise(function(r){ var un = auth.onAuthStateChanged(function(x){ un(); r(x); }); });
+    if(!u){ try{ u = (await auth.signInAnonymously()).user; }
+      catch(e){ throw new Error("Anonymous sign-in is off. In Firebase: Authentication → Sign-in method → Anonymous → Enable."); } }
+    uid = u.uid;
+    fdb = firebase.database();
+    G = fdb.ref("games/" + pin);
+    if(isTeacher){
+      var h;
+      try{ h = (await G.child("host").once("value")).val(); }
+      catch(e){ throw new Error("The database refused access. Check the Realtime Database rules (paste the rules from the setup page)."); }
+      if(h && h !== uid){ LS.del("gm-pin"); LS.del(HK); location.reload(); await new Promise(function(){}); }
+      if(!h) await G.child("host").set(uid);
+    }
+    wireConnection();
+    return true;
+  })();
+  ready.catch(function(e){ window.__LIVE_ERR = (e && e.message) || "Couldn't connect to the live class."; });
+  return ready;
+}
+function withTimeout(p, ms){ return Promise.race([p, new Promise(function(_,rej){ setTimeout(function(){ rej(new Error("The live class didn't answer. Check the internet connection and the Firebase settings.")); }, ms); })]); }
+
+/* ---------- connection + presence ---------- */
+var connected = false, connListeners = [], myPresence = null;
+function wireConnection(){
+  fdb.ref(".info/connected").on("value", function(s){
+    connected = !!s.val();
+    if(connected && myPresence) writePresence(true);
+    connListeners.forEach(function(f){ try{ f(connected); }catch(e){} });
+  });
+}
+function lobbySummary(p){ return {role:p.role||"", gid:p.gid==null?"":p.gid, score:+p.score||0, done:!!p.done}; }
+var lastWritten = "";
+function writePresence(force){
+  if(!G || !uid || !myPresence) return;
+  var full = JSON.stringify(myPresence);
+  if(!force && full === lastWritten) return;
+  lastWritten = full;
+  var me = G.child("players/"+uid), lb = G.child("lobby/"+uid);
+  if(myPresence.role !== "player"){ me.remove(); lb.remove(); return; }
+  me.onDisconnect().remove(); lb.onDisconnect().remove();
+  me.set({d: full, t: firebase.database.ServerValue.TIMESTAMP});
+  lb.set(lobbySummary(myPresence));
+}
+
+/* peers: the teacher sees every player's full progress; a student only sees small score summaries */
+var peerMap = {}, peerListeners = [], peersArr = Object.freeze([]), pending = {joined:[], left:[], updated:[]}, flushT = null, firstFlush = true;
+function makePeer(id, presence, t){ return Object.freeze({peer:id, by:id, isMe:id===uid, sameTab:id===uid, kind:"viewer", guest:false, presence:Object.freeze(presence||{}), updatedAt:t||Date.now()}); }
+function flush(){
+  flushT = null;
+  peersArr = Object.freeze(Object.keys(peerMap).map(function(id){ return peerMap[id]; }));
+  var ch = {peers:peersArr, joined:Object.freeze(pending.joined), left:Object.freeze(pending.left), updated:Object.freeze(pending.updated)};
+  if(firstFlush){ ch.joined = peersArr; firstFlush = false; }
+  pending = {joined:[], left:[], updated:[]};
+  peerListeners.forEach(function(f){ try{ f(ch); }catch(e){ console.error(e); } });
+}
+function queue(){ if(!flushT) flushT = setTimeout(flush, 60); }
+var peersWired = false;
+function wirePeers(){
+  if(peersWired) return; peersWired = true;
+  var ref = G.child(isTeacher ? "players" : "lobby");
+  function parse(s){ var v = s.val(); if(!v) return {};
+    if(isTeacher){ try{ return JSON.parse(v.d); }catch(e){ return {}; } }
+    return {role:v.role, gid:v.gid===""?null:v.gid, score:v.score, done:v.done}; }
+  ref.on("child_added", function(s){ var p = makePeer(s.key, parse(s)); peerMap[s.key] = p; pending.joined.push(p); queue(); });
+  ref.on("child_changed", function(s){ var p = makePeer(s.key, parse(s)); peerMap[s.key] = p; pending.updated.push(p); queue(); });
+  ref.on("child_removed", function(s){ var p = peerMap[s.key]; delete peerMap[s.key]; if(p) pending.left.push(p); queue(); });
+  setTimeout(function(){ if(firstFlush) flush(); }, 1200);
+}
+
+var room = {
+  peers: function(){ return peersArr; },
+  onPeers: function(fn){ peerListeners.push(fn); wirePeers(); return function(){ peerListeners = peerListeners.filter(function(f){ return f!==fn; }); }; },
+  presence: function(patch){ myPresence = Object.assign({}, myPresence || {}, patch);
+    Object.keys(myPresence).forEach(function(k){ if(myPresence[k] === null) delete myPresence[k]; });
+    writePresence(false); return Promise.resolve(); },
+  emit: function(topic, data){ if(!isTeacher || topic !== "game") return Promise.resolve();
+    var v = JSON.stringify(data); if(v === room._lastGame) return Promise.resolve(); room._lastGame = v;
+    return G.child("meta/game").set(v).catch(function(){}); },
+  on: function(topic, fn){ if(topic !== "game") return function(){};
+    var cb = function(s){ var v = s.val(); if(!v) return; try{ fn({topic:"game", data:JSON.parse(v), peer:"", by:null, isMe:false, sameTab:false, kind:"viewer", guest:false}); }catch(e){ console.error(e); } };
+    G.child("meta/game").on("value", cb); return function(){ G.child("meta/game").off("value", cb); }; },
+  connected: function(){ return connected; },
+  onConnection: function(fn){ connListeners.push(fn); setTimeout(function(){ fn(connected); }, 0); return function(){ connListeners = connListeners.filter(function(f){ return f!==fn; }); }; },
+  canSendToClaudeSession: function(){ return Promise.resolve("off"); }
+};
+var user = {
+  canEdit: function(){ return Promise.resolve(isTeacher); },
+  isOwner: function(){ return Promise.resolve(isTeacher); },
+  can: function(){ return Promise.resolve(null); },
+  id: function(){ return Promise.resolve(uid); },
+  me: function(){ return Promise.resolve({id:uid, name:"", avatarUrl:"", color:"#888", email:null, isOwner:isTeacher, canEdit:isTeacher}); },
+  profiles: function(ids){ var o = {}; [].concat(ids||[]).forEach(function(i){ o[i] = {id:i, name:"", avatarUrl:"", color:"#888", email:null, isMe:i===uid, guest:false}; }); return Promise.resolve(o); },
+  search: function(){ return Promise.resolve([]); }
+};
+/* documents the page uses: quiz/questions (edited questions) and races/<id> (saved reports) */
+function pathRef(path){ var p = path.split("/");
+  if(p[0]==="quiz" && p[1]==="questions") return G.child("meta/questions");
+  if(p[0]==="races" && p[1]) return G.child("races/" + p[1].replace(/[^A-Za-z0-9_-]/g,""));
+  return null; }
+var db = {
+  doc: function(path){ var ref = pathRef(path);
+    return {
+      id: path.split("/").pop(), path: path,
+      get: function(){ return ref.once("value").then(function(s){ var v = s.val(); return {id:this&&path, exists:!!v, data:function(){ try{ return JSON.parse(v); }catch(e){ return undefined; } }, metadata:{fromCache:false, hasPendingWrites:false}}; }); },
+      set: function(obj){ if(!ref) return Promise.reject({code:"invalid_argument", message:"Unknown path"});
+        return ref.set(JSON.stringify(obj)).catch(function(e){ throw {code:"invalid_argument", message:(e&&e.message)||"Not allowed"}; }); },
+      onSnapshot: function(next, err){ if(!ref){ if(err) err({code:"invalid_argument", message:"Unknown path"}); return function(){}; }
+        var cb = function(s){ var v = s.val(); next({id:path.split("/").pop(), exists:!!v, data:function(){ try{ return JSON.parse(v); }catch(e){ return undefined; } }, metadata:{fromCache:false, hasPendingWrites:false}}); };
+        ref.on("value", cb, function(e){ if(err) err({code:"revoked", message:String(e&&e.message||e)}); });
+        return function(){ ref.off("value", cb); }; }
+    }; },
+  collection: function(name){
+    var q = {field:null, dir:"asc", n:1000};
+    var api = {
+      orderBy: function(f, d){ q.field = f; q.dir = d||"asc"; return api; },
+      limit: function(n){ q.n = n; return api; },
+      where: function(){ return api; },
+      get: function(){ if(name !== "races") return Promise.resolve({docs:[], size:0, empty:true});
+        return G.child("races").once("value").then(function(s){ var v = s.val() || {}, rows = [];
+          Object.keys(v).forEach(function(id){ try{ rows.push({id:id, d:JSON.parse(v[id])}); }catch(e){} });
+          if(q.field) rows.sort(function(a,b){ var x = a.d[q.field]||0, y = b.d[q.field]||0; return q.dir==="desc" ? y-x : x-y; });
+          rows = rows.slice(0, q.n);
+          var docs = rows.map(function(r){ return {id:r.id, exists:true, data:function(){ return r.d; }}; });
+          return {docs:docs, size:docs.length, empty:!docs.length}; }); }
+    };
+    return api; }
+};
+var caps = {room:room, user:user, db:db};
+window.claude = {
+  hot: hot,
+  use: function(name){
+    if(!caps[name]) return Promise.resolve(null);
+    return withTimeout(start(), 20000).then(function(){ return caps[name]; }, function(e){ window.__LIVE_ERR = (e && e.message) || window.__LIVE_ERR; return null; });
+  }
+};
+
+/* ---------- one-time setup screen for the teacher ---------- */
+function showSetup(){
+  var cur = LS.get("gm-fbcfg");
+  var wrap = document.createElement("div");
+  wrap.id = "gmSetup";
+  wrap.innerHTML =
+  '<div class="setupcard card">'+
+   '<div class="eyebrow"><span class="flag"></span>Teacher setup · one time only</div>'+
+   '<h1 class="rainbow">Connect your live class</h1>'+
+   '<p class="muted" style="margin:0">Grammar Mastery uses a free Google Firebase database to show you your students\' progress live. Do these steps once on this device.</p>'+
+   '<ol class="setsteps">'+
+    '<li>Open <b>console.firebase.google.com</b> and tap <b>Create a project</b>. Name it <b>grammar-mastery</b>, turn Google Analytics off, and tap <b>Create project</b>.</li>'+
+    '<li>Go to <b>Build → Authentication → Get started → Sign-in method</b>. Choose <b>Anonymous</b>, switch it on and tap <b>Save</b>.</li>'+
+    '<li>Go to <b>Build → Realtime Database → Create database</b>. Pick a location, choose <b>Start in locked mode</b> and tap <b>Enable</b>.</li>'+
+    '<li>In Realtime Database, open the <b>Rules</b> tab. Delete everything there, paste these rules, and tap <b>Publish</b>:'+
+     '<pre id="gmRules" class="rulesbox"></pre><button class="btn ghost" id="gmCopyRules" type="button">Copy the rules</button></li>'+
+    '<li>Tap the ⚙️ gear → <b>Project settings</b>. Under <b>Your apps</b> tap the web icon <b>&lt;/&gt;</b>, type any nickname and tap <b>Register app</b>. Copy the code block that starts with <b>const firebaseConfig = {</b> and paste it below.</li>'+
+   '</ol>'+
+   '<label class="fld" for="gmCfg"><span>Paste the firebaseConfig code</span><textarea id="gmCfg" rows="8" placeholder="const firebaseConfig = {&#10;  apiKey: &quot;…&quot;,&#10;  authDomain: &quot;…&quot;,&#10;  …&#10;};"></textarea></label>'+
+   '<label class="fld" for="gmDb" id="gmDbRow" hidden><span>Database URL (copy it from the top of the Realtime Database page)</span><input id="gmDb" placeholder="https://grammar-mastery-default-rtdb.europe-west1.firebasedatabase.app"></label>'+
+   '<div id="gmErr" class="banner" style="background:var(--bad-bg);color:var(--bad)" hidden></div>'+
+   '<div class="row"><button class="btn" id="gmSave" type="button">Save and open my class</button>'+(cur?'<button class="btn ghost" id="gmCancel" type="button">Cancel</button>':'')+'</div>'+
+  '</div>';
+  document.body.insertBefore(wrap, document.body.firstChild);
+  var foot = document.querySelector("footer.credit"); if(foot) foot.hidden = true;
+  var app = document.getElementById("app"); if(app) app.hidden = true;
+  document.getElementById("gmRules").textContent = RULES;
+  if(cur){ document.getElementById("gmCfg").value = "const firebaseConfig = " + JSON.stringify(cur, null, 2) + ";"; }
+  document.getElementById("gmCopyRules").onclick = function(){
+    var done = function(){ this.textContent = "Copied ✓"; }.bind(this);
+    try{ navigator.clipboard.writeText(RULES).then(done, sel); }catch(e){ sel(); }
+    function sel(){ var r = document.createRange(); r.selectNodeContents(document.getElementById("gmRules")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  };
+  function goTeacher(){ if(location.hash === "#teacher") location.reload(); else location.hash = "teacher"; }
+  var c0 = document.getElementById("gmCancel"); if(c0) c0.onclick = goTeacher;
+  document.getElementById("gmSave").onclick = function(){
+    var err = document.getElementById("gmErr"); err.hidden = true;
+    var txt = document.getElementById("gmCfg").value, obj = null;
+    var m = txt.match(/\{[\s\S]*\}/);
+    if(m){ var j = m[0].replace(/(^|[^:])\/\/[^\n]*/g,"$1").replace(/([{,]\s*)([A-Za-z_$][\w$]*)\s*:/g,'$1"$2":').replace(/'/g,'"').replace(/,\s*([}\]])/g,"$1");
+      try{ obj = JSON.parse(j); }catch(e){ obj = null; } }
+    if(!obj || !obj.apiKey || !obj.projectId){ err.textContent = "That doesn't look like the firebaseConfig code. Copy the whole block, from { to }."; err.hidden = false; return; }
+    var dbu = (document.getElementById("gmDb").value || "").trim();
+    if(!obj.databaseURL && dbu) obj.databaseURL = dbu;
+    if(!obj.databaseURL){ document.getElementById("gmDbRow").hidden = false; err.textContent = "Your code has no database URL. Copy it from the top of the Realtime Database page and paste it in the new box."; err.hidden = false; return; }
+    if(!/^https:\/\/[\w.-]+\.(firebaseio\.com|firebasedatabase\.app)\/?$/.test(obj.databaseURL)){ err.textContent = "The database URL should look like https://…firebaseio.com or https://…firebasedatabase.app"; err.hidden = false; return; }
+    obj.databaseURL = obj.databaseURL.replace(/\/$/,"");
+    if(!obj.authDomain) obj.authDomain = obj.projectId + ".firebaseapp.com";
+    var keep = {apiKey:obj.apiKey, authDomain:obj.authDomain, databaseURL:obj.databaseURL, projectId:obj.projectId}; if(obj.appId) keep.appId = obj.appId;
+    LS.set("gm-fbcfg", keep);
+    goTeacher();
+  };
+}
+})();
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-const JOIN_URL = "https://claude.ai/artifact/Qg9CzwPgq7g4dgqrBeLvDB";
+const JOIN_URL = window.__JOIN_URL || "";
 const Q0 = [
  {tag:"Passive · Simple present", text:"Is this sentence active or passive?<br>“English is spoken in many countries.”", opts:["Active","Passive"], a:1,
   rule:"<em>is + spoken</em> = be + past participle. The subject <em>English</em> receives the action, so the sentence is <em>passive</em>."},
@@ -340,6 +639,202 @@ const HINTS = [
  ["We compare **two** phones, and **modern** is a long word. 📱", "Long adjective → **more + adjective + than**. Example: This book is **more interesting than** that one."]
 ];
 Q0.forEach((q,i)=>{q.h=HINTS[i][0];q.h2=HINTS[i][1]});
+const UNIT_NAMES = {1:"Big Changes",2:"Careers",3:"What Will Be, Will Be",4:"The Art of Advertising"};
+const TF=["True","False"];
+const NEW_SECTIONS = [
+ {unit:1,name:"Present Simple vs Present Progressive",short:"Present tenses",rule:"Present simple = facts, habits, routines · Present progressive (am/is/are + -ing) = now or temporary",questions:[
+  {tag:"Present progressive · now",text:"The water ___. Please turn it off.",opts:["boils","is boiling","boil","boiled"],a:1,
+   rule:"It is happening **now**, so we use **am / is / are + -ing** → **is boiling**.",
+   h:"Look at **Please turn it off**. Is this happening right now? 🔥",h2:"Action happening now → **am / is / are + verb-ing**. Example: Listen! The baby **is crying**."},
+  {tag:"Present simple · fact",text:"The moon ___ around Earth.",opts:["is going","go","goes","going"],a:2,
+   rule:"This is a **fact** that is always true → present simple. **The moon** = it, so add **-es**: **goes**.",
+   h:"Is this always true, or only true now? 🌙",h2:"Facts → **present simple**. He/she/it → add **-s / -es**. Example: Water **boils** at 100°C."},
+  {tag:"State verbs",text:"Is this sentence correct?\n“I am knowing the answer.”",opts:TF,a:1,
+   rule:"**Know** is a state verb, so we don't use it with -ing → **I know the answer**.",
+   h:"Some verbs (know, like, want, love) describe a state, not an action. 🧠",h2:"State verbs don't usually take **-ing**. Say **I know**, not **I am knowing**."},
+  {type:"fix",tag:"Permanent vs temporary",text:"Find the mistake.",opts:["John","lives","in Quebec,","but this year","he studies","in France."],a:4,fix:"he is studying",
+   rule:"**This year** is a temporary situation → **he is studying**. **Lives** is right because it is permanent.",
+   h:"Find the part that talks about a **temporary** situation. ⏳",h2:"Permanent → present simple (**lives**). Temporary → present progressive (**is studying**)."},
+  {tag:"Changing situations",text:"Currently, the number of visitors to Riyadh ___.",opts:["increase","is increasing","increases","increased"],a:1,
+   rule:"**Currently** + a situation that is changing → **is increasing**.",
+   h:"The word **currently** means “now, these days”. 📈",h2:"Situations that are developing or changing now → **am / is / are + -ing**. Example: The city **is growing**."}
+ ]},
+ {unit:1,name:"Simple Past vs Present Perfect",short:"Past vs perfect",rule:"Simple past = finished time (yesterday, in 1957) · Present perfect (have/has + V3) = past until now (since, for, ever)",questions:[
+  {tag:"Simple past",text:"The Russians ___ the first artificial satellite in 1957.",opts:["have launched","launched","launch","has launched"],a:1,
+   rule:"**In 1957** is a finished time → simple past: **launched**.",
+   h:"Look at the time: **in 1957**. Is it finished? 🛰️",h2:"Finished time (yesterday, last year, in 1957) → **simple past**. Example: I **visited** Abha last year."},
+  {tag:"Present perfect · since",text:"I ___ in Jeddah since I was five.",opts:["lived","have lived","live","am living"],a:1,
+   rule:"**Since** shows it started in the past and continues now → **have lived**.",
+   h:"The word **since** is a clue! ⏰",h2:"Past → now (with **since / for**) → **have / has + V3**. Example: She **has worked** here for two years."},
+  {type:"fix",tag:"Finished time",text:"Find the mistake.",opts:["I","have seen","that film","last week."],a:1,fix:"saw",
+   rule:"**Last week** is a finished time → simple past **saw**, not present perfect.",
+   h:"Look at the time words at the end. 📅",h2:"We don't use **have / has + V3** with finished times like **last week, yesterday, in 2020**."},
+  {tag:"Present perfect · ever",text:"___ you ever ___ to Bath?",opts:["Did / go","Have / been","Do / go","Has / been"],a:1,
+   rule:"**Ever** asks about experience up to now → **Have you ever been** to Bath?",
+   h:"**Ever** means “at any time in your life until now”. 🌍",h2:"Life experience → **Have you ever + V3**? Example: **Have you ever eaten** sushi?"},
+  {tag:"Simple past",text:"Is this sentence correct?\n“My grandfather has moved to Germany in 1971.”",opts:TF,a:1,
+   rule:"**In 1971** is a finished time → **My grandfather moved** to Germany in 1971.",
+   h:"Can we use **has moved** with **in 1971**? 🤔",h2:"Finished past time → **simple past**, not present perfect."}
+ ]},
+ {unit:1,name:"Simple Past & Past Progressive + When",short:"Past + when",rule:"Past progressive (was/were + -ing) = the longer action · when + simple past = the short action that interrupts it",questions:[
+  {tag:"Simple past · questions",text:"___ you ___ the museum yesterday?",opts:["Did / visit","Did / visited","Do / visit","Were / visit"],a:0,
+   rule:"Past questions: **Did + subject + base verb** → **Did you visit**…?",
+   h:"After **did**, does the verb change? 🤔",h2:"Questions in the past: **Did + you + base verb**. Example: **Did** she **call** you?"},
+  {tag:"Past progressive + when",text:"We were sleeping when the earthquake ___.",opts:["was happening","happens","happened","happen"],a:2,
+   rule:"The **short** action that interrupts → simple past: **happened**.",
+   h:"Sleeping = the long action. The earthquake = the short action that interrupted it. 😴",h2:"Long action → **was / were + -ing**. Short action after **when** → **simple past**."},
+  {type:"fix",tag:"Past + when",text:"Find the mistake.",opts:["Fatima","was walking","home","when she","was seeing","her friend."],a:4,fix:"saw",
+   rule:"**See** is a short action (and a state verb) → **when she saw** her friend.",
+   h:"Which verb should be short and simple? 👀",h2:"After **when** use the **simple past**. Also, **see** is not usually used with -ing."},
+  {tag:"Past progressive",text:"They ___ for the bus when the rain started.",opts:["waited","were waiting","was waiting","are waiting"],a:1,
+   rule:"Long action in progress → **were waiting** (they → were).",
+   h:"Which action was longer: waiting or starting? ⏳ And is it **they was** or **they were**?",h2:"**I / he / she / it was** + -ing · **you / we / they were** + -ing."},
+  {tag:"Short answers",text:"Is this answer correct?\nQ: Did Saud grow up in Germany?\nA: No, he didn't. He grew up in Dubai.",opts:TF,a:0,
+   rule:"Short answer **No, he didn't.** Then the simple past **grew up**. Both are correct!",
+   h:"Check the short answer and the verb **grew**. ✅",h2:"Short answers: **Yes, he did. / No, he didn't.** grow → **grew**."}
+ ]},
+ {unit:2,name:"Present Perfect Progressive vs Simple",short:"Perfect tenses",rule:"have/has been + -ing = how long (still happening) · have/has + V3 = how many / the result · good at / interested in + -ing",questions:[
+  {tag:"Present perfect progressive",text:"Hanan ___ a book for two hours.",opts:["has read","has been reading","is read","reads"],a:1,
+   rule:"**For two hours** + still happening → **has been reading**.",
+   h:"Is she still reading? And **for two hours** shows how long. 📖",h2:"How long + still happening → **has / have been + -ing**. Example: It **has been raining** for an hour."},
+  {tag:"Present perfect simple",text:"So far, she ___ 30 pages.",opts:["has been reading","has read","is reading","reads"],a:1,
+   rule:"**How many** (30 pages) → present perfect simple: **has read**.",
+   h:"We are counting pages. 🔢",h2:"How many / how much → **has / have + V3**. Example: He **has written** three books."},
+  {type:"fix",tag:"Result",text:"Find the mistake.",opts:["I've been looking","for a job","for three months,","and I still","haven't been finding","one."],a:4,fix:"haven't found",
+   rule:"The result (no job yet) → **haven't found**.",
+   h:"Which part talks about a result, not an activity in progress? 🔍",h2:"Result → **have / has + V3** (**haven't found**). Activity → **have been + -ing**."},
+  {tag:"Adjective + preposition + -ing",text:"He's good at ___ computers.",opts:["use","to use","using","uses"],a:2,
+   rule:"After a preposition (**at**) → verb + **-ing**: good at **using**.",
+   h:"**At** is a preposition. Which verb form comes after it? 💻",h2:"Adjective + preposition + **-ing**: good **at** using · interested **in** working."},
+  {tag:"How long…?",text:"How long ___ you ___ English?",opts:["do / study","have / been studying","did / study","are / studying"],a:1,
+   rule:"**How long** + still happening → **have you been studying**?",
+   h:"**How long** asks about the time up to now. ⏰",h2:"**How long have you been + -ing**? Example: How long **have you been living** here?"}
+ ]},
+ {unit:2,name:"Simple Present, Wh- Questions & Time",short:"Present & time",rule:"He/she works · Where does he work? · at 3 o'clock / at night · in the morning · on Sunday / on weekdays",questions:[
+  {tag:"Wh- questions",text:"Where ___ your uncle work?",opts:["do","does","is","did"],a:1,
+   rule:"**Your uncle** = he → **Where does** he work?",
+   h:"Is **your uncle** I / you / they or he / she? 👨",h2:"He / she / it → **does**. I / you / we / they → **do**. Example: Where **does** she live?"},
+  {tag:"Prepositions of time",text:"Adnan is a bus driver. He works ___ night.",opts:["in","on","at","by"],a:2,
+   rule:"We say **at night** (and at noon, at three o'clock).",
+   h:"Think: ___ three o'clock, ___ noon, ___ night. 🌙",h2:"**at** + clock times / night · **in** + the morning / afternoon · **on** + days."},
+  {type:"fix",tag:"He/she + -s",text:"Find the mistake.",opts:["Hameed","work","for a newspaper","on weekdays."],a:1,fix:"works",
+   rule:"**Hameed** = he → **works** (add -s).",
+   h:"Hameed is **he**. What do we add to the verb? ✍️",h2:"He / she / it → verb + **-s**: he **works**, she **plays**."},
+  {tag:"What do you do?",text:"True or false?\n“What do you do?” usually means “What's your job?”",opts:TF,a:0,
+   rule:"Yes! **What do you do?** asks about someone's job. Answer: **I'm a teacher.**",
+   h:"Think about how people answer this question. 💼",h2:"**What do you do?** → I'm a doctor. / I'm a pilot."},
+  {tag:"Prepositions of time",text:"Fahd likes to play tennis ___ his free time.",opts:["on","at","in","by"],a:2,
+   rule:"We say **in his free time** (and in the morning, in the evening).",
+   h:"___ the morning, ___ the evening, ___ his free time. ⏰",h2:"**in** + the morning / the evening / your free time."}
+ ]},
+ {unit:2,name:"Relative Pronouns & While",short:"who / which / while",rule:"who / that → people · that / which → things and animals · while + past progressive = two actions at the same time",questions:[
+  {tag:"Relative pronouns · people",text:"The woman ___ was talking to the clients was friendly.",opts:["which","who","what","where"],a:1,
+   rule:"**The woman** is a person → **who** (or that).",
+   h:"Is **the woman** a person or a thing? 👩",h2:"People → **who / that**. Things → **which / that**."},
+  {tag:"Relative pronouns · things",text:"The company ___ is making a good profit is called Easy Surf.",opts:["who","which","whose","when"],a:1,
+   rule:"A company is a thing → **which** (or that).",
+   h:"Is a company a person or a thing? 🏢",h2:"Things and animals → **which / that**."},
+  {type:"fix",tag:"who vs which",text:"Find the mistake.",opts:["I'd like you","to meet","the person","which","organized","the conference."],a:3,fix:"who",
+   rule:"**The person** → **who** (or that), not which.",
+   h:"Who organized the conference: a person or a thing? 🙋‍♀️",h2:"Never use **which** for people. Use **who** or **that**."},
+  {tag:"Past progressive + while",text:"Mohammed was working on the computer ___ his brother was talking on the phone.",opts:["when","while","because","but"],a:1,
+   rule:"Two long actions at the **same time** → **while**.",
+   h:"Were both actions happening at the same time? 👥",h2:"**while** + past progressive = two actions at the same time. Example: I was reading **while** she was cooking."},
+  {tag:"while",text:"Is this sentence correct?\n“While you were studying, I was cooking dinner.”",opts:TF,a:0,
+   rule:"Correct! Two actions at the same time, both in the **past progressive**.",
+   h:"Check: **were studying** and **was cooking**. 🍳",h2:"**While + was / were + -ing**, **was / were + -ing**."}
+ ]},
+ {unit:3,name:"Will vs Be Going To",short:"will / going to",rule:"be going to = a plan already decided · will = deciding now, offers, promises, maybe / probably",questions:[
+  {tag:"will · deciding now",text:"We don't have any milk. I ___ get some from the store.",opts:["am going to","will","going to","would"],a:1,
+   rule:"You decide **at the moment of speaking** → **I'll** get some.",
+   h:"Did the speaker plan this before, or decide just now? 🥛",h2:"Decision now / offer / promise → **will**. Example: It's cold. **I'll** close the window."},
+  {tag:"be going to · plans",text:"What are your vacation plans?\nI ___ spend a month in Abha.",opts:["will","am going to","going","am"],a:1,
+   rule:"A plan already made → **am going to**.",
+   h:"The question asks about **plans**. 🗓️",h2:"Plan already decided → **be going to**. Example: I'**m going to** visit my aunt on Friday."},
+  {type:"fix",tag:"maybe + will",text:"Find the mistake.",opts:["Maybe","I","am going to go","to Abha","next summer."],a:2,fix:"will go",
+   rule:"**Maybe** shows you are not sure → **Maybe I'll go** to Abha.",
+   h:"Look at the first word: **Maybe**. 🤷‍♀️",h2:"Not sure, with **maybe / probably** → **will**."},
+  {tag:"won't",text:"In the future, cars ___ on gasoline.",opts:["won't run","don't run","aren't run","not will run"],a:0,
+   rule:"Negative future → **won't** + base verb: **won't run**.",
+   h:"What is the short form of **will not**? 🚗",h2:"**will not = won't** + base verb. Example: Robots **won't control** us."},
+  {tag:"Predictions",text:"Is this sentence correct?\n“People are going to have more free time.”",opts:TF,a:0,
+   rule:"Correct! **be going to** + base verb is also used for predictions.",
+   h:"Check the form: **are going to + have**. ✅",h2:"Predictions → **will** or **be going to** + base verb."}
+ ]},
+ {unit:3,name:"Future Progressive",short:"Future progressive",rule:"will be + -ing (or be going to be + -ing) = an action in progress at a time in the future",questions:[
+  {tag:"will be + -ing",text:"This time tomorrow, I ___ in the ocean.",opts:["swim","will be swimming","will swimming","swam"],a:1,
+   rule:"An action in progress at a future time → **will be swimming**.",
+   h:"**This time tomorrow** = in the middle of the action. 🏊‍♀️",h2:"**will be + verb-ing**. Example: At 8 p.m. I **will be studying**."},
+  {tag:"Questions",text:"___ you be working on the weekend?",opts:["Are","Will","Do","Have"],a:1,
+   rule:"Future progressive question → **Will you be working**…?",
+   h:"Look for **be working** after **you**. 🗓️",h2:"Question: **Will + subject + be + -ing**? Answer: Yes, I will. / No, I won't."},
+  {type:"fix",tag:"will be + -ing",text:"Find the mistake.",opts:["By the year 3000,","people","will be live","to the age of 120."],a:2,fix:"will be living",
+   rule:"The future progressive needs **-ing** → **will be living**.",
+   h:"After **will be**, the verb needs to end in…? ✍️",h2:"**will be + verb-ing**, never **will be + base verb**."},
+  {tag:"Short answers",text:"A: Are they going to be taking the test, too?\nB: Yes, ___.",opts:["they will","they are","they do","they going"],a:1,
+   rule:"The question uses **are** → short answer **Yes, they are**.",
+   h:"Which helping verb is in the question? 🔁",h2:"Answer with the same helping verb: Are…? → Yes, they **are**. Will…? → Yes, they **will**."},
+  {tag:"Two forms",text:"True or false?\n“I'm going to be relaxing on the beach” means the same as “I'll be relaxing on the beach.”",opts:TF,a:0,
+   rule:"True! Both are correct forms of the future progressive.",
+   h:"The book shows two forms of the future progressive. 🏖️",h2:"**will be + -ing** = **be going to be + -ing**."}
+ ]},
+ {unit:3,name:"Present Progressive for the Future & Suggestions",short:"Plans & suggestions",rule:"am / is / are + -ing for arrangements · Let's + verb · How about + -ing? · Why don't we + verb?",questions:[
+  {tag:"Arrangements",text:"They ___ to Dubai tonight. They already have their tickets.",opts:["fly","are flying","flew","have flown"],a:1,
+   rule:"A fixed arrangement (they have tickets) → **are flying** tonight.",
+   h:"They have tickets, so the plan is fixed. ✈️",h2:"Arrangements in the future → **am / is / are + -ing**. Example: I'**m meeting** Sara tomorrow."},
+  {tag:"How about…?",text:"How about ___ a time capsule for the school project?",opts:["make","making","to make","makes"],a:1,
+   rule:"**How about** + verb **-ing** → How about **making**…?",
+   h:"Which verb form comes after **How about**? 💡",h2:"**How about + -ing**? Example: **How about going** to the park?"},
+  {type:"fix",tag:"Why don't we…?",text:"Find the mistake.",opts:["Why don't","we","designing","a robot","to help with the cleaning?"],a:2,fix:"design",
+   rule:"**Why don't we** + base verb → **Why don't we design** a robot?",
+   h:"After **Why don't we**, use the base verb. 🤖",h2:"**Let's** + base verb · **Why don't we** + base verb · **How about** + -ing."},
+  {tag:"Responding",text:"A: Let's go to the Space Show.\nB: ___ It's sold out.",opts:["Great idea!","We can't.","Yes, let's!","Sounds great!"],a:1,
+   rule:"It's sold out, so B says no → **We can't.**",
+   h:"Read B's reason: **It's sold out**. Is B agreeing? 🎟️",h2:"Agree: Great idea! / Sounds great! · Say no: We can't. / Sorry, I can't."},
+  {tag:"Let's",text:"Is this sentence correct?\n“Let's to look for the hidden treasure.”",opts:TF,a:1,
+   rule:"**Let's** + base verb, with no **to** → **Let's look** for the hidden treasure.",
+   h:"Is there one word too many? 🗺️",h2:"**Let's + base verb** (no **to**). Example: **Let's go!**"}
+ ]},
+ {unit:3,name:"Tag Questions",short:"Tag questions",rule:"Positive sentence → negative tag · Negative sentence → positive tag · use the same helping verb",questions:[
+  {tag:"Negative tag",text:"You are from Riyadh, ___?",opts:["are you","aren't you","don't you","isn't it"],a:1,
+   rule:"A positive sentence with **are** → negative tag **aren't you**?",
+   h:"Is the sentence positive or negative? Which helping verb does it use? 🏙️",h2:"Positive → negative tag. **You are…, aren't you?**"},
+  {tag:"Positive tag",text:"She isn't from Muscat, ___?",opts:["isn't she","is she","does she","is it"],a:1,
+   rule:"A negative sentence → positive tag: **is she**?",
+   h:"The sentence has **isn't**, so the tag should be…? 🔄",h2:"Negative → positive tag. **She isn't…, is she?**"},
+  {type:"fix",tag:"do / does tags",text:"Find the mistake.",opts:["It usually","snows","in winter,","isn't it?"],a:3,fix:"doesn't it?",
+   rule:"Simple present (**snows**) uses **does** → **doesn't it?**",
+   h:"**Snows** has no helping verb. Which one is hidden? ❄️",h2:"Simple present → **do / does** in the tag. Example: He plays tennis, **doesn't he**?"},
+  {tag:"will → won't",text:"Global warming will melt the ice at the poles, ___?",opts:["will it","won't it","doesn't it","isn't it"],a:1,
+   rule:"Positive sentence with **will** → negative tag **won't it**?",
+   h:"Find the helping verb in the sentence: **will**. 🧊",h2:"**will** → **won't it?** (positive sentence) · **won't** → **will it?** (negative sentence)."},
+  {tag:"Positive tag",text:"Is this sentence correct?\n“They are not going to go on the trip, are they?”",opts:TF,a:0,
+   rule:"Correct! Negative sentence (**are not**) → positive tag **are they**?",
+   h:"Negative sentence + positive tag? ✅",h2:"Negative → positive tag with the same verb: **aren't → are**."}
+ ]}
+];
+const U4_EXTRA = {
+ 1:[
+  {type:"fix",tag:"Comparative · short adjective",text:"Find the mistake.",opts:["The hydrogen car","is","more clean","than","other models."],a:2,fix:"cleaner",
+   rule:"**Clean** is a short adjective → **cleaner than**, not more clean.",
+   h:"Is **clean** a short or a long adjective? 🚗",h2:"Short adjective → **-er than**. Long adjective → **more … than**."},
+  {tag:"Superlative",text:"Is this sentence correct?\n“It's the cheapest bag in the shop.”",opts:TF,a:0,
+   rule:"Correct! One bag compared with all the bags → superlative **the cheapest**.",
+   h:"We compare one bag with **all** the bags. 👜",h2:"**the + -est** for short adjectives: the cheapest, the biggest."}
+ ],
+ 2:[
+  {tag:"as … as",text:"The special suitcase is ___ a car. (They cost the same.)",opts:["as expensive as","more expensive","as expensive than","expensive as"],a:0,
+   rule:"The same price → **as expensive as**.",
+   h:"They cost the same. 💰",h2:"Same → **as + adjective + as**. Never **as … than**."},
+  {type:"fix",tag:"not as … as",text:"Find the mistake.",opts:["The fold-up bicycle","is not","as bulky","than","a regular bicycle."],a:3,fix:"as",
+   rule:"**not as + adjective + as** → not as bulky **as** a regular bicycle.",
+   h:"**as … ?** Which word should come after the adjective? 🚲",h2:"**as + adjective + as**. The second word is **as**, not **than**."},
+  {tag:"not as … as",text:"My phone isn't ___ yours. Yours is bigger.",opts:["as big as","bigger as","as bigger as","the biggest"],a:0,
+   rule:"Different sizes → **not as big as**.",
+   h:"After **isn't**, we need **as + adjective + as**. 📱",h2:"**not as + adjective + as**. Example: My bag **isn't as heavy as** yours."}
+ ]
+};
+
 const SECTIONS0 = [
  {name:"The Passive", short:"Passive", rule:"be + past participle · present, past, present perfect, future · by + doer", ids:[0,1,2,7,3]},
  {name:"Comparison of Adjectives", short:"Comparison", rule:"-er / more … than for two things · the -est / the most … for all", ids:[4,14,5]},
@@ -347,22 +842,44 @@ const SECTIONS0 = [
  {name:"More Similarities and Differences", short:"look / sound like", rule:"look, smell, sound, taste … like + noun", ids:[9,10,11,12,13]}
 ];
 const plain = h => String(h).replace(/<br>/g,"\n").replace(/<em>(.*?)<\/em>/g,"**$1**").replace(/<[^>]+>/g,"");
-const DEFAULT_DATA = {sections:SECTIONS0.map(x=>({name:x.name,short:x.short,rule:x.rule,
-  questions:x.ids.map(id=>{const q=Q0[id];return {tag:q.tag,text:plain(q.text),opts:q.opts.slice(),a:q.a,rule:plain(q.rule),h:q.h,h2:q.h2}})}))};
-let SECTIONS=[], Q=[], N=0, DATA=null;
+const DEFAULT_DATA = {sections:NEW_SECTIONS.concat(SECTIONS0.map((x,k)=>({unit:4,name:x.name,short:x.short,rule:x.rule,
+  questions:x.ids.map(id=>{const q=Q0[id];return {tag:q.tag,text:plain(q.text),opts:q.opts.slice(),a:q.a,rule:plain(q.rule),h:q.h,h2:q.h2}}).concat(U4_EXTRA[k]||[])})))
+  .map(x=>Object.assign({},x,{questions:x.questions.map(q=>Object.assign({type:"",fix:""},q,{opts:q.opts.slice()}))}))};
+let SECTIONS=[], Q=[], N=0, DATA=null, UNITS_SEL=null;
 const str=(v,max)=>typeof v==="string"?v.slice(0,max):"";
+const LETTERS="ABCDEFGH";
+const isFix=q=>!!q&&q.type==="fix";
 function cleanData(d){
   if(!d||!Array.isArray(d.sections))return null;
-  const sections=d.sections.slice(0,12).map(x=>({name:str(x&&x.name,80)||"Section",short:str(x&&x.short,30),rule:str(x&&x.rule,300),
+  const sections=d.sections.slice(0,40).map(x=>({unit:Math.max(0,Math.min(99,parseInt(x&&x.unit,10)||0)),name:str(x&&x.name,80)||"Section",short:str(x&&x.short,30),rule:str(x&&x.rule,300),
     questions:(x&&Array.isArray(x.questions)?x.questions:[]).slice(0,40).map(q=>{
-      const opts=(Array.isArray(q&&q.opts)?q.opts:[]).map(o=>str(o,120)).filter(o=>o.trim()).slice(0,4);
+      const type=q&&q.type==="fix"?"fix":"";
+      const opts=(Array.isArray(q&&q.opts)?q.opts:[]).map(o=>str(o,120)).filter(o=>o.trim()).slice(0,type?8:4);
       const a=Number.isInteger(q&&q.a)&&q.a>=0&&q.a<opts.length?q.a:0;
-      return {tag:str(q&&q.tag,60),text:str(q&&q.text,400),opts,a,rule:str(q&&q.rule,500),h:str(q&&q.h,400),h2:str(q&&q.h2,400)}}).filter(q=>q.text.trim()&&q.opts.length>=2)}));
+      return {type,tag:str(q&&q.tag,60),text:str(q&&q.text,400),opts,a,fix:str(q&&q.fix,120),rule:str(q&&q.rule,500),h:str(q&&q.h,400),h2:str(q&&q.h2,400)}}).filter(q=>q.text.trim()&&q.opts.length>=2)}));
   return sections.some(x=>x.questions.length)?{sections}:null;
 }
 function applyData(d){DATA=d;SECTIONS=[];Q=[];
-  d.sections.forEach((x,si)=>{const sec={name:x.name,short:x.short||x.name,rule:x.rule,start:Q.length};x.questions.forEach(q=>Q.push(Object.assign({},q,{sec:si})));sec.end=Q.length;sec.count=sec.end-sec.start;SECTIONS.push(sec)});
+  d.sections.forEach(x=>{const u=x.unit||0;if(UNITS_SEL&&UNITS_SEL.length&&!UNITS_SEL.includes(u))return;
+    const si=SECTIONS.length,sec={name:x.name,short:x.short||x.name,rule:x.rule,unit:u,start:Q.length};x.questions.forEach(q=>Q.push(Object.assign({},q,{sec:si})));sec.end=Q.length;sec.count=sec.end-sec.start;SECTIONS.push(sec)});
   N=Q.length;}
+function unitsList(){const m=new Map();((DATA&&DATA.sections)||[]).forEach(x=>{const u=x.unit||0;if(!m.has(u))m.set(u,{u,name:UNIT_NAMES[u]||"",secs:[],count:0});const e=m.get(u);e.secs.push(x.name);e.count+=x.questions.length});return [...m.values()].sort((a,b)=>a.u-b.u)}
+const unitLabel=u=>u?"Unit "+u:"More";
+function setUnits(arr){UNITS_SEL=Array.isArray(arr)&&arr.length?arr.slice().sort((a,b)=>a-b):null}
+function ansLabel(q){return isFix(q)?`${q.opts[q.a]||""} → ${q.fix||""}`:(q.opts[q.a]||"")}
+function fixedSentence(q){return q.opts.map((o,i)=>i===q.a?`**${q.fix}**`:o).join(" ")}
+function answerLine(q){const mk=t=>`<mark class="ans">${esc(t)}</mark>`;
+  if(isFix(q))return q.opts.map((o,i)=>i===q.a?mk(q.fix||o):esc(o)).join(" ");
+  const ans=q.opts[q.a]||"",segs=String(q.text||"").split(/_{3,}/);
+  if(segs.length>1){const parts=segs.length>2?ans.split(/\s*\/\s*/):[ans];
+    return segs.map((sg,i)=>fmt(sg)+(i<segs.length-1?mk(parts[Math.min(i,parts.length-1)]):"")).join("")}
+  return `Answer: ${mk(ans)}`}
+function ruleHTML(q,fallback){return `<div class="explain">
+  <div class="exlabel">✅ The correct answer</div><div class="ansline">${answerLine(q)}</div>
+  <div class="exlabel">💡 Why?</div><div class="why">${fmt(q.rule||fallback||"")}</div></div>`}
+function optsHTML(q,order,wrong,answered){
+  if(isFix(q))return `<div class="fixhint">👆 Tap the part with the mistake</div><div class="chunks">${order.map(i=>`<button class="opt chunk ${wrong.includes(i)?"wrong":""} ${answered&&i===q.a?"right":""}" data-i="${i}" ${wrong.includes(i)||answered?"disabled":""}>${answered&&i===q.a?`<s>${esc(q.opts[i])}</s> <span class="fixed">${esc(q.fix)}</span>`:esc(q.opts[i])}</button>`).join("")}</div>`;
+  return `<div class="opts">${order.map((i,k)=>`<button class="opt ${wrong.includes(i)?"wrong":""} ${answered&&i===q.a?"right":""}" data-i="${i}" ${wrong.includes(i)||answered?"disabled":""}><b>${LETTERS[k]}</b><span>${esc(q.opts[i])}</span></button>`).join("")}</div>`}
 applyData(DEFAULT_DATA);
 let pendingData=null;
 const CHEERS = ["Brilliant!","Perfect!","You nailed it!","Superstar!","Excellent!","Spot on!","Amazing!","Fantastic!","Well done!",
@@ -395,8 +912,14 @@ function hintScreen(q,tries,nudge,chosen){const two=tries>=2&&q.h2;
     <div class="hsbody">${fmt(two?q.h2:(q.h||"Read the question again carefully."))}</div>
     <div class="hsfoot"><div class="readbar" aria-hidden="true"><i style="animation-duration:${READ_MS}ms"></i></div><button class="btn" id="und" disabled>Read the hint…</button></div>
   </section>`}
-function armUnderstood(cb){const b=$("#und");if(!b)return;let left=Math.ceil(READ_MS/1000);b.textContent=`Read the hint… ${left}`;
-  const iv=setInterval(()=>{left--;if(left>0)b.textContent=`Read the hint… ${left}`;else{clearInterval(iv);b.disabled=false;b.textContent="I understood ✓ Try again";b.focus()}},1000);
+function ruleItem(t){return fmt(String(t).replace(/^(.+?)(\s*(?:=|→)\s*)/,"**$1**$2"))}
+function sectionIntroHTML(eyebrow,name,rule,count){const pts=String(rule||"").split(/\s+·\s+/).map(x=>x.trim()).filter(Boolean);
+  return `<section class="card secintro pop" aria-live="polite"><div class="eyebrow">${eyebrow}</div><h1>${esc(name)}</h1>
+    ${pts.length?`<div class="exlabel">📘 Remember the rule</div><ul class="rulepts">${pts.map(x=>`<li>${ruleItem(x)}</li>`).join("")}</ul>`:""}
+    <p class="muted" style="margin:0">${count} questions. If you make a mistake, you'll get a hint and try again.</p>
+    <div class="hsfoot"><div class="readbar" aria-hidden="true"><i style="animation-duration:${READ_MS}ms"></i></div><button class="btn" id="und" disabled>Read the rule…</button></div></section>`}
+function armUnderstood(cb,doneLabel,waitLabel){doneLabel=doneLabel||"I understood ✓ Try again";waitLabel=waitLabel||"Read the hint…";const b=$("#und");if(!b)return;let left=Math.ceil(READ_MS/1000);b.textContent=`${waitLabel} ${left}`;
+  const iv=setInterval(()=>{if(!b.isConnected){clearInterval(iv);return}left--;if(left>0)b.textContent=`${waitLabel} ${left}`;else{clearInterval(iv);b.disabled=false;b.textContent=doneLabel;b.focus()}},1000);
   b.onclick=()=>{if(b.disabled)return;clearInterval(iv);tone([[659.25,.08],[783.99,.12]]);cb();window.scrollTo({top:0,behavior:"smooth"})}}
 const hintHTML=(q,tries,nudge)=>{const two=tries>=2&&q.h2;return `<div class="fb bad"><div class="head">${esc(nudge)}</div>
   <div class="hint"><span class="bulb" aria-hidden="true">${two?"🔦":"💡"}</span><div><div class="hintlvl">${two?"Hint 2 · the rule":"Hint 1 · a clue"}</div>${fmt(two?q.h2:(q.h||"Read the question again carefully."))}</div></div>
@@ -406,9 +929,9 @@ let db=null;
 
 let room=null, user=null, isHost=false, roomOK=false;
 // student state
-let S = {phase:"join", name:"", gid:null, q:0, score:0, tries:0, wrongs:Array(N).fill(0), firstTry:0, wrongPicked:[], answered:false, solo:false};
+let S = {phase:"join", pick:[], name:"", gid:null, q:0, score:0, tries:0, wrongs:Array(N).fill(0), firstTry:0, wrongPicked:[], answered:false, solo:false};
 // host state
-let H = {gid:null, state:"lobby", view:"teacher", results:{}};
+let H = {gid:null, state:"lobby", view:"teacher", results:{}, units:[]};
 let hostSeen = null; // last game state heard from teacher
 
 function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
@@ -474,25 +997,31 @@ function pushPresence(){ if(!roomOK||isHost&&H.view!=="student")return;
 }
 
 /* ---------- STUDENT SCREENS ---------- */
+function pickSummary(){if(!S.pick.length)return "Tap one or more units to start.";const us=unitsList().filter(u=>S.pick.includes(u.u));return `${us.reduce((a,u)=>a+u.secs.length,0)} sections · ${us.reduce((a,u)=>a+u.count,0)} questions`}
 function renderJoin(){
+  if(window.__GH_LIVE&&!roomOK&&!window.__LIVE_ERR){app.innerHTML=`<div class="center"><div class="waiting card" style="max-width:440px;width:100%"><div class="lights"><i></i><i></i><i></i></div><h2>Connecting to your class…</h2><p class="muted" style="margin:0">Class PIN ${esc(window.__PIN||"")}</p></div></div>`;return}
+  const pickHere=!roomOK||isHost;
   app.innerHTML=`<div class="center"><div class="joinbox card">
     <div class="eyebrow"><span class="flag"></span>Mega Goal 1 · Grammar</div>
     <h1 class="rainbow">Grammar Mastery</h1>
-    <p class="muted" style="margin:0">${liveSecs().length} sections, ${N} questions. Go at your own speed.</p>
-    <ol class="seclist">${liveSecs().map(x=>`<li><b>${esc(x.name)}</b><span class="muted"> · ${x.count} questions</span></li>`).join("")}</ol>
+    ${pickHere?`<div class="eyebrow">Choose your unit(s)</div>
+    <div class="uchips">${unitsList().map(u=>`<button class="uchip ${S.pick.includes(u.u)?"on":""}" data-pu="${u.u}" aria-pressed="${S.pick.includes(u.u)}"><b>${unitLabel(u.u)}</b>${u.name?`<span>${esc(u.name)}</span>`:""}<small>${u.secs.length} sections · ${u.count} questions</small></button>`).join("")}</div>
+    <p class="muted" style="margin:0" id="picksum">${pickSummary()}</p>`:`<p class="muted" style="margin:0">Your teacher chooses the units. Go at your own speed.</p>${hostSeen&&hostSeen.units&&hostSeen.units.length?`<p style="margin:0"><b>Today:</b> ${hostSeen.units.map(u=>esc(unitLabel(u)+(UNIT_NAMES[u]?" · "+UNIT_NAMES[u]:""))).join(", ")}</p>`:""}`}
     <label for="nm" class="eyebrow">Your name</label>
     <input id="nm" maxlength="20" autocomplete="off" placeholder="e.g. Sara A." value="${esc(S.name)}">
     <button class="btn" id="go">Join the race</button>
-    ${roomOK?"":`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode: play at your own pace and try to beat your best score!</div>`}
+    ${roomOK?"":`${window.__LIVE_ERR?`<div class="banner" style="background:var(--bad-bg);color:var(--bad)">Couldn't join the live class: ${esc(window.__LIVE_ERR)} You can still practise.</div>`:`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode: play at your own pace and try to beat your best score!</div>`}`}
     ${isHost?`<button class="btn ghost" id="backT">Back to teacher view</button>`:""}
   </div></div>`;
   const nm=$("#nm"),go=$("#go");
-  const ok=()=>go.disabled=nm.value.trim().length<2; ok(); nm.oninput=ok;
+  const ok=()=>go.disabled=nm.value.trim().length<2||(pickHere&&!S.pick.length); ok(); nm.oninput=ok;
+  app.querySelectorAll("[data-pu]").forEach(b=>b.onclick=()=>{const u=+b.dataset.pu;S.pick=S.pick.includes(u)?S.pick.filter(x=>x!==u):S.pick.concat(u);b.classList.toggle("on");b.setAttribute("aria-pressed",S.pick.includes(u));$("#picksum").textContent=pickSummary();ok();tone([[S.pick.includes(u)?660:440,.06]])});
   nm.onkeydown=e=>{if(e.key==="Enter"&&!go.disabled)go.click()};
   go.onclick=()=>{S.name=nm.value.trim().slice(0,20);tone([[660,.1]]);
-    if(!roomOK){S.solo=true;startPlay();return}
+    if(!roomOK){S.solo=true;startPlay(S.pick);return}
+    if(isHost){S.gid=null;startPlay(S.pick);return}
     S.phase="wait";pushPresence();
-    if(hostSeen&&hostSeen.state==="live"){S.gid=hostSeen.gid;startPlay()} else render()};
+    if(hostSeen&&hostSeen.state==="live"){S.gid=hostSeen.gid;startPlay(hostSeen.units)} else render()};
   if(isHost)$("#backT").onclick=backToTeacher;
 }
 function renderWait(){
@@ -500,11 +1029,12 @@ function renderWait(){
     <div class="lights"><i></i><i></i><i></i></div>
     <h2>You're on the grid, ${esc(S.name)}!</h2>
     <p class="muted" style="margin:0">Waiting for your teacher to start the race…</p>
+    ${hostSeen&&hostSeen.units&&hostSeen.units.length?`<div class="row" style="justify-content:center">${hostSeen.units.map(u=>`<span class="chip">${esc(unitLabel(u))}${UNIT_NAMES[u]?" · "+esc(UNIT_NAMES[u]):""}</span>`).join("")}</div>`:""}
     <span class="chip">${otherPlayers()} classmates joined</span>
   </div></div>`;
 }
 function otherPlayers(){if(!roomOK)return 0;return room.peers().filter(p=>p.presence&&p.presence.role==="player"&&!p.sameTab).length}
-function startPlay(){clearTimeout(autoT);if(pendingData){applyData(pendingData);pendingData=null}S.phase="play";S.q=0;S.score=0;S.tries=0;S.firstTry=0;S.wrongs=Array(N).fill(0);S.wrongPicked=[];S.wp=Array.from({length:N},()=>[]);S.bestStreak=0;S.answered=false;S.hintOpen=false;S.intro=true;S.review=null;S.reviewed=[];S.streak=0;pushPresence();render()}
+function startPlay(units){clearTimeout(autoT);if(units!==undefined)setUnits(units);applyData(pendingData||DATA);pendingData=null;if(!N){setUnits(null);applyData(DATA)}S.units=UNITS_SEL;S.phase="play";S.q=0;S.score=0;S.tries=0;S.firstTry=0;S.wrongs=Array(N).fill(0);S.wrongPicked=[];S.wp=Array.from({length:N},()=>[]);S.bestStreak=0;S.answered=false;S.hintOpen=false;S.intro=true;S.review=null;S.reviewed=[];S.streak=0;pushPresence();render()}
 function hud(){const pct=S.q/N*100;
   return `<div class="hud"><div><div class="row" style="justify-content:space-between;margin-bottom:8px">
     <span class="eyebrow">Section ${secNo(Q[Math.min(S.q,N-1)].sec)} · ${esc(SECTIONS[Q[Math.min(S.q,N-1)].sec].short)}</span><span class="eyebrow">Question ${Math.min(S.q+1,N)} of ${N}</span></div>
@@ -517,22 +1047,20 @@ function renderPlay(){
   const q=Q[S.q];
   if(S.intro){const si=q.sec,sec=SECTIONS[si];
     app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
-    <section class="card secintro pop"><div class="eyebrow">Section ${secNo(si)} of ${liveSecs().length}</div><h1>${esc(sec.name)}</h1>
-      ${sec.rule?`<div class="secrule">${fmt(sec.rule)}</div>`:""}<p class="muted" style="margin:0">${sec.count} questions. Read each one carefully. If you make a mistake, you'll get a hint and try again.</p>
-      <div><button class="btn" id="go2">Start section ${secNo(si)} →</button></div></section>`;
-    $("#go2").onclick=()=>{S.intro=false;tone([[587,.1],[784,.15]]);render()};return}
+    ${sectionIntroHTML(`Section ${secNo(si)} of ${liveSecs().length} · ${esc(unitLabel(sec.unit))}`,sec.name,sec.rule,sec.count)}`;
+    armUnderstood(()=>{S.intro=false;render()},`✓ Got it! Start section ${secNo(si)} →`,"Read the rule…");return}
   app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
    <section class="card qcard" id="qc">
      ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
      <div class="qtext">${fmt(q.text).replace(/_{3,}/g,'<span class="blank"></span>')}</div>
-     <div class="opts">${q.opts.map((o,i)=>`<button class="opt ${S.wrongPicked.includes(i)?"wrong":""} ${S.answered&&i===q.a?"right":""}" data-i="${i}" ${S.wrongPicked.includes(i)||S.answered?"disabled":""}><b>${"ABCD"[i]}</b><span>${esc(o)}</span></button>`).join("")}</div>
+     ${optsHTML(q,q.opts.map((_,i)=>i),S.wrongPicked,S.answered)}
      <div id="fb"></div>
    </section>`;
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i,b));
   if(S.answered)showFB(true);else if(S.wrongPicked.length)showFB(false);
 }
 function showFB(right){const q=Q[S.q];const fb=$("#fb");
-  if(right){fb.innerHTML=`<div class="fb good pop"><div class="head">${S.lastCheer||pick(CHEERS)} 🎉 ${S.lastPts?`+${S.lastPts}`:""}${S.streak>=3?` <span class="streak">🔥 ${S.streak} in a row · +20 bonus</span>`:""}</div><div class="rule">${fmt(q.rule)}</div>
+  if(right){fb.innerHTML=`<div class="fb good pop"><div class="head">${S.lastCheer||pick(CHEERS)} 🎉 ${S.lastPts?`+${S.lastPts}`:""}${S.streak>=3?` <span class="streak">🔥 ${S.streak} in a row · +20 bonus</span>`:""}</div>${ruleHTML(q)}
     ${autoBar(S.autoMs||AUTO_FIRST,S.q+1<N?"Next now →":"See my results →")}</div>`;
     $("#nx").onclick=()=>{clearTimeout(autoT);next()};}
   else{fb.innerHTML=hintHTML(Q[S.q],S.tries,S.lastNudge||pick(NUDGES))}
@@ -549,7 +1077,7 @@ function answer(i,btn){const q=Q[S.q];if(S.answered)return;
     if(S.tries<=2)showCheer(pick(PUSH_EMOJI),pick(PUSH),true);}
 }
 let autoT=null;
-const AUTO_FIRST=2600, AUTO_AFTER=4200;
+const AUTO_FIRST=4500, AUTO_AFTER=6000;
 function autoBar(ms,label){return `<div class="fbrow autorow"><div class="autobar" aria-hidden="true"><i style="animation-duration:${ms}ms"></i></div><button class="btn" id="nx">${label}</button></div>`}
 function schedule(fn,ms){clearTimeout(autoT);autoT=setTimeout(()=>{autoT=null;fn()},ms)}
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -561,7 +1089,7 @@ function next(){
     for(let i=sec.start;i<sec.end;i++)if(S.wrongs[i]>0)missed.push(i);
     if(missed.length){S.review={si:cur.sec,queue:missed,total:missed.length,intro:true};newReviewItem();pushPresence();render();window.scrollTo({top:0,behavior:"smooth"});return}}
   advance()}
-function newReviewItem(){const R=S.review,q=Q[R.queue[0]];R.order=shuffle(q.opts.map((_,i)=>i));R.tries=0;R.wrong=[];R.answered=false;R.cleared=false;R.hintOpen=false}
+function newReviewItem(){const R=S.review,q=Q[R.queue[0]];R.order=isFix(q)?q.opts.map((_,i)=>i):shuffle(q.opts.map((_,i)=>i));R.tries=0;R.wrong=[];R.answered=false;R.cleared=false;R.hintOpen=false}
 function renderReview(){const R=S.review,sec=SECTIONS[R.si];
   if(R.intro){app.innerHTML=`${S.solo?`<div class="banner" style="background:var(--good-bg);color:var(--good)">🎯 Practice mode</div>`:""}${hud()}
     <section class="card secintro pop"><div class="eyebrow">Second chance · ${esc(sec.name)}</div><h1>Let's fix ${R.total===1?"that one":"those "+R.total}!</h1>
@@ -578,8 +1106,8 @@ function renderReview(){const R=S.review,sec=SECTIONS[R.si];
    <section class="card qcard" id="qc">
      ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
      <div class="qtext">${fmt(q.text).replace(/_{3,}/g,'<span class="blank"></span>')}</div>
-     <div class="opts">${R.order.map((i,k)=>`<button class="opt ${R.wrong.includes(i)?"wrong":""} ${R.answered&&i===q.a?"right":""}" data-i="${i}" ${R.wrong.includes(i)||R.answered?"disabled":""}><b>${"ABCD"[k]}</b><span>${esc(q.opts[i])}</span></button>`).join("")}</div>
-     <div id="fb">${R.answered?`<div class="fb good pop"><div class="head">${R.cleared?esc(R.msg||"Fixed it!")+" +20":"Correct! This one will come back once more."}</div><div class="rule">${fmt(q.rule)}</div>
+     ${optsHTML(q,R.order,R.wrong,R.answered)}
+     <div id="fb">${R.answered?`<div class="fb good pop"><div class="head">${R.cleared?esc(R.msg||"Fixed it!")+" +20":"Correct! This one will come back once more."}</div>${ruleHTML(q)}
         ${autoBar(R.cleared?AUTO_FIRST:AUTO_AFTER,R.cleared&&R.queue.length===1?"Finish now →":"Next now →")}</div>`:
        R.wrong.length?hintHTML(q,R.tries,R.nudge||pick(NUDGES)):""}</div>
    </section>`;
@@ -639,7 +1167,7 @@ function doneHTML(d){
       <div class="row" style="justify-content:space-between;gap:8px"><span class="chip">Q${z.i+1} · ${esc(z.q.tag||"")}</span><span class="chip bad">${z.w} wrong ${z.w===1?"try":"tries"}</span></div>
       <div class="sq">${fmt(z.q.text).replace(/_{3,}/g,'<span class="gap">_____</span>')}</div>
       ${z.picks.length?`<div class="sline bad">✕ You chose: ${z.picks.map(p=>`<s>${esc(z.q.opts[p]||"")}</s>`).join(", ")}</div>`:""}
-      <div class="sline good">✓ Correct answer: <b>${esc(z.q.opts[z.q.a])}</b></div>
+      <div class="sline good">✓ Correct answer: <b>${esc(ansLabel(z.q))}</b></div>
       <div class="srule">📌 ${fmt(z.q.rule||"")}</div></div>`).join("")}</div>
    </section>
    <div class="row" style="justify-content:center"><button class="btn" id="claps">👏 Give yourself a clap!</button>${d.buttons}</div>
@@ -673,7 +1201,7 @@ function collect(){if(!roomOK||!isHost||H.state==="lobby")return;
 function resultsList(){return Object.entries(H.results||{}).map(([peer,r])=>Object.assign({peer},r))}
 function rankSort(a,b){return b.score-a.score||(b.done-a.done)||((a.finishAt||9e15)-(b.finishAt||9e15))||b.first-a.first}
 function snapshotRace(){return {gid:H.gid,startedAt:H.startedAt||null,endedAt:H.state==="ended"?(H.endedAt||Date.now()):null,
-  qs:Q.map(q=>({text:q.text,tag:q.tag||"",opts:q.opts,a:q.a,sec:q.sec,rule:q.rule})),secs:SECTIONS.map(x=>({name:x.name,short:x.short,start:x.start,end:x.end})),
+  qs:Q.map(q=>({text:q.text,tag:q.tag||"",opts:q.opts,a:q.a,sec:q.sec,rule:q.rule,type:q.type||"",fix:q.fix||""})),secs:SECTIONS.map(x=>({name:x.name,short:x.short,start:x.start,end:x.end})),
   results:resultsList().map(r=>({name:r.name,score:r.score,first:r.first,q:r.q,done:r.done,finishAt:r.finishAt||null,bs:r.bs||0,wrongs:r.wrongs,wp:r.wp})).sort(rankSort)}}
 let saveT=null,savingRace=false,saveAgain=false;
 function scheduleSave(){if(!db||!isHost||!H.gid||H.state==="lobby"||!Object.keys(H.results||{}).length)return;clearTimeout(saveT);saveT=setTimeout(saveRace,8000)}
@@ -712,7 +1240,7 @@ function reportHTML(R){
       <p class="muted" style="font-size:13px;margin:10px 0 0">Share of questions answered right on the first try.</p></section>
     <section class="card"><h2>Questions to reteach</h2>${hard.length?`<div class="hardlist">${hard.map(([w,i])=>{const q=qs[i],top=Object.entries(pickTot[i]).sort((a,b)=>b[1]-a[1])[0];
       return `<div class="hard"><div class="row" style="justify-content:space-between;gap:8px"><b>Q${i+1}</b><span class="chip bad">${w} wrong</span></div><div class="hq">${fmt(q.text).replace(/_{3,}/g,"_____")}</div>
-      ${top?`<div class="muted" style="font-size:14px">Most common mistake: <s>${esc(q.opts[+top[0]]||"")}</s> (${top[1]} ${top[1]===1?"student":"students"}) · Correct: <b>${esc(q.opts[q.a])}</b></div>`:""}</div>`}).join("")}</div>`:`<p class="muted">No wrong answers. Excellent class!</p>`}</section>
+      ${top?`<div class="muted" style="font-size:14px">Most common mistake: <s>${esc(q.opts[+top[0]]||"")}</s> (${top[1]} ${top[1]===1?"student":"students"}) · Correct: <b>${esc(ansLabel(q))}</b></div>`:""}</div>`}).join("")}</div>`:`<p class="muted">No wrong answers. Excellent class!</p>`}</section>
   </div>
   <section class="card"><div class="row" style="justify-content:space-between"><h2>Student report</h2><span class="muted" style="font-size:13px">Tap a name for details</span></div>
     <div class="rtable" role="table">
@@ -755,13 +1283,14 @@ function players(){if(!roomOK)return[];
      wrongs:Array.isArray(p.presence.wrongs)?p.presence.wrongs.slice(0,N).map(x=>+x||0):Array(N).fill(0),first:+p.presence.first||0,done:!!p.presence.done,rev:+p.presence.rev||0,me:p.sameTab}))
    .filter(p=>!p.me);
 }
-function broadcast(){if(!roomOK||!isHost)return;room.emit("game",{gid:H.gid,state:H.state}).catch(()=>{});}
+function broadcast(){if(!roomOK||!isHost)return;room.emit("game",{gid:H.gid,state:H.state,units:H.units||[]}).catch(()=>{});}
 function newGame(){H.gid="g"+Math.random().toString(36).slice(2,8);H.state="lobby";H.results={};H.startedAt=null;H.endedAt=null;openStu.clear();broadcast();render()}
 function renderTeacher(){
   if(H.state!=="lobby")collect();
   const ps=H.state==="lobby"?players():resultsList();
   const url=JOIN_URL||"(link appears after the page is published)";
-  if(!roomOK){app.innerHTML=`<div class="card"><h2>Live mode isn't available here</h2><p class="muted">This view can't connect to the class room, so student progress can't be shown. You can still try the game yourself.</p><div class="row"><button class="btn" id="asS">Play as a student</button><button class="btn ghost" id="edQ">View &amp; edit questions</button></div></div>`;$("#asS").onclick=()=>{H.view="student";render()};$("#edQ").onclick=openEditor;return}
+  if(window.__GH_LIVE&&!roomOK&&!window.__LIVE_ERR){app.innerHTML=`<div class="center"><div class="waiting card" style="max-width:440px;width:100%"><div class="lights"><i></i><i></i><i></i></div><h2>Opening your live class…</h2></div></div>`;return}
+  if(!roomOK){app.innerHTML=`<div class="card"><h2>Live mode isn't available yet</h2><p class="muted">${window.__LIVE_ERR?esc(window.__LIVE_ERR):"This page can't connect to the live class."}</p><p style="margin:0 0 12px"><a href="#teacher-setup">Open the Firebase setup page</a></p><div class="row"><button class="btn" id="asS">Play as a student</button><button class="btn ghost" id="edQ">View &amp; edit questions</button></div></div>`;$("#asS").onclick=()=>{H.view="student";render()};$("#edQ").onclick=openEditor;return}
   const live=H.state!=="lobby";
   const fin=ps.filter(p=>p.done).length;
   const avgQ=ps.length?ps.reduce((a,p)=>a+p.q,0)/ps.length:0;
@@ -775,12 +1304,13 @@ function renderTeacher(){
     <button class="btn ghost" id="past">📊 Past reports</button><button class="btn ghost" id="edQ">View &amp; edit questions</button><button class="btn ghost" id="asS">Preview as student</button></div></div>
   <div class="tgrid">
     <aside class="card joinpanel">
-      <h2>Join the race</h2>
+      <h2>Join the race</h2>${window.__PIN?`<div class="pinbox">Class PIN <b>${esc(window.__PIN)}</b></div>`:""}
       <div id="qr"></div>
       <div class="link" id="lnk">${esc(url)}</div>
       <button class="btn ghost" id="cp">Copy link</button>
-      <p class="muted" style="margin:0;font-size:14px">Students scan the code or open the link, type their name, and wait for you to start.</p>
-      ${H.state==="lobby"?`<button class="btn" id="start" ${ps.length?"":"disabled"}>Start the race (${ps.length})</button>`:
+      <p class="muted" style="margin:0;font-size:14px">Students scan the code or open the link (send it on WhatsApp or Classroom), type their name, and wait for you to start. No account needed.</p>
+      ${H.state==="lobby"?`<div class="unitpick"><div class="eyebrow">Choose units for this race</div><div class="uchips">${unitsList().map(u=>`<button class="uchip ${H.units.includes(u.u)?"on":""}" data-hu="${u.u}" aria-pressed="${H.units.includes(u.u)}"><b>${unitLabel(u.u)}</b>${u.name?`<span>${esc(u.name)}</span>`:""}<small>${u.count} questions</small></button>`).join("")}</div></div>
+        <button class="btn" id="start" ${ps.length&&H.units.length?"":"disabled"}>${!H.units.length?"Choose a unit to start":`Start the race (${ps.length})`}</button>`:
         H.state==="live"?`<button class="btn" id="end">End the race</button>`:`<button class="btn" id="new">New race</button>`}
     </aside>
     <section class="board">
@@ -806,13 +1336,14 @@ function renderTeacher(){
       </div>`}
     </section>
   </div>`;
-  if(JOIN_URL&&window.QRCode){new QRCode($("#qr"),{text:JOIN_URL,width:220,height:220,correctLevel:QRCode.CorrectLevel.M})}else $("#qr").innerHTML=`<div class="muted" style="width:220px;height:220px;display:grid;place-items:center;text-align:center;color:#13223B">QR code appears once published</div>`;
+  if(JOIN_URL&&window.QRCode){new QRCode($("#qr"),{text:JOIN_URL,width:240,height:240,correctLevel:QRCode.CorrectLevel.L})}else $("#qr").innerHTML=`<div class="muted" style="width:220px;height:220px;display:grid;place-items:center;text-align:center;color:#13223B">QR code appears once published</div>`;
   $("#cp").onclick=()=>{try{navigator.clipboard.writeText(JOIN_URL).then(()=>toast("Link copied"),()=>selectLink())}catch(e){selectLink()}};
   $("#asS").onclick=()=>{H.view="student";render()};
   $("#edQ").onclick=openEditor;
   $("#past").onclick=openPast;
   if(H.state==="ended")wireReport(()=>renderTeacher());
-  const st=$("#start");if(st)st.onclick=()=>{H.state="live";H.results={};H.startedAt=Date.now();H.endedAt=null;openStu.clear();broadcast();tone([[440,.15],[440,.15],[880,.4]]);render()};
+  app.querySelectorAll("[data-hu]").forEach(b=>b.onclick=()=>{const u=+b.dataset.hu;H.units=H.units.includes(u)?H.units.filter(x=>x!==u):H.units.concat(u).sort((a,b)=>a-b);broadcast();renderTeacher()});
+  const st=$("#start");if(st)st.onclick=()=>{if(!H.units.length)return;setUnits(H.units);applyData(DATA);H.state="live";H.results={};H.startedAt=Date.now();H.endedAt=null;openStu.clear();broadcast();tone([[440,.15],[440,.15],[880,.4]]);render()};
   const en=$("#end");if(en)en.onclick=()=>{collect();H.state="ended";H.endedAt=Date.now();broadcast();saveRace();render();window.scrollTo({top:0,behavior:"smooth"});sfxWin();confetti(220);showCheer("🏆","Race results!")};
   const nw=$("#new");if(nw)nw.onclick=newGame;
 }
@@ -825,7 +1356,7 @@ let E=null, dirty=false, openQ=new Set(), armed=null, saving=false, edErrors=[];
 const clone=o=>JSON.parse(JSON.stringify(o));
 function openEditor(){if(!E||!dirty){E=clone(DATA);dirty=false}H.view="editor";render();window.scrollTo({top:0})}
 function markDirty(){if(!dirty){dirty=true;const b=$("#save");if(b)b.disabled=false;const c=$("#edstate");if(c){c.textContent="Unsaved changes";c.className="chip warn"}}}
-function blankQ(){return {tag:"",text:"",opts:["",""],a:0,rule:"",h:"",h2:""}}
+function blankQ(){return {type:"",tag:"",text:"",opts:["",""],a:0,fix:"",rule:"",h:"",h2:""}}
 function renderEditor(){
   const total=E.sections.reduce((a,x)=>a+x.questions.length,0);
   let n=0;
@@ -835,21 +1366,24 @@ function renderEditor(){
     <div class="row"><button class="btn" id="pvAll">▶ Preview as students see it</button><span class="chip ${dirty?"warn":"good"}" id="edstate">${dirty?"Unsaved changes":"All saved"}</span><button class="btn ghost" id="back">← Back to class</button></div></div>
   ${db?"":`<div class="banner">Saving isn't available in this view, so changes can't be kept. Open the page from claude.ai to edit.</div>`}
   ${edErrors.length?`<div class="banner" style="background:var(--bad-bg);color:var(--bad)">Fix these before saving: ${edErrors.map(esc).join(" · ")}</div>`:""}
-  <p class="muted" style="margin:0;font-size:14px">Type <b>___</b> (three underscores) for a blank. Wrap words in <b>**double stars**</b> to make them bold. Saved changes are used in the next race.</p>
+  <p class="muted" style="margin:0;font-size:14px">Each section belongs to a unit, so you can choose units before a race. Type <b>___</b> (three underscores) for a blank. Wrap words in <b>**double stars**</b> to make them bold. Saved changes are used in the next race.</p>
   ${E.sections.map((x,si)=>`<section class="card edsec">
-    <div class="edhead"><div class="eyebrow">Section ${si+1}</div>
-      <div class="fgrid"><label class="fld"><span>Section name</span><input id="s${si}-name" data-s="${si}" data-f="name" value="${esc(x.name)}"></label>
-      <label class="fld"><span>Short label (progress bar)</span><input id="s${si}-short" data-s="${si}" data-f="short" value="${esc(x.short)}"></label></div>
+    <div class="edhead"><div class="row" style="justify-content:space-between"><div class="eyebrow">Section ${si+1} · ${esc(unitLabel(x.unit||0))}${UNIT_NAMES[x.unit]?" · "+esc(UNIT_NAMES[x.unit]):""}</div><button class="mini danger" data-delsec="${si}">${armed==="sec"+si?"Tap again to delete this section":"Delete section"}</button></div>
+      <div class="fgrid three"><label class="fld"><span>Section name</span><input id="s${si}-name" data-s="${si}" data-f="name" value="${esc(x.name)}"></label>
+      <label class="fld"><span>Short label (progress bar)</span><input id="s${si}-short" data-s="${si}" data-f="short" value="${esc(x.short)}"></label>
+      <label class="fld"><span>Unit</span><input id="s${si}-unit" type="number" inputmode="numeric" min="0" max="99" data-s="${si}" data-f="unit" value="${x.unit||0}"></label></div>
       <label class="fld"><span>Rule shown at the start of the section</span><input id="s${si}-rule" data-s="${si}" data-f="rule" value="${esc(x.rule)}"></label></div>
     <div class="qlist">${x.questions.map((q,qi)=>{n++;const key=si+"-"+qi,open=openQ.has(key);
       return `<div class="qrow ${open?"open":""}">
-      <button class="qsum" data-tog="${key}" aria-expanded="${open}"><span class="qn">Q${n}</span><span class="qprev">${esc(q.text.replace(/\n/g," ")||"New question")}</span><span class="chip good qans">${esc(q.opts[q.a]||"no answer")}</span><span class="caret">${open?"▲":"▼"}</span></button>
+      <button class="qsum" data-tog="${key}" aria-expanded="${open}"><span class="qn">Q${n}</span><span class="qprev">${esc((isFix(q)?q.opts.join(" "):q.text).replace(/\n/g," ")||"New question")}</span>${isFix(q)?'<span class="chip warn" style="font-size:11px">Find the mistake</span>':""}<span class="chip good qans">${esc(ansLabel(q)||"no answer")}</span><span class="caret">${open?"▲":"▼"}</span></button>
       ${open?`<div class="qedit">
-        <label class="fld"><span>Question</span><textarea id="q${key}-text" rows="2" data-s="${si}" data-q="${qi}" data-f="text">${esc(q.text)}</textarea></label>
+        <label class="fld"><span>Question type</span><select id="q${key}-type" data-s="${si}" data-q="${qi}" data-f="type"><option value="" ${isFix(q)?"":"selected"}>Choose the answer (multiple choice · true/false)</option><option value="fix" ${isFix(q)?"selected":""}>Find the mistake (tap the wrong part)</option></select></label>
+        <label class="fld"><span>${isFix(q)?"Instruction":"Question"}</span><textarea id="q${key}-text" rows="2" data-s="${si}" data-q="${qi}" data-f="text">${esc(q.text)}</textarea></label>
         <label class="fld"><span>Small label above the question (optional)</span><input id="q${key}-tag" data-s="${si}" data-q="${qi}" data-f="tag" value="${esc(q.tag)}"></label>
-        <div class="fld"><span>Answers · tick the correct one</span>
-          ${q.opts.map((o,oi)=>`<div class="optrow"><input type="radio" id="q${key}-a${oi}" name="q${key}-a" data-s="${si}" data-q="${qi}" data-a="${oi}" ${q.a===oi?"checked":""} aria-label="Correct answer ${"ABCD"[oi]}"><b>${"ABCD"[oi]}</b><input id="q${key}-o${oi}" data-s="${si}" data-q="${qi}" data-o="${oi}" value="${esc(o)}" placeholder="Answer ${"ABCD"[oi]}">${q.opts.length>2?`<button class="mini" data-rmopt="${si}.${qi}.${oi}" aria-label="Remove answer ${"ABCD"[oi]}">✕</button>`:""}</div>`).join("")}
-          ${q.opts.length<4?`<button class="mini add" data-addopt="${si}.${qi}">+ Add answer</button>`:""}</div>
+        <div class="fld"><span>${isFix(q)?"Sentence parts in order · tick the part with the mistake":"Answers · tick the correct one"}</span>
+          ${q.opts.map((o,oi)=>{const L=isFix(q)?String(oi+1):LETTERS[oi];return `<div class="optrow"><input type="radio" id="q${key}-a${oi}" name="q${key}-a" data-s="${si}" data-q="${qi}" data-a="${oi}" ${q.a===oi?"checked":""} aria-label="${isFix(q)?"Wrong part":"Correct answer"} ${L}"><b>${L}</b><input id="q${key}-o${oi}" data-s="${si}" data-q="${qi}" data-o="${oi}" value="${esc(o)}" placeholder="${isFix(q)?"Part":"Answer"} ${L}">${q.opts.length>2?`<button class="mini" data-rmopt="${si}.${qi}.${oi}" aria-label="Remove ${L}">✕</button>`:""}</div>`}).join("")}
+          ${q.opts.length<(isFix(q)?8:4)?`<button class="mini add" data-addopt="${si}.${qi}">+ Add ${isFix(q)?"part":"answer"}</button>`:""}</div>
+        ${isFix(q)?`<label class="fld"><span>Correction for the wrong part</span><input id="q${key}-fix" data-s="${si}" data-q="${qi}" data-f="fix" value="${esc(q.fix||"")}" placeholder="e.g. is studying"></label>`:""}
         <label class="fld"><span>Feedback when right (explains the rule)</span><textarea id="q${key}-rule" rows="2" data-s="${si}" data-q="${qi}" data-f="rule">${esc(q.rule)}</textarea></label>
         <label class="fld"><span>Hint 1 · after the first wrong try (a gentle clue)</span><textarea id="q${key}-h" rows="2" data-s="${si}" data-q="${qi}" data-f="h">${esc(q.h)}</textarea></label>
         <label class="fld"><span>Hint 2 · after another wrong try (the rule + an example)</span><textarea id="q${key}-h2" rows="2" data-s="${si}" data-q="${qi}" data-f="h2">${esc(q.h2||"")}</textarea></label>
@@ -858,23 +1392,29 @@ function renderEditor(){
       </div>`:""}</div>`}).join("")}</div>
     <button class="mini add" data-addq="${si}">+ Add a question to this section</button>
   </section>`).join("")}
+  <button class="btn ghost" id="addSec" style="align-self:flex-start">+ Add a section</button>
   <div class="savebar"><button class="btn ghost" id="restore">${armed==="restore"?"Tap again to restore":"Restore original questions"}</button><button class="btn" id="save" ${dirty&&db&&!saving?"":"disabled"}>${saving?"Saving…":"Save changes"}</button></div>`;
   $("#back").onclick=()=>{H.view="teacher";armed=null;render()};
   $("#save").onclick=saveQuestions;
   $("#pvAll").onclick=()=>openPreview(0);
   $("#restore").onclick=()=>{if(armed!=="restore"){armed="restore";renderEditor();return}armed=null;E=clone(DEFAULT_DATA);openQ.clear();markDirty();dirty=true;renderEditor();toast("Original questions restored. Save to keep them.")};
   app.oninput=ev=>{const t=ev.target,si=+t.dataset.s;if(t.dataset.s==null)return;
-    if(t.dataset.q==null){E.sections[si][t.dataset.f]=t.value;markDirty();return}
+    if(t.dataset.q==null){E.sections[si][t.dataset.f]=t.dataset.f==="unit"?Math.max(0,Math.min(99,parseInt(t.value,10)||0)):t.value;markDirty();return}
     const q=E.sections[si].questions[+t.dataset.q];
-    if(t.dataset.f){q[t.dataset.f]=t.value;if(t.dataset.f==="text"){const pv=t.closest(".qrow").querySelector(".qprev");pv.textContent=t.value.replace(/\n/g," ")||"New question"}}
-    else if(t.dataset.o!=null){q.opts[+t.dataset.o]=t.value;if(+t.dataset.o===q.a)t.closest(".qrow").querySelector(".qans").textContent=t.value||"no answer"}
+    if(t.tagName==="SELECT")return;
+    if(t.dataset.f){q[t.dataset.f]=t.value;if(t.dataset.f==="fix"){t.closest(".qrow").querySelector(".qans").textContent=ansLabel(q)}if(t.dataset.f==="text"){const pv=t.closest(".qrow").querySelector(".qprev");pv.textContent=t.value.replace(/\n/g," ")||"New question"}}
+    else if(t.dataset.o!=null){q.opts[+t.dataset.o]=t.value;if(+t.dataset.o===q.a)t.closest(".qrow").querySelector(".qans").textContent=ansLabel(q)||"no answer"}
     markDirty()};
-  app.onchange=ev=>{const t=ev.target;if(t.type==="radio"&&t.dataset.a!=null){const q=E.sections[+t.dataset.s].questions[+t.dataset.q];q.a=+t.dataset.a;t.closest(".qrow").querySelector(".qans").textContent=q.opts[q.a]||"no answer";markDirty()}};
+  app.onchange=ev=>{const t=ev.target;
+    if(t.tagName==="SELECT"&&t.dataset.f==="type"){const q=E.sections[+t.dataset.s].questions[+t.dataset.q];q.type=t.value==="fix"?"fix":"";if(q.type&&!q.fix)q.fix="";if(!q.type&&q.opts.length>4){q.opts=q.opts.slice(0,4);if(q.a>3)q.a=0}markDirty();renderEditor();return}
+    if(t.type==="radio"&&t.dataset.a!=null){const q=E.sections[+t.dataset.s].questions[+t.dataset.q];q.a=+t.dataset.a;t.closest(".qrow").querySelector(".qans").textContent=ansLabel(q)||"no answer";markDirty()}};
   app.onclick=ev=>{const b=ev.target.closest("button");if(!b)return;const d=b.dataset;
     const sp=v=>v.split(".").map(Number);
+    if(b.id==="addSec"){const last=E.sections[E.sections.length-1];E.sections.push({unit:last?last.unit||0:1,name:"New section",short:"",rule:"",questions:[blankQ()]});openQ.clear();openQ.add((E.sections.length-1)+"-0");armed=null;markDirty();renderEditor();setTimeout(()=>{const el=document.getElementById("s"+(E.sections.length-1)+"-name");if(el){el.scrollIntoView({block:"center"});el.focus();el.select()}},50);return}
+    if(d.delsec!=null&&d.delsec!==""){const si=+d.delsec;if(armed!=="sec"+si){armed="sec"+si;renderEditor();return}E.sections.splice(si,1);openQ.clear();armed=null;markDirty();renderEditor();return}
     if(d.prev){const[si,qi]=sp(d.prev);openPreview(flatIndex(si,qi));return}
     if(d.tog){openQ.has(d.tog)?openQ.delete(d.tog):openQ.add(d.tog);armed=null;renderEditor();return}
-    if(d.addopt){const[si,qi]=sp(d.addopt);E.sections[si].questions[qi].opts.push("")}
+    if(d.addopt){const[si,qi]=sp(d.addopt);const q=E.sections[si].questions[qi];if(q.opts.length<(isFix(q)?8:4))q.opts.push("")}
     else if(d.rmopt){const[si,qi,oi]=sp(d.rmopt);const q=E.sections[si].questions[qi];q.opts.splice(oi,1);if(q.a>=q.opts.length||q.a===oi)q.a=q.a>oi?q.a-1:Math.min(q.a,q.opts.length-1)}
     else if(d.addq){const si=+d.addq;E.sections[si].questions.push(blankQ());openQ.add(si+"-"+(E.sections[si].questions.length-1))}
     else if(d.dup){const[si,qi]=sp(d.dup);const qs=E.sections[si].questions;qs.splice(qi+1,0,clone(qs[qi]));openQ.clear();openQ.add(si+"-"+(qi+1))}
@@ -889,7 +1429,8 @@ function validate(){const errs=[];let n=0;
     const filled=q.opts.filter(o=>o.trim()).length;
     if(filled<2)errs.push(`Q${n} needs at least 2 answers`);
     else if(q.opts.some(o=>!o.trim()))errs.push(`Q${n} has an empty answer box`);
-    if(!q.opts[q.a]||!q.opts[q.a].trim())errs.push(`Q${n} has no correct answer ticked`)})});
+    if(!q.opts[q.a]||!q.opts[q.a].trim())errs.push(isFix(q)?`Q${n}: tick the part with the mistake`:`Q${n} has no correct answer ticked`);
+    if(isFix(q)&&!(q.fix||"").trim())errs.push(`Q${n} needs the correction`)})});
   if(!n)errs.push("add at least one question");
   return errs}
 async function saveQuestions(){edErrors=validate();if(edErrors.length){renderEditor();window.scrollTo({top:0,behavior:"smooth"});return}
@@ -915,6 +1456,12 @@ function renderPreview(){
     ${hintScreen(q,P.tries,P.nudge,q.opts[P.wrong[P.wrong.length-1]])}`;
     $("#pvBack").onclick=()=>{clearTimeout(autoT);P.hintOpen=false;H.view="editor";render()};
     armUnderstood(()=>{P.hintOpen=false;renderPreview()});return}
+  if(firstOfSec&&!P.introSeen&&!P.answered&&!P.wrong.length){const sec=E.sections[q.si];
+    app.innerHTML=`<div class="pvbar"><span class="chip warn">Teacher preview · section intro</span><div class="row" style="margin-left:auto"><button class="mini" id="pvSkipIntro">Skip (teacher only)</button><button class="mini" id="pvBack">← Back to editor</button></div></div>
+    ${sectionIntroHTML(`Section ${q.si+1} · ${esc(unitLabel(sec.unit||0))}`,q.secName,q.secRule,sec.questions.length)}`;
+    $("#pvBack").onclick=()=>{clearTimeout(autoT);H.view="editor";render()};
+    $("#pvSkipIntro").onclick=()=>{P.introSeen=true;renderPreview()};
+    armUnderstood(()=>{P.introSeen=true;renderPreview()},"✓ Got it! Start section →","Read the rule…");return}
   app.innerHTML=`
   <div class="pvbar"><span class="chip warn">Teacher preview · nothing is recorded</span>${dirty?`<span class="chip">Showing unsaved changes</span>`:""}
     <div class="row" style="margin-left:auto"><button class="mini" id="pvEdit">✎ Edit this question</button><button class="mini" id="pvBack">← Back to editor</button></div></div>
@@ -922,12 +1469,11 @@ function renderPreview(){
     <span class="eyebrow">Section ${q.si+1} · ${esc(q.secShort)}</span><span class="eyebrow">Question ${P.i+1} of ${L.length}</span></div>
     <div class="track"><div class="fill" style="width:${pct}%"></div><span class="car" style="left:${Math.max(2,pct)}%">🏎️</span></div></div>
     <div class="scorebox"><div class="score">⭐ ${P.answered?(P.tries===0?100:P.tries===1?60:30):0}</div><button class="mute" onclick="setMute(!muted)" aria-label="${muted?"Turn sound on":"Turn sound off"}">${muted?"🔇":"🔊"}</button></div></div>
-  ${firstOfSec&&q.secRule?`<div class="card pvsec"><div class="eyebrow">Section intro students see first</div><h2>${esc(q.secName)}</h2><div class="secrule">${fmt(q.secRule)}</div></div>`:""}
   <section class="card qcard" id="qc">
     ${q.tag?`<span class="chip qtag">${esc(q.tag)}</span>`:""}
     <div class="qtext">${fmt(q.text||"(No question text yet)").replace(/_{3,}/g,'<span class="blank"></span>')}</div>
-    <div class="opts">${opts.map(({o,i})=>`<button class="opt ${P.wrong.includes(i)?"wrong":""} ${P.answered&&i===q.a?"right":""}" data-i="${i}" ${P.wrong.includes(i)||P.answered?"disabled":""}><b>${"ABCD"[i]}</b><span>${esc(o)}</span></button>`).join("")}</div>
-    <div id="fb">${P.answered?`<div class="fb good"><div class="head">${esc(P.cheer)} +${P.tries===0?100:P.tries===1?60:30}</div><div class="rule">${fmt(q.rule||"(No feedback written yet)")}</div><div class="autobar" aria-hidden="true" style="margin-top:6px"><i style="animation-duration:${P.tries===0?AUTO_FIRST:AUTO_AFTER}ms"></i></div></div>`:
+    ${optsHTML(q,opts.map(x=>x.i),P.wrong,P.answered)}
+    <div id="fb">${P.answered?`<div class="fb good"><div class="head">${esc(P.cheer)} +${P.tries===0?100:P.tries===1?60:30}</div>${ruleHTML(q,"(No feedback written yet)")}<div class="autobar" aria-hidden="true" style="margin-top:6px"><i style="animation-duration:${P.tries===0?AUTO_FIRST:AUTO_AFTER}ms"></i></div></div>`:
       P.wrong.length?hintHTML(q,P.tries,P.nudge):""}</div>
   </section>
   <div class="pvnav"><button class="btn ghost" id="pvPrev" ${P.i===0?"disabled":""}>← Previous</button>
@@ -965,19 +1511,22 @@ function render(){
   if(S.phase==="done")return renderDone();
 }
 
-function onGame(g){ if(!g||typeof g.gid!=="string")return; const prev=hostSeen; hostSeen={gid:g.gid,state:g.state};
+function onGame(g){ if(!g||typeof g.gid!=="string")return; const prev=hostSeen; hostSeen={gid:g.gid,state:g.state,units:Array.isArray(g.units)?g.units.filter(Number.isInteger).slice(0,20):[]};
   if(isHost&&H.view!=="student")return;
-  if(g.state==="live"&&S.phase==="wait"){S.gid=g.gid;toast("Go go go!");tone([[440,.15],[440,.15],[880,.4]]);startPlay();return}
-  if(g.state==="live"&&S.gid&&S.gid!==g.gid&&S.phase!=="join"){S.gid=g.gid;startPlay();return}
+  if(g.state==="live"&&S.phase==="wait"){S.gid=g.gid;toast("Go go go!");tone([[440,.15],[440,.15],[880,.4]]);startPlay(hostSeen.units);return}
+  if(g.state==="live"&&S.gid&&S.gid!==g.gid&&S.phase!=="join"){S.gid=g.gid;startPlay(hostSeen.units);return}
   if(g.state==="lobby"&&prev&&prev.gid!==g.gid&&S.phase!=="join"){S.gid=null;S.phase="wait";pushPresence();render();return}
-  if(S.phase==="wait")render();
+  if(S.phase==="wait"||S.phase==="join")render();
 }
 
 async function boot(saved){
   if(saved&&saved.S)S=Object.assign(S,saved.S);
+  if(!Array.isArray(S.pick))S.pick=[];
   if(saved&&saved.H)H=Object.assign(H,saved.H);
   if(saved&&saved.E){E=saved.E;dirty=!!saved.dirty}
   if(saved&&saved.P)P=saved.P;
+  if(S.phase!=="join"&&Array.isArray(S.units)&&S.units.length){setUnits(S.units);applyData(DATA)}
+  if(H.view!=="student"&&H.state!=="lobby"&&Array.isArray(H.units)&&H.units.length){setUnits(H.units);applyData(DATA)}
   if(saved&&saved.PV)PV=saved.PV;
   render();
   try{ [room,user,db]=await Promise.all(["room","user","db"].map(n=>window.claude?claude.use(n).catch(()=>null):null)); }catch(e){}
